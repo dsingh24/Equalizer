@@ -3,7 +3,7 @@ module Equalizer_tb();
 reg clk, RST_n;
 wire A2D_SS_n, A2D_MOSI, A2D_MISO, A2D_SCLK;
 wire LRCLK, SCLK, MCLK, RSTn, SDin, SDout, AMP_ON;
-wire [15:0] aout_lft, aout_rht;
+wire signed [15:0] aout_lft, aout_rht;
 
 Equalizer eq(.clk(clk),
                 .RST_n(RST_n),

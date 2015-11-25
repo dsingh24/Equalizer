@@ -16,8 +16,6 @@ wire [15:0] rht_LP_out, rht_B1_out, rht_B2_out, rht_B3_out, rht_HP_out;
 wire signed [15:0] lft_LP_scl, lft_B1_scl, lft_B2_scl, lft_B3_scl, lft_HP_scl;
 wire signed [15:0] rht_LP_scl, rht_B1_scl, rht_B2_scl, rht_B3_scl, rht_HP_scl;
 wire [15:0] lft_sum_out, rht_sum_out;
-reg [15:0] lft_LP_scl_buf, lft_B1_scl_buf, lft_B2_scl_buf, lft_B3_scl_buf, lft_HP_scl_buf;
-reg [15:0] rht_LP_scl_buf, rht_B1_scl_buf, rht_B2_scl_buf, rht_B3_scl_buf, rht_HP_scl_buf;
 reg [15:0] lft_sum_out_buf, rht_sum_out_buf;
 //3 extra bits for summing,12 for mult 
 
@@ -164,47 +162,19 @@ band_scale rht_scale_HP(.pot(HP_pot),
                     .audio(rht_HP_out),
                     .scaled(rht_HP_scl)
                     );
-/**** FLOPPING STAGES ****/
-
-always@(posedge clk, negedge rst_n) begin
-    if(!rst_n) begin
-        lft_LP_scl_buf <= 16'h0;
-        lft_B1_scl_buf <= 16'h0;
-        lft_B2_scl_buf <= 16'h0;
-        lft_B3_scl_buf <= 16'h0;
-        lft_HP_scl_buf <= 16'h0;
-        rht_LP_scl_buf <= 16'h0;
-        rht_B1_scl_buf <= 16'h0;
-        rht_B2_scl_buf <= 16'h0;
-        rht_B3_scl_buf <= 16'h0;
-        rht_HP_scl_buf <= 16'h0;
-    end else begin
-        lft_LP_scl_buf <= lft_LP_scl;
-        lft_B1_scl_buf <= lft_B1_scl;
-        lft_B2_scl_buf <= lft_B2_scl;
-        lft_B3_scl_buf <= lft_B3_scl;
-        lft_HP_scl_buf <= lft_HP_scl;
-        rht_LP_scl_buf <= rht_LP_scl;
-        rht_B1_scl_buf <= rht_B1_scl;
-        rht_B2_scl_buf <= rht_B2_scl;
-        rht_B3_scl_buf <= rht_B3_scl;
-        rht_HP_scl_buf <= rht_HP_scl;
-    end
-end
-
 /**** OUTPUT ****/
-band_scale_sum lft_scale_vol(.LP_scl(lft_LP_scl_buf),
-                            .B1_scl(lft_B1_scl_buf),
-                            .B2_scl(lft_B2_scl_buf),
-                            .B3_scl(lft_B3_scl_buf),
-                            .HP_scl(lft_HP_scl_buf),
+band_scale_sum lft_scale_vol(.LP_scl(lft_LP_scl),
+                            .B1_scl(lft_B1_scl),
+                            .B2_scl(lft_B2_scl),
+                            .B3_scl(lft_B3_scl),
+                            .HP_scl(lft_HP_scl),
                             .out(lft_sum_out)
                             );
-band_scale_sum rht_scale_vol(.LP_scl(rht_LP_scl_buf),
-                            .B1_scl(rht_B1_scl_buf),
-                            .B2_scl(rht_B2_scl_buf),
-                            .B3_scl(rht_B3_scl_buf),
-                            .HP_scl(rht_HP_scl_buf),
+band_scale_sum rht_scale_vol(.LP_scl(rht_LP_scl),
+                            .B1_scl(rht_B1_scl),
+                            .B2_scl(rht_B2_scl),
+                            .B3_scl(rht_B3_scl),
+                            .HP_scl(rht_HP_scl),
                             .out(rht_sum_out)
                             );
 always@(posedge clk, negedge rst_n)begin
