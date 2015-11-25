@@ -1,0 +1,33 @@
+Warning: Design 'Equalizer' has '14' unresolved references. For more detailed information, use the "link" command. (UID-341)
+ 
+****************************************
+Report : area
+Design : Equalizer
+Version: J-2014.09-SP5
+Date   : Tue Nov 24 18:28:06 2015
+****************************************
+
+Library(s) Used:
+
+    tcbn40lpbwptc (File: /cae/apps/data/tsmclibs-2013/digital/Front_End/timing_power_noise/NLDM/tcbn40lpbwp_120b/tcbn40lpbwptc.db)
+
+Number of ports:                           21
+Number of nets:                          1242
+Number of cells:                          757
+Number of combinational cells:            352
+Number of sequential cells:               375
+Number of macros/black boxes:               0
+Number of buf/inv:                        135
+Number of references:                      81
+
+Combinational area:              48493.418305
+Buf/Inv area:                     2971.634483
+Noncombinational area:            7763.540524
+Macro/Black Box area:                0.000000
+Net Interconnect area:      undefined  (Wire load has zero net area)
+
+Total cell area:                 56256.958829
+Total area:                 undefined
+
+Information: This design contains black box (unknown) components. (RPT-8)
+1

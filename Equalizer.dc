@@ -1,0 +1,30 @@
+read_file -format sverilog {Equalizer.sv core.sv A2D_intf_P.sv band_scale.v band_scale_sum.v \
+                            codec_intf.sv FIR_core.sv FIR_LP.sv FIR_B1.sv FIR_B2.sv FIR_B3.sv FIR_HP.sv \
+                            queue1024.sv queue1536.sv rst_synch.v slide_intf.sv SPI_mstr.sv}
+
+set current_design Equalizer
+
+create_clock -name "clk" -period 2 -waveform {0 1} {clk}
+set_dont_touch_network [find port clk]
+set prim_inputs [remove_from_collection [all_inputs] [find port clk]]
+
+set_input_delay -clock clk 0.1 $prim_inputs
+
+set_output_delay -clock clk 0.2 [all_outputs]
+
+set_load 0.1 [all_outputs]
+
+set_wire_load_model -name TSMC32K_Lowk_Conservative -library tcbn40lpbwptc
+#set_wire_load_model -name TSMC32K_Lowk_Conservative -library ND2D2BWP
+
+set_driving_cell -lib_cell AO33D0BWP -pin Z -from_pin A1 -library tcbn40lpbwptc [copy_collection $prim_inputs]
+
+ungroup -all
+
+compile -map_effort high
+write -format verilog Equalizer -output Equalizer.vg
+check_design
+report_timing -delay min > Equalizer_timing.txt
+report_timing -delay max >> Equalizer_timing.txt
+report_area > Equalizer_area.txt
+
