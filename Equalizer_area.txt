@@ -1,10 +1,9 @@
-Warning: Design 'Equalizer' has '14' unresolved references. For more detailed information, use the "link" command. (UID-341)
  
 ****************************************
 Report : area
 Design : Equalizer
 Version: J-2014.09-SP5
-Date   : Tue Nov 24 23:08:55 2015
+Date   : Wed Nov 25 13:23:56 2015
 ****************************************
 
 Library(s) Used:
@@ -20,14 +19,12 @@ Number of macros/black boxes:               0
 Number of buf/inv:                         79
 Number of references:                      71
 
-Combinational area:              38093.050304
-Buf/Inv area:                      855.716428
-Noncombinational area:            5843.955713
+Combinational area:              38079.643904
+Buf/Inv area:                      834.548427
+Noncombinational area:            5855.598109
 Macro/Black Box area:                0.000000
 Net Interconnect area:      undefined  (Wire load has zero net area)
 
-Total cell area:                 43937.006017
+Total cell area:                 43935.242013
 Total area:                 undefined
-
-Information: This design contains black box (unknown) components. (RPT-8)
 1

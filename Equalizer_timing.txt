@@ -1,4 +1,3 @@
-Warning: Design 'Equalizer' has '14' unresolved references. For more detailed information, use the "link" command. (UID-341)
 Information: Updating design information... (UID-85)
 Warning: Design 'Equalizer' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
  
@@ -9,7 +8,7 @@ Report : timing
         -max_paths 1
 Design : Equalizer
 Version: J-2014.09-SP5
-Date   : Tue Nov 24 23:08:55 2015
+Date   : Wed Nov 25 13:23:56 2015
 ****************************************
 
  # A fanout number of 1000 was used for high fanout net computations.
@@ -89,7 +88,6 @@ Wire Load Model Mode: segmented
 
 
 1
-Warning: Design 'Equalizer' has '14' unresolved references. For more detailed information, use the "link" command. (UID-341)
  
 ****************************************
 Report : timing
@@ -98,7 +96,7 @@ Report : timing
         -max_paths 1
 Design : Equalizer
 Version: J-2014.09-SP5
-Date   : Tue Nov 24 23:08:55 2015
+Date   : Wed Nov 25 13:23:56 2015
 ****************************************
 
  # A fanout number of 1000 was used for high fanout net computations.
@@ -154,11 +152,11 @@ Wire Load Model Mode: segmented
   Equalizer          TSMC32K_Lowk_Conservative
                                            tcbn40lpbwptc
   SPI_mstr           ZeroWireload          tcbn40lpbwptc
-  CORE_FIR_0_DW02_mult_0
+  CORE_FIR_2_DW02_mult_0
                      ZeroWireload          tcbn40lpbwptc
   CORE_FIR_1_DW02_mult_0
                      ZeroWireload          tcbn40lpbwptc
-  CORE_FIR_2_DW02_mult_0
+  CORE_FIR_0_DW02_mult_0
                      ZeroWireload          tcbn40lpbwptc
   CORE_FIR_1_DW01_add_1
                      ZeroWireload          tcbn40lpbwptc
@@ -174,53 +172,53 @@ Wire Load Model Mode: segmented
   iCore/lft_q1024/smpl_out[0] (queue1024_0)               0.00       0.12 r
   iCore/lft_B1/smpl_in[0] (B1_FIR_0)                      0.00       0.12 r
   iCore/lft_B1/filter/smpl_in[0] (CORE_FIR_1)             0.00       0.12 r
-  iCore/lft_B1/filter/mult_41/B[0] (CORE_FIR_1_DW02_mult_0)
+  iCore/lft_B1/filter/mult_34/B[0] (CORE_FIR_1_DW02_mult_0)
                                                           0.00       0.12 r
-  iCore/lft_B1/filter/mult_41/U42/ZN (INVD1BWP)           0.06       0.18 f
-  iCore/lft_B1/filter/mult_41/U238/ZN (NR2D0BWP)          0.07       0.25 r
-  iCore/lft_B1/filter/mult_41/U4/Z (AN2XD1BWP)            0.07       0.32 r
-  iCore/lft_B1/filter/mult_41/S1_2_0/CO (FA1D0BWP)        0.12       0.44 r
-  iCore/lft_B1/filter/mult_41/S1_3_0/CO (FA1D0BWP)        0.12       0.56 r
-  iCore/lft_B1/filter/mult_41/S1_4_0/CO (FA1D0BWP)        0.12       0.68 r
-  iCore/lft_B1/filter/mult_41/S1_5_0/CO (FA1D0BWP)        0.12       0.81 r
-  iCore/lft_B1/filter/mult_41/S1_6_0/CO (FA1D0BWP)        0.12       0.93 r
-  iCore/lft_B1/filter/mult_41/S1_7_0/CO (FA1D0BWP)        0.12       1.05 r
-  iCore/lft_B1/filter/mult_41/S1_8_0/CO (FA1D0BWP)        0.12       1.17 r
-  iCore/lft_B1/filter/mult_41/S1_9_0/CO (FA1D0BWP)        0.12       1.30 r
-  iCore/lft_B1/filter/mult_41/S1_10_0/CO (FA1D0BWP)       0.12       1.42 r
-  iCore/lft_B1/filter/mult_41/S1_11_0/CO (FA1D0BWP)       0.12       1.54 r
-  iCore/lft_B1/filter/mult_41/S1_12_0/CO (FA1D0BWP)       0.12       1.67 r
-  iCore/lft_B1/filter/mult_41/S1_13_0/CO (FA1D0BWP)       0.12       1.79 r
-  iCore/lft_B1/filter/mult_41/S1_14_0/CO (FA1D0BWP)       0.12       1.91 r
-  iCore/lft_B1/filter/mult_41/S4_0/S (FA1D0BWP)           0.15       2.06 f
-  iCore/lft_B1/filter/mult_41/S14_15_0/S (FA1D0BWP)       0.08       2.14 f
-  iCore/lft_B1/filter/mult_41/FS_1/A[13] (CORE_FIR_1_DW01_add_1)
+  iCore/lft_B1/filter/mult_34/U42/ZN (INVD1BWP)           0.06       0.18 f
+  iCore/lft_B1/filter/mult_34/U238/ZN (NR2D0BWP)          0.07       0.25 r
+  iCore/lft_B1/filter/mult_34/U4/Z (AN2XD1BWP)            0.07       0.32 r
+  iCore/lft_B1/filter/mult_34/S1_2_0/CO (FA1D0BWP)        0.12       0.44 r
+  iCore/lft_B1/filter/mult_34/S1_3_0/CO (FA1D0BWP)        0.12       0.56 r
+  iCore/lft_B1/filter/mult_34/S1_4_0/CO (FA1D0BWP)        0.12       0.68 r
+  iCore/lft_B1/filter/mult_34/S1_5_0/CO (FA1D0BWP)        0.12       0.81 r
+  iCore/lft_B1/filter/mult_34/S1_6_0/CO (FA1D0BWP)        0.12       0.93 r
+  iCore/lft_B1/filter/mult_34/S1_7_0/CO (FA1D0BWP)        0.12       1.05 r
+  iCore/lft_B1/filter/mult_34/S1_8_0/CO (FA1D0BWP)        0.12       1.17 r
+  iCore/lft_B1/filter/mult_34/S1_9_0/CO (FA1D0BWP)        0.12       1.30 r
+  iCore/lft_B1/filter/mult_34/S1_10_0/CO (FA1D0BWP)       0.12       1.42 r
+  iCore/lft_B1/filter/mult_34/S1_11_0/CO (FA1D0BWP)       0.12       1.54 r
+  iCore/lft_B1/filter/mult_34/S1_12_0/CO (FA1D0BWP)       0.12       1.67 r
+  iCore/lft_B1/filter/mult_34/S1_13_0/CO (FA1D0BWP)       0.12       1.79 r
+  iCore/lft_B1/filter/mult_34/S1_14_0/CO (FA1D0BWP)       0.12       1.91 r
+  iCore/lft_B1/filter/mult_34/S4_0/S (FA1D0BWP)           0.15       2.06 f
+  iCore/lft_B1/filter/mult_34/S14_15_0/S (FA1D0BWP)       0.08       2.14 f
+  iCore/lft_B1/filter/mult_34/FS_1/A[13] (CORE_FIR_1_DW01_add_1)
                                                           0.00       2.14 f
-  iCore/lft_B1/filter/mult_41/FS_1/U13/Z (CKBD1BWP)       0.04       2.18 f
-  iCore/lft_B1/filter/mult_41/FS_1/SUM[13] (CORE_FIR_1_DW01_add_1)
+  iCore/lft_B1/filter/mult_34/FS_1/U13/Z (CKBD1BWP)       0.04       2.18 f
+  iCore/lft_B1/filter/mult_34/FS_1/SUM[13] (CORE_FIR_1_DW01_add_1)
                                                           0.00       2.18 f
-  iCore/lft_B1/filter/mult_41/PRODUCT[15] (CORE_FIR_1_DW02_mult_0)
+  iCore/lft_B1/filter/mult_34/PRODUCT[15] (CORE_FIR_1_DW02_mult_0)
                                                           0.00       2.18 f
-  iCore/lft_B1/filter/add_51/B[15] (CORE_FIR_1_DW01_add_0)
+  iCore/lft_B1/filter/add_44/B[15] (CORE_FIR_1_DW01_add_0)
                                                           0.00       2.18 f
-  iCore/lft_B1/filter/add_51/U1_15/CO (FA1D0BWP)          0.11       2.29 f
-  iCore/lft_B1/filter/add_51/U1_16/CO (FA1D0BWP)          0.08       2.37 f
-  iCore/lft_B1/filter/add_51/U1_17/CO (FA1D0BWP)          0.08       2.44 f
-  iCore/lft_B1/filter/add_51/U1_18/CO (FA1D0BWP)          0.08       2.52 f
-  iCore/lft_B1/filter/add_51/U1_19/CO (FA1D0BWP)          0.08       2.60 f
-  iCore/lft_B1/filter/add_51/U1_20/CO (FA1D0BWP)          0.08       2.68 f
-  iCore/lft_B1/filter/add_51/U1_21/CO (FA1D0BWP)          0.08       2.76 f
-  iCore/lft_B1/filter/add_51/U1_22/CO (FA1D0BWP)          0.08       2.83 f
-  iCore/lft_B1/filter/add_51/U1_23/CO (FA1D0BWP)          0.08       2.91 f
-  iCore/lft_B1/filter/add_51/U1_24/CO (FA1D0BWP)          0.08       2.99 f
-  iCore/lft_B1/filter/add_51/U1_25/CO (FA1D0BWP)          0.08       3.07 f
-  iCore/lft_B1/filter/add_51/U1_26/CO (FA1D0BWP)          0.08       3.15 f
-  iCore/lft_B1/filter/add_51/U1_27/CO (FA1D0BWP)          0.08       3.22 f
-  iCore/lft_B1/filter/add_51/U1_28/CO (FA1D0BWP)          0.08       3.30 f
-  iCore/lft_B1/filter/add_51/U1_29/CO (FA1D0BWP)          0.08       3.38 f
-  iCore/lft_B1/filter/add_51/U1_30/CO (FA1D0BWP)          0.08       3.46 f
-  iCore/lft_B1/filter/add_51/U1_31/Z (XOR3D1BWP)          0.08       3.54 r
-  iCore/lft_B1/filter/add_51/SUM[31] (CORE_FIR_1_DW01_add_0)
+  iCore/lft_B1/filter/add_44/U1_15/CO (FA1D0BWP)          0.11       2.29 f
+  iCore/lft_B1/filter/add_44/U1_16/CO (FA1D0BWP)          0.08       2.37 f
+  iCore/lft_B1/filter/add_44/U1_17/CO (FA1D0BWP)          0.08       2.44 f
+  iCore/lft_B1/filter/add_44/U1_18/CO (FA1D0BWP)          0.08       2.52 f
+  iCore/lft_B1/filter/add_44/U1_19/CO (FA1D0BWP)          0.08       2.60 f
+  iCore/lft_B1/filter/add_44/U1_20/CO (FA1D0BWP)          0.08       2.68 f
+  iCore/lft_B1/filter/add_44/U1_21/CO (FA1D0BWP)          0.08       2.76 f
+  iCore/lft_B1/filter/add_44/U1_22/CO (FA1D0BWP)          0.08       2.83 f
+  iCore/lft_B1/filter/add_44/U1_23/CO (FA1D0BWP)          0.08       2.91 f
+  iCore/lft_B1/filter/add_44/U1_24/CO (FA1D0BWP)          0.08       2.99 f
+  iCore/lft_B1/filter/add_44/U1_25/CO (FA1D0BWP)          0.08       3.07 f
+  iCore/lft_B1/filter/add_44/U1_26/CO (FA1D0BWP)          0.08       3.15 f
+  iCore/lft_B1/filter/add_44/U1_27/CO (FA1D0BWP)          0.08       3.22 f
+  iCore/lft_B1/filter/add_44/U1_28/CO (FA1D0BWP)          0.08       3.30 f
+  iCore/lft_B1/filter/add_44/U1_29/CO (FA1D0BWP)          0.08       3.38 f
+  iCore/lft_B1/filter/add_44/U1_30/CO (FA1D0BWP)          0.08       3.46 f
+  iCore/lft_B1/filter/add_44/U1_31/Z (XOR3D1BWP)          0.08       3.54 r
+  iCore/lft_B1/filter/add_44/SUM[31] (CORE_FIR_1_DW01_add_0)
                                                           0.00       3.54 r
   iCore/lft_B1/filter/U5/Z (AO22D1BWP)                    0.05       3.59 r
   iCore/lft_B1/filter/accum_reg[31]/D (DFQD1BWP)          0.00       3.59 r

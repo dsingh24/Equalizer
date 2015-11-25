@@ -12,6 +12,7 @@ wire sat_pos, sat_neg;
 
 assign mult_pot = pot*pot;
 
+//Intentional flop stage
 always@(posedge clk)
     signed_mult_pot <= {1'b0, mult_pot[23:12]};
 
