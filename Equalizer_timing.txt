@@ -9,7 +9,7 @@ Report : timing
         -max_paths 1
 Design : Equalizer
 Version: J-2014.09-SP5
-Date   : Tue Nov 24 22:54:12 2015
+Date   : Tue Nov 24 23:08:55 2015
 ****************************************
 
  # A fanout number of 1000 was used for high fanout net computations.
@@ -98,7 +98,7 @@ Report : timing
         -max_paths 1
 Design : Equalizer
 Version: J-2014.09-SP5
-Date   : Tue Nov 24 22:54:12 2015
+Date   : Tue Nov 24 23:08:55 2015
 ****************************************
 
  # A fanout number of 1000 was used for high fanout net computations.
@@ -106,9 +106,9 @@ Date   : Tue Nov 24 22:54:12 2015
 Operating Conditions: NCCOM   Library: tcbn40lpbwptc
 Wire Load Model Mode: segmented
 
-  Startpoint: iSLD/POT_B2_reg[5]
+  Startpoint: iCore/lft_q1024/smpl_out_reg[0]
               (rising edge-triggered flip-flop clocked by clk)
-  Endpoint: iCore/lft_scale_B2/signed_audio_scaled_reg[28]
+  Endpoint: iCore/lft_B1/filter/accum_reg[31]
             (rising edge-triggered flip-flop clocked by clk)
   Path Group: clk
   Path Type: max
@@ -154,104 +154,88 @@ Wire Load Model Mode: segmented
   Equalizer          TSMC32K_Lowk_Conservative
                                            tcbn40lpbwptc
   SPI_mstr           ZeroWireload          tcbn40lpbwptc
-  band_scale_2_DW02_mult_0
+  CORE_FIR_0_DW02_mult_0
                      ZeroWireload          tcbn40lpbwptc
-  band_scale_7_DW02_mult_0
+  CORE_FIR_1_DW02_mult_0
                      ZeroWireload          tcbn40lpbwptc
-  band_scale_2_DW01_add_0
+  CORE_FIR_2_DW02_mult_0
                      ZeroWireload          tcbn40lpbwptc
-  band_scale_2_DW02_mult_1
+  CORE_FIR_1_DW01_add_1
                      ZeroWireload          tcbn40lpbwptc
-  band_scale_2_DW01_add_1
+  CORE_FIR_1_DW01_add_0
                      ZeroWireload          tcbn40lpbwptc
 
   Point                                                   Incr       Path
   --------------------------------------------------------------------------
   clock clk (rise edge)                                   0.00       0.00
   clock network delay (ideal)                             0.00       0.00
-  iSLD/POT_B2_reg[5]/CP (DFCND1BWP)                       0.00 #     0.00 r
-  iSLD/POT_B2_reg[5]/Q (DFCND1BWP)                        0.14       0.14 r
-  iCore/lft_scale_B2/pot[5] (band_scale_2)                0.00       0.14 r
-  iCore/lft_scale_B2/mult_19/B[5] (band_scale_2_DW02_mult_0)
-                                                          0.00       0.14 r
-  iCore/lft_scale_B2/mult_19/U20/Z (BUFFD2BWP)            0.06       0.19 r
-  iCore/lft_scale_B2/mult_19/U60/Z (CKAN2D1BWP)           0.06       0.26 r
-  iCore/lft_scale_B2/mult_19/U11/Z (AN2XD1BWP)            0.05       0.31 r
-  iCore/lft_scale_B2/mult_19/S2_2_4/CO (FA1D0BWP)         0.12       0.42 r
-  iCore/lft_scale_B2/mult_19/S2_3_4/CO (FA1D0BWP)         0.12       0.55 r
-  iCore/lft_scale_B2/mult_19/S2_4_4/CO (FA1D0BWP)         0.12       0.67 r
-  iCore/lft_scale_B2/mult_19/S2_5_4/CO (FA1D0BWP)         0.12       0.79 r
-  iCore/lft_scale_B2/mult_19/S2_6_4/CO (FA1D0BWP)         0.12       0.92 r
-  iCore/lft_scale_B2/mult_19/S2_7_4/CO (FA1D0BWP)         0.12       1.04 r
-  iCore/lft_scale_B2/mult_19/S2_8_4/CO (FA1D0BWP)         0.12       1.16 r
-  iCore/lft_scale_B2/mult_19/S2_9_4/CO (FA1D0BWP)         0.12       1.29 r
-  iCore/lft_scale_B2/mult_19/S2_10_4/S (FA1D0BWP)         0.15       1.43 f
-  iCore/lft_scale_B2/mult_19/S4_3/S (FA1D0BWP)            0.10       1.53 r
-  iCore/lft_scale_B2/mult_19/U34/Z (XOR2D1BWP)            0.08       1.61 f
-  iCore/lft_scale_B2/mult_19/FS_1/A[12] (band_scale_2_DW01_add_0)
-                                                          0.00       1.61 f
-  iCore/lft_scale_B2/mult_19/FS_1/U16/ZN (NR2D1BWP)       0.04       1.65 r
-  iCore/lft_scale_B2/mult_19/FS_1/U14/ZN (NR2XD0BWP)      0.03       1.68 f
-  iCore/lft_scale_B2/mult_19/FS_1/U13/Z (XOR2D1BWP)       0.07       1.75 r
-  iCore/lft_scale_B2/mult_19/FS_1/SUM[12] (band_scale_2_DW01_add_0)
-                                                          0.00       1.75 r
-  iCore/lft_scale_B2/mult_19/PRODUCT[14] (band_scale_2_DW02_mult_0)
-                                                          0.00       1.75 r
-  iCore/lft_scale_B2/mult_25/A[2] (band_scale_2_DW02_mult_1)
-                                                          0.00       1.75 r
-  iCore/lft_scale_B2/mult_25/U23/ZN (INVD2BWP)            0.03       1.78 f
-  iCore/lft_scale_B2/mult_25/U240/ZN (NR2D0BWP)           0.04       1.83 r
-  iCore/lft_scale_B2/mult_25/S2_2_4/CO (FA1D0BWP)         0.14       1.97 r
-  iCore/lft_scale_B2/mult_25/S2_3_4/CO (FA1D0BWP)         0.12       2.10 r
-  iCore/lft_scale_B2/mult_25/S2_4_4/CO (FA1D0BWP)         0.12       2.22 r
-  iCore/lft_scale_B2/mult_25/S2_5_4/CO (FA1D0BWP)         0.12       2.34 r
-  iCore/lft_scale_B2/mult_25/S2_6_4/CO (FA1D0BWP)         0.12       2.46 r
-  iCore/lft_scale_B2/mult_25/S2_7_4/CO (FA1D0BWP)         0.12       2.59 r
-  iCore/lft_scale_B2/mult_25/S2_8_4/CO (FA1D0BWP)         0.12       2.71 r
-  iCore/lft_scale_B2/mult_25/S2_9_4/CO (FA1D0BWP)         0.12       2.83 r
-  iCore/lft_scale_B2/mult_25/S2_10_4/S (FA1D0BWP)         0.15       2.98 f
-  iCore/lft_scale_B2/mult_25/S2_11_3/S (FA1D0BWP)         0.10       3.08 r
-  iCore/lft_scale_B2/mult_25/U18/Z (AN2XD1BWP)            0.05       3.14 r
-  iCore/lft_scale_B2/mult_25/S14_15_0/S (FA1D0BWP)        0.15       3.28 f
-  iCore/lft_scale_B2/mult_25/FS_1/A[13] (band_scale_2_DW01_add_1)
-                                                          0.00       3.28 f
-  iCore/lft_scale_B2/mult_25/FS_1/U43/ZN (NR2XD0BWP)      0.04       3.32 r
-  iCore/lft_scale_B2/mult_25/FS_1/U48/ZN (INVD1BWP)       0.02       3.35 f
-  iCore/lft_scale_B2/mult_25/FS_1/U8/ZN (AOI21D1BWP)      0.03       3.37 r
-  iCore/lft_scale_B2/mult_25/FS_1/U38/ZN (OAI21D1BWP)     0.04       3.41 f
-  iCore/lft_scale_B2/mult_25/FS_1/U12/ZN (AOI21D1BWP)     0.04       3.45 r
-  iCore/lft_scale_B2/mult_25/FS_1/U34/ZN (OAI21D1BWP)     0.04       3.49 f
-  iCore/lft_scale_B2/mult_25/FS_1/U14/ZN (AOI21D1BWP)     0.04       3.53 r
-  iCore/lft_scale_B2/mult_25/FS_1/U28/ZN (OAI21D1BWP)     0.03       3.56 f
-  iCore/lft_scale_B2/mult_25/FS_1/U17/ZN (AOI21D1BWP)     0.04       3.60 r
-  iCore/lft_scale_B2/mult_25/FS_1/U29/ZN (OAI21D1BWP)     0.04       3.64 f
-  iCore/lft_scale_B2/mult_25/FS_1/U10/ZN (AOI21D1BWP)     0.04       3.68 r
-  iCore/lft_scale_B2/mult_25/FS_1/U30/ZN (OAI21D1BWP)     0.04       3.71 f
-  iCore/lft_scale_B2/mult_25/FS_1/U31/ZN (AOI21D1BWP)     0.04       3.75 r
-  iCore/lft_scale_B2/mult_25/FS_1/U20/ZN (CKND2D1BWP)     0.03       3.79 f
-  iCore/lft_scale_B2/mult_25/FS_1/U19/ZN (MOAI22D1BWP)
-                                                          0.05       3.84 f
-  iCore/lft_scale_B2/mult_25/FS_1/U7/ZN (MOAI22D1BWP)     0.05       3.89 f
-  iCore/lft_scale_B2/mult_25/FS_1/U50/Z (XOR3D0BWP)       0.08       3.97 r
-  iCore/lft_scale_B2/mult_25/FS_1/SUM[26] (band_scale_2_DW01_add_1)
-                                                          0.00       3.97 r
-  iCore/lft_scale_B2/mult_25/PRODUCT[28] (band_scale_2_DW02_mult_1)
-                                                          0.00       3.97 r
-  iCore/lft_scale_B2/signed_audio_scaled_reg[28]/D (DFQD1BWP)
-                                                          0.00       3.97 r
-  data arrival time                                                  3.97
+  iCore/lft_q1024/smpl_out_reg[0]/CP (DFQD1BWP)           0.00 #     0.00 r
+  iCore/lft_q1024/smpl_out_reg[0]/Q (DFQD1BWP)            0.12       0.12 r
+  iCore/lft_q1024/smpl_out[0] (queue1024_0)               0.00       0.12 r
+  iCore/lft_B1/smpl_in[0] (B1_FIR_0)                      0.00       0.12 r
+  iCore/lft_B1/filter/smpl_in[0] (CORE_FIR_1)             0.00       0.12 r
+  iCore/lft_B1/filter/mult_41/B[0] (CORE_FIR_1_DW02_mult_0)
+                                                          0.00       0.12 r
+  iCore/lft_B1/filter/mult_41/U42/ZN (INVD1BWP)           0.06       0.18 f
+  iCore/lft_B1/filter/mult_41/U238/ZN (NR2D0BWP)          0.07       0.25 r
+  iCore/lft_B1/filter/mult_41/U4/Z (AN2XD1BWP)            0.07       0.32 r
+  iCore/lft_B1/filter/mult_41/S1_2_0/CO (FA1D0BWP)        0.12       0.44 r
+  iCore/lft_B1/filter/mult_41/S1_3_0/CO (FA1D0BWP)        0.12       0.56 r
+  iCore/lft_B1/filter/mult_41/S1_4_0/CO (FA1D0BWP)        0.12       0.68 r
+  iCore/lft_B1/filter/mult_41/S1_5_0/CO (FA1D0BWP)        0.12       0.81 r
+  iCore/lft_B1/filter/mult_41/S1_6_0/CO (FA1D0BWP)        0.12       0.93 r
+  iCore/lft_B1/filter/mult_41/S1_7_0/CO (FA1D0BWP)        0.12       1.05 r
+  iCore/lft_B1/filter/mult_41/S1_8_0/CO (FA1D0BWP)        0.12       1.17 r
+  iCore/lft_B1/filter/mult_41/S1_9_0/CO (FA1D0BWP)        0.12       1.30 r
+  iCore/lft_B1/filter/mult_41/S1_10_0/CO (FA1D0BWP)       0.12       1.42 r
+  iCore/lft_B1/filter/mult_41/S1_11_0/CO (FA1D0BWP)       0.12       1.54 r
+  iCore/lft_B1/filter/mult_41/S1_12_0/CO (FA1D0BWP)       0.12       1.67 r
+  iCore/lft_B1/filter/mult_41/S1_13_0/CO (FA1D0BWP)       0.12       1.79 r
+  iCore/lft_B1/filter/mult_41/S1_14_0/CO (FA1D0BWP)       0.12       1.91 r
+  iCore/lft_B1/filter/mult_41/S4_0/S (FA1D0BWP)           0.15       2.06 f
+  iCore/lft_B1/filter/mult_41/S14_15_0/S (FA1D0BWP)       0.08       2.14 f
+  iCore/lft_B1/filter/mult_41/FS_1/A[13] (CORE_FIR_1_DW01_add_1)
+                                                          0.00       2.14 f
+  iCore/lft_B1/filter/mult_41/FS_1/U13/Z (CKBD1BWP)       0.04       2.18 f
+  iCore/lft_B1/filter/mult_41/FS_1/SUM[13] (CORE_FIR_1_DW01_add_1)
+                                                          0.00       2.18 f
+  iCore/lft_B1/filter/mult_41/PRODUCT[15] (CORE_FIR_1_DW02_mult_0)
+                                                          0.00       2.18 f
+  iCore/lft_B1/filter/add_51/B[15] (CORE_FIR_1_DW01_add_0)
+                                                          0.00       2.18 f
+  iCore/lft_B1/filter/add_51/U1_15/CO (FA1D0BWP)          0.11       2.29 f
+  iCore/lft_B1/filter/add_51/U1_16/CO (FA1D0BWP)          0.08       2.37 f
+  iCore/lft_B1/filter/add_51/U1_17/CO (FA1D0BWP)          0.08       2.44 f
+  iCore/lft_B1/filter/add_51/U1_18/CO (FA1D0BWP)          0.08       2.52 f
+  iCore/lft_B1/filter/add_51/U1_19/CO (FA1D0BWP)          0.08       2.60 f
+  iCore/lft_B1/filter/add_51/U1_20/CO (FA1D0BWP)          0.08       2.68 f
+  iCore/lft_B1/filter/add_51/U1_21/CO (FA1D0BWP)          0.08       2.76 f
+  iCore/lft_B1/filter/add_51/U1_22/CO (FA1D0BWP)          0.08       2.83 f
+  iCore/lft_B1/filter/add_51/U1_23/CO (FA1D0BWP)          0.08       2.91 f
+  iCore/lft_B1/filter/add_51/U1_24/CO (FA1D0BWP)          0.08       2.99 f
+  iCore/lft_B1/filter/add_51/U1_25/CO (FA1D0BWP)          0.08       3.07 f
+  iCore/lft_B1/filter/add_51/U1_26/CO (FA1D0BWP)          0.08       3.15 f
+  iCore/lft_B1/filter/add_51/U1_27/CO (FA1D0BWP)          0.08       3.22 f
+  iCore/lft_B1/filter/add_51/U1_28/CO (FA1D0BWP)          0.08       3.30 f
+  iCore/lft_B1/filter/add_51/U1_29/CO (FA1D0BWP)          0.08       3.38 f
+  iCore/lft_B1/filter/add_51/U1_30/CO (FA1D0BWP)          0.08       3.46 f
+  iCore/lft_B1/filter/add_51/U1_31/Z (XOR3D1BWP)          0.08       3.54 r
+  iCore/lft_B1/filter/add_51/SUM[31] (CORE_FIR_1_DW01_add_0)
+                                                          0.00       3.54 r
+  iCore/lft_B1/filter/U5/Z (AO22D1BWP)                    0.05       3.59 r
+  iCore/lft_B1/filter/accum_reg[31]/D (DFQD1BWP)          0.00       3.59 r
+  data arrival time                                                  3.59
 
   clock clk (rise edge)                                   4.00       4.00
   clock network delay (ideal)                             0.00       4.00
-  iCore/lft_scale_B2/signed_audio_scaled_reg[28]/CP (DFQD1BWP)
-                                                          0.00       4.00 r
-  library setup time                                     -0.03       3.97
-  data required time                                                 3.97
+  iCore/lft_B1/filter/accum_reg[31]/CP (DFQD1BWP)         0.00       4.00 r
+  library setup time                                     -0.02       3.98
+  data required time                                                 3.98
   --------------------------------------------------------------------------
-  data required time                                                 3.97
-  data arrival time                                                 -3.97
+  data required time                                                 3.98
+  data arrival time                                                 -3.59
   --------------------------------------------------------------------------
-  slack (MET)                                                        0.00
+  slack (MET)                                                        0.39
 
 
 1
