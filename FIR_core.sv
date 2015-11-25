@@ -10,8 +10,9 @@ reg [31:0] accum;
 reg signed [15:0] cff_out;
 output reg [15:0] smpl_out;
 wire flt_done;
-reg flt_done_d;
-reg signed [31:0] mult;
+//reg flt_done_d;
+wire signed [31:0] mult;
+//reg signed [31:0] mult;
 
 typedef enum reg [1:0] {IDLE, MAC} state;
 state st, nxt_st;
@@ -31,12 +32,13 @@ end
 //Filter done logic
 //Asserting done 2 cycles later to give the MAC extra time 
 assign flt_done = (cff_ptr == 1022) ? 1'b1 : 1'b0;
-always@(posedge clk)
-    flt_done_d <= flt_done;
+//always@(posedge clk)
+//    flt_done_d <= flt_done;
 
 //Flopping stage
-always @(posedge clk)
-    mult <= cff_out*smpl_in;
+//always @(posedge clk)
+//   mult <= cff_out*smpl_in;
+assign mult = cff_out*smpl_in;
 
 //MAC
 always@(posedge clk, negedge rst_n) begin
@@ -55,6 +57,7 @@ always@(posedge clk, negedge rst_n) begin
     if(!rst_n) begin
         smpl_out <= 16'hx;
     end else begin
+        //if(flt_done_d) 
         if(flt_done) 
             smpl_out <= accum[31:16];
     end

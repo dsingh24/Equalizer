@@ -4,7 +4,7 @@ read_file -format sverilog {Equalizer.sv core.sv A2D_intf_P.sv band_scale.v band
 
 set current_design Equalizer
 
-create_clock -name "clk" -period 2 -waveform {0 1} {clk}
+create_clock -name "clk" -period 4 -waveform {0 1} {clk}
 set_dont_touch_network [find port clk]
 set prim_inputs [remove_from_collection [all_inputs] [find port clk]]
 
@@ -15,7 +15,6 @@ set_output_delay -clock clk 0.2 [all_outputs]
 set_load 0.1 [all_outputs]
 
 set_wire_load_model -name TSMC32K_Lowk_Conservative -library tcbn40lpbwptc
-#set_wire_load_model -name TSMC32K_Lowk_Conservative -library ND2D2BWP
 
 set_driving_cell -lib_cell AO33D0BWP -pin Z -from_pin A1 -library tcbn40lpbwptc [copy_collection $prim_inputs]
 

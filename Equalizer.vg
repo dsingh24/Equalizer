@@ -27,7 +27,7 @@ module Equalizer ( clk, RST_n, LED, A2D_SS_n, A2D_MOSI, A2D_SCLK, A2D_MISO,
          \iRST/*Logic1* , \iCS/N71 , \iCS/N70 , \iCS/N69 , \iCS/N68 ,
          \iCS/N26 , \iCS/N25 , \iCS/N24 , \iCS/N23 , \iCS/N22 , \iCS/N21 ,
          \iCS/N20 , \iCS/N19 , \iCS/N18 , \iCS/N17 , \iCS/lrclk_cycle_cmplt ,
-         \iCS/timer_0 , \iCS/timer_2 , \iCS/timer_3 , \iCore/N4 ,
+         \iCS/timer_0 , \iCS/timer_2 , \iCS/timer_3 , \iCore/N3 ,
          \iCore/valid_d , \iCore/rht_seq_1536 , \iCore/rht_seq_1024 ,
          \iCore/_1_net_ , \iCore/lft_seq_1536 , \iCore/wrt_sig ,
          \iCore/wrt_en , \iCore/lft_seq_1024 , n1, n2, n3, n4, n5, n6, n7, n8,
@@ -60,11 +60,7 @@ module Equalizer ( clk, RST_n, LED, A2D_SS_n, A2D_MOSI, A2D_SCLK, A2D_MISO,
          n341, n342, n343, n344, n345, n346, n347, n348, n349, n350, n351,
          n352, n353, n354, n355, n356, n357, n358, n359, n360, n361, n362,
          n363, n364, n365, n366, n367, n368, n369, n370, n371, n372, n373,
-         n374, n375, n376, n377, n378, n379, n380, n381, n382, n383, n384,
-         n385, n386, n387, n388, n389, n390, n391, n392, n393, n394, n395,
-         n396, n397, n398, n399, n400, n401, n402, n403, n404, n405, n406,
-         n407, n408, n409, n410, n411, n412, n413, n414, n415, n416, n417,
-         n418, n419, n420, n421, n422, n423, n424, n425, n426;
+         n374, n375, n376, n377, n378;
   wire   [2:0] chnnl;
   wire   [11:0] res;
   wire   [11:0] LP_pot;
@@ -90,16 +86,6 @@ module Equalizer ( clk, RST_n, LED, A2D_SS_n, A2D_MOSI, A2D_SCLK, A2D_MISO,
   wire   [15:0] \iCore/lft_sum_out_buf ;
   wire   [15:0] \iCore/rht_sum_out ;
   wire   [15:0] \iCore/lft_sum_out ;
-  wire   [15:0] \iCore/rht_HP_scl_buf ;
-  wire   [15:0] \iCore/rht_B3_scl_buf ;
-  wire   [15:0] \iCore/rht_B2_scl_buf ;
-  wire   [15:0] \iCore/rht_B1_scl_buf ;
-  wire   [15:0] \iCore/rht_LP_scl_buf ;
-  wire   [15:0] \iCore/lft_HP_scl_buf ;
-  wire   [15:0] \iCore/lft_B3_scl_buf ;
-  wire   [15:0] \iCore/lft_B2_scl_buf ;
-  wire   [15:0] \iCore/lft_B1_scl_buf ;
-  wire   [15:0] \iCore/lft_LP_scl_buf ;
   wire   [15:0] \iCore/rht_HP_scl ;
   wire   [15:0] \iCore/rht_B3_scl ;
   wire   [15:0] \iCore/rht_B2_scl ;
@@ -130,653 +116,279 @@ module Equalizer ( clk, RST_n, LED, A2D_SS_n, A2D_MOSI, A2D_SCLK, A2D_MISO,
 
   DFNCND1BWP \iRST/rst_n_reg  ( .D(\iRST/*Logic1* ), .CPN(clk), .CDN(RST_n), 
         .Q(rst_n) );
-  DFCNQD1BWP \iSLD/strt_cnv_reg  ( .D(\iRST/*Logic1* ), .CP(clk), .CDN(n378), 
+  DFCNQD1BWP \iSLD/strt_cnv_reg  ( .D(\iRST/*Logic1* ), .CP(clk), .CDN(n345), 
         .Q(strt_cnv) );
   DFCNQD1BWP \iSLD/state_reg[2]  ( .D(\iSLD/nxt_state [2]), .CP(clk), .CDN(
-        n378), .Q(\iSLD/state [2]) );
+        n345), .Q(\iSLD/state [2]) );
   DFCNQD1BWP \iSLD/state_reg[0]  ( .D(\iSLD/nxt_state [0]), .CP(clk), .CDN(
-        n378), .Q(\iSLD/state [0]) );
+        n345), .Q(\iSLD/state [0]) );
   DFCNQD1BWP \iSLD/state_reg[1]  ( .D(\iSLD/nxt_state [1]), .CP(clk), .CDN(
-        n378), .Q(\iSLD/state [1]) );
+        n345), .Q(\iSLD/state [1]) );
   DFCNQD1BWP \iA2D/state_reg[0]  ( .D(\iA2D/nxt_state [0]), .CP(clk), .CDN(
-        n378), .Q(\iA2D/state [0]) );
+        n345), .Q(\iA2D/state [0]) );
   DFCNQD1BWP \iA2D/state_reg[1]  ( .D(\iA2D/nxt_state [1]), .CP(clk), .CDN(
-        n378), .Q(\iA2D/state [1]) );
-  DFCNQD1BWP \iSLD/POT_HP_reg[11]  ( .D(n232), .CP(clk), .CDN(n378), .Q(
+        n345), .Q(\iA2D/state [1]) );
+  DFCNQD1BWP \iSLD/POT_HP_reg[11]  ( .D(n232), .CP(clk), .CDN(n344), .Q(
         HP_pot[11]) );
-  DFCNQD1BWP \iSLD/POT_HP_reg[10]  ( .D(n233), .CP(clk), .CDN(n378), .Q(
+  DFCNQD1BWP \iSLD/POT_HP_reg[10]  ( .D(n233), .CP(clk), .CDN(n344), .Q(
         HP_pot[10]) );
-  DFCNQD1BWP \iSLD/POT_HP_reg[9]  ( .D(n234), .CP(clk), .CDN(n378), .Q(
+  DFCNQD1BWP \iSLD/POT_HP_reg[9]  ( .D(n234), .CP(clk), .CDN(n344), .Q(
         HP_pot[9]) );
-  DFCNQD1BWP \iSLD/POT_HP_reg[5]  ( .D(n238), .CP(clk), .CDN(n378), .Q(
-        HP_pot[5]) );
-  DFCNQD1BWP \iSLD/POT_HP_reg[4]  ( .D(n239), .CP(clk), .CDN(n378), .Q(
-        HP_pot[4]) );
-  DFCNQD1BWP \iSLD/POT_HP_reg[3]  ( .D(n240), .CP(clk), .CDN(n378), .Q(
-        HP_pot[3]) );
-  DFCNQD1BWP \iSLD/POT_HP_reg[2]  ( .D(n241), .CP(clk), .CDN(n378), .Q(
-        HP_pot[2]) );
-  DFCNQD1BWP \iSLD/POT_HP_reg[1]  ( .D(n242), .CP(clk), .CDN(n378), .Q(
-        HP_pot[1]) );
-  DFCNQD1BWP \iSLD/POT_HP_reg[0]  ( .D(n243), .CP(clk), .CDN(n378), .Q(
-        HP_pot[0]) );
-  DFCNQD1BWP \iSLD/POT_LP_reg[11]  ( .D(n280), .CP(clk), .CDN(n377), .Q(
+  DFCNQD1BWP \iSLD/POT_HP_reg[8]  ( .D(n235), .CP(clk), .CDN(n344), .Q(
+        HP_pot[8]) );
+  DFCNQD1BWP \iSLD/POT_HP_reg[7]  ( .D(n236), .CP(clk), .CDN(n344), .Q(
+        HP_pot[7]) );
+  DFCNQD1BWP \iSLD/POT_LP_reg[11]  ( .D(n280), .CP(clk), .CDN(n344), .Q(
         LP_pot[11]) );
-  DFCNQD1BWP \iSLD/POT_LP_reg[10]  ( .D(n281), .CP(clk), .CDN(n377), .Q(
+  DFCNQD1BWP \iSLD/POT_LP_reg[10]  ( .D(n281), .CP(clk), .CDN(n344), .Q(
         LP_pot[10]) );
-  DFCNQD1BWP \iSLD/POT_LP_reg[9]  ( .D(n282), .CP(clk), .CDN(n377), .Q(
+  DFCNQD1BWP \iSLD/POT_LP_reg[9]  ( .D(n282), .CP(clk), .CDN(n344), .Q(
         LP_pot[9]) );
-  DFCNQD1BWP \iSLD/POT_LP_reg[5]  ( .D(n286), .CP(clk), .CDN(n377), .Q(
-        LP_pot[5]) );
-  DFCNQD1BWP \iSLD/POT_LP_reg[4]  ( .D(n287), .CP(clk), .CDN(n377), .Q(
-        LP_pot[4]) );
-  DFCNQD1BWP \iSLD/POT_LP_reg[3]  ( .D(n288), .CP(clk), .CDN(n377), .Q(
-        LP_pot[3]) );
-  DFCNQD1BWP \iSLD/POT_LP_reg[2]  ( .D(n289), .CP(clk), .CDN(n377), .Q(
-        LP_pot[2]) );
-  DFCNQD1BWP \iSLD/POT_LP_reg[1]  ( .D(n290), .CP(clk), .CDN(n377), .Q(
-        LP_pot[1]) );
-  DFCNQD1BWP \iSLD/POT_LP_reg[0]  ( .D(n291), .CP(clk), .CDN(n377), .Q(
-        LP_pot[0]) );
-  DFCNQD1BWP \iSLD/POT_B2_reg[11]  ( .D(n256), .CP(clk), .CDN(n377), .Q(
+  DFCNQD1BWP \iSLD/POT_LP_reg[8]  ( .D(n283), .CP(clk), .CDN(n344), .Q(
+        LP_pot[8]) );
+  DFCNQD1BWP \iSLD/POT_LP_reg[7]  ( .D(n284), .CP(clk), .CDN(n344), .Q(
+        LP_pot[7]) );
+  DFCNQD1BWP \iSLD/POT_B2_reg[11]  ( .D(n256), .CP(clk), .CDN(n344), .Q(
         B2_pot[11]) );
-  DFCNQD1BWP \iSLD/POT_B2_reg[10]  ( .D(n257), .CP(clk), .CDN(n377), .Q(
+  DFCNQD1BWP \iSLD/POT_B2_reg[10]  ( .D(n257), .CP(clk), .CDN(n344), .Q(
         B2_pot[10]) );
-  DFCNQD1BWP \iSLD/POT_B2_reg[7]  ( .D(n260), .CP(clk), .CDN(n377), .Q(
-        B2_pot[7]) );
-  DFCNQD1BWP \iSLD/POT_B2_reg[6]  ( .D(n261), .CP(clk), .CDN(n377), .Q(
-        B2_pot[6]) );
-  DFCNQD1BWP \iSLD/POT_B2_reg[5]  ( .D(n262), .CP(clk), .CDN(n377), .Q(
-        B2_pot[5]) );
-  DFCNQD1BWP \iSLD/POT_B2_reg[4]  ( .D(n263), .CP(clk), .CDN(n377), .Q(
-        B2_pot[4]) );
-  DFCNQD1BWP \iSLD/POT_B2_reg[3]  ( .D(n264), .CP(clk), .CDN(n377), .Q(
-        B2_pot[3]) );
-  DFCNQD1BWP \iSLD/POT_B2_reg[2]  ( .D(n265), .CP(clk), .CDN(n377), .Q(
-        B2_pot[2]) );
-  DFCNQD1BWP \iSLD/POT_B2_reg[1]  ( .D(n266), .CP(clk), .CDN(n377), .Q(
-        B2_pot[1]) );
-  DFCNQD1BWP \iSLD/POT_B2_reg[0]  ( .D(n267), .CP(clk), .CDN(n377), .Q(
-        B2_pot[0]) );
-  DFCNQD1BWP \iSLD/VOLUME_reg[11]  ( .D(n220), .CP(clk), .CDN(n377), .Q(
+  DFCNQD1BWP \iSLD/POT_B2_reg[9]  ( .D(n258), .CP(clk), .CDN(n343), .Q(
+        B2_pot[9]) );
+  DFCNQD1BWP \iSLD/POT_B2_reg[8]  ( .D(n259), .CP(clk), .CDN(n343), .Q(
+        B2_pot[8]) );
+  DFCNQD1BWP \iSLD/VOLUME_reg[11]  ( .D(n220), .CP(clk), .CDN(n343), .Q(
         volume[11]) );
-  DFCNQD1BWP \iSLD/VOLUME_reg[10]  ( .D(n221), .CP(clk), .CDN(n377), .Q(
+  DFCNQD1BWP \iSLD/VOLUME_reg[10]  ( .D(n221), .CP(clk), .CDN(n343), .Q(
         volume[10]) );
-  DFCNQD1BWP \iSLD/VOLUME_reg[9]  ( .D(n222), .CP(clk), .CDN(n376), .Q(
+  DFCNQD1BWP \iSLD/VOLUME_reg[9]  ( .D(n222), .CP(clk), .CDN(n343), .Q(
         volume[9]) );
-  DFCNQD1BWP \iSLD/VOLUME_reg[7]  ( .D(n224), .CP(clk), .CDN(n376), .Q(
+  DFCNQD1BWP \iSLD/VOLUME_reg[8]  ( .D(n223), .CP(clk), .CDN(n343), .Q(
+        volume[8]) );
+  DFCNQD1BWP \iSLD/VOLUME_reg[7]  ( .D(n224), .CP(clk), .CDN(n343), .Q(
         volume[7]) );
-  DFCNQD1BWP \iSLD/VOLUME_reg[6]  ( .D(n225), .CP(clk), .CDN(n376), .Q(
-        volume[6]) );
-  DFCNQD1BWP \iSLD/VOLUME_reg[5]  ( .D(n226), .CP(clk), .CDN(n376), .Q(
-        volume[5]) );
-  DFCNQD1BWP \iSLD/VOLUME_reg[4]  ( .D(n227), .CP(clk), .CDN(n376), .Q(
-        volume[4]) );
-  DFCNQD1BWP \iSLD/VOLUME_reg[3]  ( .D(n228), .CP(clk), .CDN(n376), .Q(
-        volume[3]) );
-  DFCNQD1BWP \iSLD/VOLUME_reg[2]  ( .D(n229), .CP(clk), .CDN(n376), .Q(
-        volume[2]) );
-  DFCNQD1BWP \iSLD/VOLUME_reg[1]  ( .D(n230), .CP(clk), .CDN(n376), .Q(
-        volume[1]) );
-  DFCNQD1BWP \iSLD/VOLUME_reg[0]  ( .D(n231), .CP(clk), .CDN(n376), .Q(
-        volume[0]) );
-  DFCNQD1BWP \iSLD/POT_B3_reg[11]  ( .D(n244), .CP(clk), .CDN(n376), .Q(
+  DFCNQD1BWP \iSLD/POT_B3_reg[11]  ( .D(n244), .CP(clk), .CDN(n343), .Q(
         B3_pot[11]) );
-  DFCNQD1BWP \iSLD/POT_B3_reg[10]  ( .D(n245), .CP(clk), .CDN(n376), .Q(
+  DFCNQD1BWP \iSLD/POT_B3_reg[10]  ( .D(n245), .CP(clk), .CDN(n343), .Q(
         B3_pot[10]) );
-  DFCNQD1BWP \iSLD/POT_B3_reg[9]  ( .D(n246), .CP(clk), .CDN(n376), .Q(
+  DFCNQD1BWP \iSLD/POT_B3_reg[9]  ( .D(n246), .CP(clk), .CDN(n343), .Q(
         B3_pot[9]) );
-  DFCNQD1BWP \iSLD/POT_B3_reg[5]  ( .D(n250), .CP(clk), .CDN(n376), .Q(
-        B3_pot[5]) );
-  DFCNQD1BWP \iSLD/POT_B3_reg[4]  ( .D(n251), .CP(clk), .CDN(n376), .Q(
-        B3_pot[4]) );
-  DFCNQD1BWP \iSLD/POT_B3_reg[3]  ( .D(n252), .CP(clk), .CDN(n376), .Q(
-        B3_pot[3]) );
-  DFCNQD1BWP \iSLD/POT_B3_reg[2]  ( .D(n253), .CP(clk), .CDN(n376), .Q(
-        B3_pot[2]) );
-  DFCNQD1BWP \iSLD/POT_B3_reg[1]  ( .D(n254), .CP(clk), .CDN(n376), .Q(
-        B3_pot[1]) );
-  DFCNQD1BWP \iSLD/POT_B3_reg[0]  ( .D(n255), .CP(clk), .CDN(n376), .Q(
-        B3_pot[0]) );
-  DFCNQD1BWP \iSLD/POT_B1_reg[11]  ( .D(n268), .CP(clk), .CDN(n376), .Q(
+  DFCNQD1BWP \iSLD/POT_B3_reg[8]  ( .D(n247), .CP(clk), .CDN(n343), .Q(
+        B3_pot[8]) );
+  DFCNQD1BWP \iSLD/POT_B1_reg[11]  ( .D(n268), .CP(clk), .CDN(n342), .Q(
         B1_pot[11]) );
-  DFCNQD1BWP \iSLD/POT_B1_reg[10]  ( .D(n269), .CP(clk), .CDN(n376), .Q(
+  DFCNQD1BWP \iSLD/POT_B1_reg[10]  ( .D(n269), .CP(clk), .CDN(n342), .Q(
         B1_pot[10]) );
-  DFCNQD1BWP \iSLD/POT_B1_reg[9]  ( .D(n270), .CP(clk), .CDN(n376), .Q(
+  DFCNQD1BWP \iSLD/POT_B1_reg[9]  ( .D(n270), .CP(clk), .CDN(n342), .Q(
         B1_pot[9]) );
-  DFCNQD1BWP \iSLD/POT_B1_reg[7]  ( .D(n272), .CP(clk), .CDN(n375), .Q(
+  DFCNQD1BWP \iSLD/POT_B1_reg[8]  ( .D(n271), .CP(clk), .CDN(n342), .Q(
+        B1_pot[8]) );
+  DFCNQD1BWP \iSLD/POT_B1_reg[7]  ( .D(n272), .CP(clk), .CDN(n342), .Q(
         B1_pot[7]) );
-  DFCNQD1BWP \iSLD/POT_B1_reg[6]  ( .D(n273), .CP(clk), .CDN(n375), .Q(
+  DFCNQD1BWP \iSLD/POT_B1_reg[6]  ( .D(n273), .CP(clk), .CDN(n342), .Q(
         B1_pot[6]) );
-  DFCNQD1BWP \iSLD/POT_B1_reg[5]  ( .D(n274), .CP(clk), .CDN(n375), .Q(
-        B1_pot[5]) );
-  DFCNQD1BWP \iSLD/POT_B1_reg[4]  ( .D(n275), .CP(clk), .CDN(n375), .Q(
-        B1_pot[4]) );
-  DFCNQD1BWP \iSLD/POT_B1_reg[3]  ( .D(n276), .CP(clk), .CDN(n375), .Q(
-        B1_pot[3]) );
-  DFCNQD1BWP \iSLD/POT_B1_reg[2]  ( .D(n277), .CP(clk), .CDN(n375), .Q(
-        B1_pot[2]) );
-  DFCNQD1BWP \iSLD/POT_B1_reg[1]  ( .D(n278), .CP(clk), .CDN(n375), .Q(
-        B1_pot[1]) );
-  DFCNQD1BWP \iSLD/POT_B1_reg[0]  ( .D(n279), .CP(clk), .CDN(n375), .Q(
-        B1_pot[0]) );
-  DFCNQD1BWP \iCS/timer_reg[0]  ( .D(\iCS/N17 ), .CP(clk), .CDN(n375), .Q(
+  DFCNQD1BWP \iCS/timer_reg[0]  ( .D(\iCS/N17 ), .CP(clk), .CDN(n341), .Q(
         \iCS/timer_0 ) );
-  DFCNQD1BWP \iCS/timer_reg[2]  ( .D(\iCS/N19 ), .CP(clk), .CDN(n375), .Q(
+  DFCNQD1BWP \iCS/timer_reg[2]  ( .D(\iCS/N19 ), .CP(clk), .CDN(n341), .Q(
         \iCS/timer_2 ) );
-  DFCNQD1BWP \iCS/timer_reg[3]  ( .D(\iCS/N20 ), .CP(clk), .CDN(n375), .Q(
+  DFCNQD1BWP \iCS/timer_reg[3]  ( .D(\iCS/N20 ), .CP(clk), .CDN(n342), .Q(
         \iCS/timer_3 ) );
-  DFCNQD1BWP \iCS/timer_reg[5]  ( .D(\iCS/N22 ), .CP(clk), .CDN(n375), .Q(
+  DFCNQD1BWP \iCS/timer_reg[5]  ( .D(\iCS/N22 ), .CP(clk), .CDN(n342), .Q(
         \iCS/timer [5]) );
-  DFCNQD1BWP \iCS/timer_reg[6]  ( .D(\iCS/N23 ), .CP(clk), .CDN(n375), .Q(
+  DFCNQD1BWP \iCS/timer_reg[6]  ( .D(\iCS/N23 ), .CP(clk), .CDN(n341), .Q(
         \iCS/timer [6]) );
-  DFCNQD1BWP \iCS/timer_reg[7]  ( .D(\iCS/N24 ), .CP(clk), .CDN(n375), .Q(
+  DFCNQD1BWP \iCS/timer_reg[7]  ( .D(\iCS/N24 ), .CP(clk), .CDN(n342), .Q(
         \iCS/timer [7]) );
-  DFCNQD1BWP \iCS/timer_reg[8]  ( .D(\iCS/N25 ), .CP(clk), .CDN(n375), .Q(
+  DFCNQD1BWP \iCS/timer_reg[8]  ( .D(\iCS/N25 ), .CP(clk), .CDN(n341), .Q(
         \iCS/timer [8]) );
-  DFCNQD1BWP \iCS/lrclk_cycle_cmplt_reg  ( .D(n130), .CP(clk), .CDN(n375), .Q(
+  DFCNQD1BWP \iCS/lrclk_cycle_cmplt_reg  ( .D(n130), .CP(clk), .CDN(n342), .Q(
         \iCS/lrclk_cycle_cmplt ) );
-  DFCNQD1BWP \iCS/st_reg[0]  ( .D(\iCS/nxt_st [0]), .CP(clk), .CDN(n375), .Q(
+  DFCNQD1BWP \iCS/st_reg[0]  ( .D(\iCS/nxt_st [0]), .CP(clk), .CDN(n342), .Q(
         \iCS/st [0]) );
-  DFCNQD1BWP \iCS/st_reg[1]  ( .D(\iCS/nxt_st [1]), .CP(clk), .CDN(n375), .Q(
+  DFCNQD1BWP \iCS/st_reg[1]  ( .D(\iCS/nxt_st [1]), .CP(clk), .CDN(n345), .Q(
         \iCS/st [1]) );
-  DFCNQD1BWP \iCS/shift_cnt_reg[4]  ( .D(n219), .CP(clk), .CDN(n375), .Q(
+  DFCNQD1BWP \iCS/shift_cnt_reg[4]  ( .D(n219), .CP(clk), .CDN(n345), .Q(
         \iCS/shift_cnt [4]) );
-  DFCNQD1BWP \iCS/lft_in_reg[15]  ( .D(n198), .CP(clk), .CDN(n374), .Q(
+  DFCNQD1BWP \iCS/lft_in_reg[15]  ( .D(n198), .CP(clk), .CDN(n345), .Q(
         lft_in[15]) );
-  DFCNQD1BWP \iCS/lft_in_reg[14]  ( .D(n199), .CP(clk), .CDN(n374), .Q(
+  DFCNQD1BWP \iCS/lft_in_reg[14]  ( .D(n199), .CP(clk), .CDN(n345), .Q(
         lft_in[14]) );
-  DFCNQD1BWP \iCS/lft_in_reg[13]  ( .D(n200), .CP(clk), .CDN(n374), .Q(
+  DFCNQD1BWP \iCS/lft_in_reg[13]  ( .D(n200), .CP(clk), .CDN(n345), .Q(
         lft_in[13]) );
-  DFCNQD1BWP \iCS/lft_in_reg[12]  ( .D(n201), .CP(clk), .CDN(n374), .Q(
+  DFCNQD1BWP \iCS/lft_in_reg[12]  ( .D(n201), .CP(clk), .CDN(n345), .Q(
         lft_in[12]) );
-  DFCNQD1BWP \iCS/lft_in_reg[11]  ( .D(n202), .CP(clk), .CDN(n374), .Q(
+  DFCNQD1BWP \iCS/lft_in_reg[11]  ( .D(n202), .CP(clk), .CDN(n345), .Q(
         lft_in[11]) );
-  DFCNQD1BWP \iCS/lft_in_reg[10]  ( .D(n203), .CP(clk), .CDN(n374), .Q(
+  DFCNQD1BWP \iCS/lft_in_reg[10]  ( .D(n203), .CP(clk), .CDN(n345), .Q(
         lft_in[10]) );
-  DFCNQD1BWP \iCS/lft_in_reg[9]  ( .D(n204), .CP(clk), .CDN(n374), .Q(
+  DFCNQD1BWP \iCS/lft_in_reg[9]  ( .D(n204), .CP(clk), .CDN(n345), .Q(
         lft_in[9]) );
-  DFCNQD1BWP \iCS/lft_in_reg[8]  ( .D(n205), .CP(clk), .CDN(n374), .Q(
+  DFCNQD1BWP \iCS/lft_in_reg[8]  ( .D(n205), .CP(clk), .CDN(n345), .Q(
         lft_in[8]) );
-  DFCNQD1BWP \iCS/lft_in_reg[7]  ( .D(n206), .CP(clk), .CDN(n374), .Q(
+  DFCNQD1BWP \iCS/lft_in_reg[7]  ( .D(n206), .CP(clk), .CDN(n345), .Q(
         lft_in[7]) );
-  DFCNQD1BWP \iCS/lft_in_reg[6]  ( .D(n207), .CP(clk), .CDN(n374), .Q(
+  DFCNQD1BWP \iCS/lft_in_reg[6]  ( .D(n207), .CP(clk), .CDN(n345), .Q(
         lft_in[6]) );
-  DFCNQD1BWP \iCS/lft_in_reg[5]  ( .D(n208), .CP(clk), .CDN(n374), .Q(
+  DFCNQD1BWP \iCS/lft_in_reg[5]  ( .D(n208), .CP(clk), .CDN(n345), .Q(
         lft_in[5]) );
-  DFCNQD1BWP \iCS/lft_in_reg[4]  ( .D(n209), .CP(clk), .CDN(n374), .Q(
+  DFCNQD1BWP \iCS/lft_in_reg[4]  ( .D(n209), .CP(clk), .CDN(n345), .Q(
         lft_in[4]) );
-  DFCNQD1BWP \iCS/lft_in_reg[3]  ( .D(n210), .CP(clk), .CDN(n373), .Q(
+  DFCNQD1BWP \iCS/lft_in_reg[3]  ( .D(n210), .CP(clk), .CDN(n345), .Q(
         lft_in[3]) );
-  DFCNQD1BWP \iCS/lft_in_reg[2]  ( .D(n211), .CP(clk), .CDN(n373), .Q(
+  DFCNQD1BWP \iCS/lft_in_reg[2]  ( .D(n211), .CP(clk), .CDN(n345), .Q(
         lft_in[2]) );
-  DFCNQD1BWP \iCS/lft_in_reg[1]  ( .D(n212), .CP(clk), .CDN(n373), .Q(
+  DFCNQD1BWP \iCS/lft_in_reg[1]  ( .D(n212), .CP(clk), .CDN(n345), .Q(
         lft_in[1]) );
-  DFCNQD1BWP \iCS/lft_in_reg[0]  ( .D(n213), .CP(clk), .CDN(n373), .Q(
+  DFCNQD1BWP \iCS/lft_in_reg[0]  ( .D(n213), .CP(clk), .CDN(n345), .Q(
         lft_in[0]) );
-  DFCNQD1BWP \iCS/valid_reg  ( .D(n214), .CP(clk), .CDN(n373), .Q(valid) );
-  DFCNQD1BWP \iCS/rht_in_reg[15]  ( .D(n182), .CP(clk), .CDN(n373), .Q(
+  DFCNQD1BWP \iCS/valid_reg  ( .D(n214), .CP(clk), .CDN(n345), .Q(valid) );
+  DFCNQD1BWP \iCS/rht_in_reg[15]  ( .D(n182), .CP(clk), .CDN(n345), .Q(
         rht_in[15]) );
-  DFCNQD1BWP \iCS/rht_in_reg[14]  ( .D(n183), .CP(clk), .CDN(n373), .Q(
+  DFCNQD1BWP \iCS/rht_in_reg[14]  ( .D(n183), .CP(clk), .CDN(n346), .Q(
         rht_in[14]) );
-  DFCNQD1BWP \iCS/rht_in_reg[13]  ( .D(n184), .CP(clk), .CDN(n373), .Q(
+  DFCNQD1BWP \iCS/rht_in_reg[13]  ( .D(n184), .CP(clk), .CDN(n346), .Q(
         rht_in[13]) );
-  DFCNQD1BWP \iCS/rht_in_reg[12]  ( .D(n185), .CP(clk), .CDN(n373), .Q(
+  DFCNQD1BWP \iCS/rht_in_reg[12]  ( .D(n185), .CP(clk), .CDN(n346), .Q(
         rht_in[12]) );
-  DFCNQD1BWP \iCS/rht_in_reg[11]  ( .D(n186), .CP(clk), .CDN(n373), .Q(
+  DFCNQD1BWP \iCS/rht_in_reg[11]  ( .D(n186), .CP(clk), .CDN(n346), .Q(
         rht_in[11]) );
-  DFCNQD1BWP \iCS/rht_in_reg[10]  ( .D(n187), .CP(clk), .CDN(n372), .Q(
+  DFCNQD1BWP \iCS/rht_in_reg[10]  ( .D(n187), .CP(clk), .CDN(n346), .Q(
         rht_in[10]) );
-  DFCNQD1BWP \iCS/rht_in_reg[9]  ( .D(n188), .CP(clk), .CDN(n372), .Q(
+  DFCNQD1BWP \iCS/rht_in_reg[9]  ( .D(n188), .CP(clk), .CDN(n346), .Q(
         rht_in[9]) );
-  DFCNQD1BWP \iCS/rht_in_reg[8]  ( .D(n189), .CP(clk), .CDN(n372), .Q(
+  DFCNQD1BWP \iCS/rht_in_reg[8]  ( .D(n189), .CP(clk), .CDN(n346), .Q(
         rht_in[8]) );
-  DFCNQD1BWP \iCS/rht_in_reg[7]  ( .D(n190), .CP(clk), .CDN(n372), .Q(
+  DFCNQD1BWP \iCS/rht_in_reg[7]  ( .D(n190), .CP(clk), .CDN(n346), .Q(
         rht_in[7]) );
-  DFCNQD1BWP \iCS/rht_in_reg[6]  ( .D(n191), .CP(clk), .CDN(n372), .Q(
+  DFCNQD1BWP \iCS/rht_in_reg[6]  ( .D(n191), .CP(clk), .CDN(n346), .Q(
         rht_in[6]) );
-  DFCNQD1BWP \iCS/rht_in_reg[5]  ( .D(n192), .CP(clk), .CDN(n372), .Q(
+  DFCNQD1BWP \iCS/rht_in_reg[5]  ( .D(n192), .CP(clk), .CDN(n346), .Q(
         rht_in[5]) );
-  DFCNQD1BWP \iCS/rht_in_reg[4]  ( .D(n193), .CP(clk), .CDN(n372), .Q(
+  DFCNQD1BWP \iCS/rht_in_reg[4]  ( .D(n193), .CP(clk), .CDN(n346), .Q(
         rht_in[4]) );
-  DFCNQD1BWP \iCS/rht_in_reg[3]  ( .D(n194), .CP(clk), .CDN(n372), .Q(
+  DFCNQD1BWP \iCS/rht_in_reg[3]  ( .D(n194), .CP(clk), .CDN(n346), .Q(
         rht_in[3]) );
-  DFCNQD1BWP \iCS/rht_in_reg[2]  ( .D(n195), .CP(clk), .CDN(n373), .Q(
+  DFCNQD1BWP \iCS/rht_in_reg[2]  ( .D(n195), .CP(clk), .CDN(n346), .Q(
         rht_in[2]) );
-  DFCNQD1BWP \iCS/rht_in_reg[1]  ( .D(n196), .CP(clk), .CDN(n373), .Q(
+  DFCNQD1BWP \iCS/rht_in_reg[1]  ( .D(n196), .CP(clk), .CDN(n346), .Q(
         rht_in[1]) );
-  DFCNQD1BWP \iCS/rht_in_reg[0]  ( .D(n197), .CP(clk), .CDN(n373), .Q(
+  DFCNQD1BWP \iCS/rht_in_reg[0]  ( .D(n197), .CP(clk), .CDN(n346), .Q(
         rht_in[0]) );
-  DFCNQD1BWP \iCS/shift_cnt_reg[0]  ( .D(n218), .CP(clk), .CDN(n373), .Q(
+  DFCNQD1BWP \iCS/shift_cnt_reg[0]  ( .D(n218), .CP(clk), .CDN(n346), .Q(
         \iCS/shift_cnt [0]) );
-  DFCNQD1BWP \iCS/shift_cnt_reg[1]  ( .D(n217), .CP(clk), .CDN(n373), .Q(
+  DFCNQD1BWP \iCS/shift_cnt_reg[1]  ( .D(n217), .CP(clk), .CDN(n346), .Q(
         \iCS/shift_cnt [1]) );
-  DFCNQD1BWP \iCS/shift_cnt_reg[2]  ( .D(n216), .CP(clk), .CDN(n373), .Q(
+  DFCNQD1BWP \iCS/shift_cnt_reg[2]  ( .D(n216), .CP(clk), .CDN(n346), .Q(
         \iCS/shift_cnt [2]) );
-  DFCNQD1BWP \iCS/shift_cnt_reg[3]  ( .D(n215), .CP(clk), .CDN(n373), .Q(
+  DFCNQD1BWP \iCS/shift_cnt_reg[3]  ( .D(n215), .CP(clk), .CDN(n346), .Q(
         \iCS/shift_cnt [3]) );
-  DFCNQD1BWP \iCore/valid_d_reg  ( .D(valid), .CP(clk), .CDN(n373), .Q(
+  DFCNQD1BWP \iCore/valid_d_reg  ( .D(valid), .CP(clk), .CDN(n346), .Q(
         \iCore/valid_d ) );
-  DFCNQD1BWP \iCore/wrt_sig_reg  ( .D(\iCore/N4 ), .CP(clk), .CDN(n373), .Q(
+  DFCNQD1BWP \iCore/wrt_sig_reg  ( .D(\iCore/N3 ), .CP(clk), .CDN(n346), .Q(
         \iCore/wrt_sig ) );
-  DFCNQD1BWP \iCore/wrt_en_reg  ( .D(n128), .CP(clk), .CDN(n373), .Q(
+  DFCNQD1BWP \iCore/wrt_en_reg  ( .D(n128), .CP(clk), .CDN(n346), .Q(
         \iCore/wrt_en ) );
-  DFCNQD1BWP \iCore/rht_B3_scl_buf_reg[0]  ( .D(\iCore/rht_B3_scl [0]), .CP(
-        clk), .CDN(n373), .Q(\iCore/rht_B3_scl_buf [0]) );
-  DFCNQD1BWP \iCore/rht_B3_scl_buf_reg[1]  ( .D(\iCore/rht_B3_scl [1]), .CP(
-        clk), .CDN(n373), .Q(\iCore/rht_B3_scl_buf [1]) );
-  DFCNQD1BWP \iCore/rht_B3_scl_buf_reg[2]  ( .D(\iCore/rht_B3_scl [2]), .CP(
-        clk), .CDN(n373), .Q(\iCore/rht_B3_scl_buf [2]) );
-  DFCNQD1BWP \iCore/rht_B3_scl_buf_reg[3]  ( .D(\iCore/rht_B3_scl [3]), .CP(
-        clk), .CDN(n373), .Q(\iCore/rht_B3_scl_buf [3]) );
-  DFCNQD1BWP \iCore/rht_B3_scl_buf_reg[4]  ( .D(\iCore/rht_B3_scl [4]), .CP(
-        clk), .CDN(n373), .Q(\iCore/rht_B3_scl_buf [4]) );
-  DFCNQD1BWP \iCore/rht_B3_scl_buf_reg[5]  ( .D(\iCore/rht_B3_scl [5]), .CP(
-        clk), .CDN(n373), .Q(\iCore/rht_B3_scl_buf [5]) );
-  DFCNQD1BWP \iCore/rht_B3_scl_buf_reg[6]  ( .D(\iCore/rht_B3_scl [6]), .CP(
-        clk), .CDN(n374), .Q(\iCore/rht_B3_scl_buf [6]) );
-  DFCNQD1BWP \iCore/rht_B3_scl_buf_reg[7]  ( .D(\iCore/rht_B3_scl [7]), .CP(
-        clk), .CDN(n374), .Q(\iCore/rht_B3_scl_buf [7]) );
-  DFCNQD1BWP \iCore/rht_B3_scl_buf_reg[8]  ( .D(\iCore/rht_B3_scl [8]), .CP(
-        clk), .CDN(n374), .Q(\iCore/rht_B3_scl_buf [8]) );
-  DFCNQD1BWP \iCore/rht_B3_scl_buf_reg[9]  ( .D(\iCore/rht_B3_scl [9]), .CP(
-        clk), .CDN(n374), .Q(\iCore/rht_B3_scl_buf [9]) );
-  DFCNQD1BWP \iCore/rht_B3_scl_buf_reg[10]  ( .D(\iCore/rht_B3_scl [10]), .CP(
-        clk), .CDN(n374), .Q(\iCore/rht_B3_scl_buf [10]) );
-  DFCNQD1BWP \iCore/rht_B3_scl_buf_reg[11]  ( .D(\iCore/rht_B3_scl [11]), .CP(
-        clk), .CDN(n374), .Q(\iCore/rht_B3_scl_buf [11]) );
-  DFCNQD1BWP \iCore/rht_B3_scl_buf_reg[12]  ( .D(\iCore/rht_B3_scl [12]), .CP(
-        clk), .CDN(n374), .Q(\iCore/rht_B3_scl_buf [12]) );
-  DFCNQD1BWP \iCore/rht_B3_scl_buf_reg[13]  ( .D(\iCore/rht_B3_scl [13]), .CP(
-        clk), .CDN(n374), .Q(\iCore/rht_B3_scl_buf [13]) );
-  DFCNQD1BWP \iCore/rht_B3_scl_buf_reg[14]  ( .D(\iCore/rht_B3_scl [14]), .CP(
-        clk), .CDN(n374), .Q(\iCore/rht_B3_scl_buf [14]) );
-  DFCNQD1BWP \iCore/rht_B3_scl_buf_reg[15]  ( .D(\iCore/rht_B3_scl [15]), .CP(
-        clk), .CDN(n374), .Q(\iCore/rht_B3_scl_buf [15]) );
-  DFCNQD1BWP \iCore/rht_B2_scl_buf_reg[0]  ( .D(\iCore/rht_B2_scl [0]), .CP(
-        clk), .CDN(n374), .Q(\iCore/rht_B2_scl_buf [0]) );
-  DFCNQD1BWP \iCore/rht_B2_scl_buf_reg[1]  ( .D(\iCore/rht_B2_scl [1]), .CP(
-        clk), .CDN(n374), .Q(\iCore/rht_B2_scl_buf [1]) );
-  DFCNQD1BWP \iCore/rht_B2_scl_buf_reg[2]  ( .D(\iCore/rht_B2_scl [2]), .CP(
-        clk), .CDN(n374), .Q(\iCore/rht_B2_scl_buf [2]) );
-  DFCNQD1BWP \iCore/rht_B2_scl_buf_reg[3]  ( .D(\iCore/rht_B2_scl [3]), .CP(
-        clk), .CDN(n374), .Q(\iCore/rht_B2_scl_buf [3]) );
-  DFCNQD1BWP \iCore/rht_B2_scl_buf_reg[4]  ( .D(\iCore/rht_B2_scl [4]), .CP(
-        clk), .CDN(n375), .Q(\iCore/rht_B2_scl_buf [4]) );
-  DFCNQD1BWP \iCore/rht_B2_scl_buf_reg[5]  ( .D(\iCore/rht_B2_scl [5]), .CP(
-        clk), .CDN(n375), .Q(\iCore/rht_B2_scl_buf [5]) );
-  DFCNQD1BWP \iCore/rht_B2_scl_buf_reg[6]  ( .D(\iCore/rht_B2_scl [6]), .CP(
-        clk), .CDN(n385), .Q(\iCore/rht_B2_scl_buf [6]) );
-  DFCNQD1BWP \iCore/rht_B2_scl_buf_reg[7]  ( .D(\iCore/rht_B2_scl [7]), .CP(
-        clk), .CDN(n385), .Q(\iCore/rht_B2_scl_buf [7]) );
-  DFCNQD1BWP \iCore/rht_B2_scl_buf_reg[8]  ( .D(\iCore/rht_B2_scl [8]), .CP(
-        clk), .CDN(n385), .Q(\iCore/rht_B2_scl_buf [8]) );
-  DFCNQD1BWP \iCore/rht_B2_scl_buf_reg[9]  ( .D(\iCore/rht_B2_scl [9]), .CP(
-        clk), .CDN(n385), .Q(\iCore/rht_B2_scl_buf [9]) );
-  DFCNQD1BWP \iCore/rht_B2_scl_buf_reg[10]  ( .D(\iCore/rht_B2_scl [10]), .CP(
-        clk), .CDN(n385), .Q(\iCore/rht_B2_scl_buf [10]) );
-  DFCNQD1BWP \iCore/rht_B2_scl_buf_reg[11]  ( .D(\iCore/rht_B2_scl [11]), .CP(
-        clk), .CDN(n385), .Q(\iCore/rht_B2_scl_buf [11]) );
-  DFCNQD1BWP \iCore/rht_B2_scl_buf_reg[12]  ( .D(\iCore/rht_B2_scl [12]), .CP(
-        clk), .CDN(n385), .Q(\iCore/rht_B2_scl_buf [12]) );
-  DFCNQD1BWP \iCore/rht_B2_scl_buf_reg[13]  ( .D(\iCore/rht_B2_scl [13]), .CP(
-        clk), .CDN(n385), .Q(\iCore/rht_B2_scl_buf [13]) );
-  DFCNQD1BWP \iCore/rht_B2_scl_buf_reg[14]  ( .D(\iCore/rht_B2_scl [14]), .CP(
-        clk), .CDN(n385), .Q(\iCore/rht_B2_scl_buf [14]) );
-  DFCNQD1BWP \iCore/rht_B2_scl_buf_reg[15]  ( .D(\iCore/rht_B2_scl [15]), .CP(
-        clk), .CDN(n385), .Q(\iCore/rht_B2_scl_buf [15]) );
-  DFCNQD1BWP \iCore/rht_B1_scl_buf_reg[0]  ( .D(\iCore/rht_B1_scl [0]), .CP(
-        clk), .CDN(n385), .Q(\iCore/rht_B1_scl_buf [0]) );
-  DFCNQD1BWP \iCore/rht_B1_scl_buf_reg[1]  ( .D(\iCore/rht_B1_scl [1]), .CP(
-        clk), .CDN(n385), .Q(\iCore/rht_B1_scl_buf [1]) );
-  DFCNQD1BWP \iCore/rht_B1_scl_buf_reg[2]  ( .D(\iCore/rht_B1_scl [2]), .CP(
-        clk), .CDN(n385), .Q(\iCore/rht_B1_scl_buf [2]) );
-  DFCNQD1BWP \iCore/rht_B1_scl_buf_reg[3]  ( .D(\iCore/rht_B1_scl [3]), .CP(
-        clk), .CDN(n385), .Q(\iCore/rht_B1_scl_buf [3]) );
-  DFCNQD1BWP \iCore/rht_B1_scl_buf_reg[4]  ( .D(\iCore/rht_B1_scl [4]), .CP(
-        clk), .CDN(n385), .Q(\iCore/rht_B1_scl_buf [4]) );
-  DFCNQD1BWP \iCore/rht_B1_scl_buf_reg[5]  ( .D(\iCore/rht_B1_scl [5]), .CP(
-        clk), .CDN(n385), .Q(\iCore/rht_B1_scl_buf [5]) );
-  DFCNQD1BWP \iCore/rht_B1_scl_buf_reg[6]  ( .D(\iCore/rht_B1_scl [6]), .CP(
-        clk), .CDN(n385), .Q(\iCore/rht_B1_scl_buf [6]) );
-  DFCNQD1BWP \iCore/rht_B1_scl_buf_reg[7]  ( .D(\iCore/rht_B1_scl [7]), .CP(
-        clk), .CDN(n385), .Q(\iCore/rht_B1_scl_buf [7]) );
-  DFCNQD1BWP \iCore/rht_B1_scl_buf_reg[8]  ( .D(\iCore/rht_B1_scl [8]), .CP(
-        clk), .CDN(n385), .Q(\iCore/rht_B1_scl_buf [8]) );
-  DFCNQD1BWP \iCore/rht_B1_scl_buf_reg[9]  ( .D(\iCore/rht_B1_scl [9]), .CP(
-        clk), .CDN(n385), .Q(\iCore/rht_B1_scl_buf [9]) );
-  DFCNQD1BWP \iCore/rht_B1_scl_buf_reg[10]  ( .D(\iCore/rht_B1_scl [10]), .CP(
-        clk), .CDN(n385), .Q(\iCore/rht_B1_scl_buf [10]) );
-  DFCNQD1BWP \iCore/rht_B1_scl_buf_reg[11]  ( .D(\iCore/rht_B1_scl [11]), .CP(
-        clk), .CDN(n385), .Q(\iCore/rht_B1_scl_buf [11]) );
-  DFCNQD1BWP \iCore/rht_B1_scl_buf_reg[12]  ( .D(\iCore/rht_B1_scl [12]), .CP(
-        clk), .CDN(n384), .Q(\iCore/rht_B1_scl_buf [12]) );
-  DFCNQD1BWP \iCore/rht_B1_scl_buf_reg[13]  ( .D(\iCore/rht_B1_scl [13]), .CP(
-        clk), .CDN(n384), .Q(\iCore/rht_B1_scl_buf [13]) );
-  DFCNQD1BWP \iCore/rht_B1_scl_buf_reg[14]  ( .D(\iCore/rht_B1_scl [14]), .CP(
-        clk), .CDN(n384), .Q(\iCore/rht_B1_scl_buf [14]) );
-  DFCNQD1BWP \iCore/rht_B1_scl_buf_reg[15]  ( .D(\iCore/rht_B1_scl [15]), .CP(
-        clk), .CDN(n384), .Q(\iCore/rht_B1_scl_buf [15]) );
-  DFCNQD1BWP \iCore/rht_LP_scl_buf_reg[0]  ( .D(\iCore/rht_LP_scl [0]), .CP(
-        clk), .CDN(n384), .Q(\iCore/rht_LP_scl_buf [0]) );
-  DFCNQD1BWP \iCore/rht_LP_scl_buf_reg[1]  ( .D(\iCore/rht_LP_scl [1]), .CP(
-        clk), .CDN(n384), .Q(\iCore/rht_LP_scl_buf [1]) );
-  DFCNQD1BWP \iCore/rht_LP_scl_buf_reg[2]  ( .D(\iCore/rht_LP_scl [2]), .CP(
-        clk), .CDN(n384), .Q(\iCore/rht_LP_scl_buf [2]) );
-  DFCNQD1BWP \iCore/rht_LP_scl_buf_reg[3]  ( .D(\iCore/rht_LP_scl [3]), .CP(
-        clk), .CDN(n384), .Q(\iCore/rht_LP_scl_buf [3]) );
-  DFCNQD1BWP \iCore/rht_LP_scl_buf_reg[4]  ( .D(\iCore/rht_LP_scl [4]), .CP(
-        clk), .CDN(n384), .Q(\iCore/rht_LP_scl_buf [4]) );
-  DFCNQD1BWP \iCore/rht_LP_scl_buf_reg[5]  ( .D(\iCore/rht_LP_scl [5]), .CP(
-        clk), .CDN(n384), .Q(\iCore/rht_LP_scl_buf [5]) );
-  DFCNQD1BWP \iCore/rht_LP_scl_buf_reg[6]  ( .D(\iCore/rht_LP_scl [6]), .CP(
-        clk), .CDN(n384), .Q(\iCore/rht_LP_scl_buf [6]) );
-  DFCNQD1BWP \iCore/rht_LP_scl_buf_reg[7]  ( .D(\iCore/rht_LP_scl [7]), .CP(
-        clk), .CDN(n384), .Q(\iCore/rht_LP_scl_buf [7]) );
-  DFCNQD1BWP \iCore/rht_LP_scl_buf_reg[8]  ( .D(\iCore/rht_LP_scl [8]), .CP(
-        clk), .CDN(n384), .Q(\iCore/rht_LP_scl_buf [8]) );
-  DFCNQD1BWP \iCore/rht_LP_scl_buf_reg[9]  ( .D(\iCore/rht_LP_scl [9]), .CP(
-        clk), .CDN(n384), .Q(\iCore/rht_LP_scl_buf [9]) );
-  DFCNQD1BWP \iCore/rht_LP_scl_buf_reg[10]  ( .D(\iCore/rht_LP_scl [10]), .CP(
-        clk), .CDN(n384), .Q(\iCore/rht_LP_scl_buf [10]) );
-  DFCNQD1BWP \iCore/rht_LP_scl_buf_reg[11]  ( .D(\iCore/rht_LP_scl [11]), .CP(
-        clk), .CDN(n384), .Q(\iCore/rht_LP_scl_buf [11]) );
-  DFCNQD1BWP \iCore/rht_LP_scl_buf_reg[12]  ( .D(\iCore/rht_LP_scl [12]), .CP(
-        clk), .CDN(n384), .Q(\iCore/rht_LP_scl_buf [12]) );
-  DFCNQD1BWP \iCore/rht_LP_scl_buf_reg[13]  ( .D(\iCore/rht_LP_scl [13]), .CP(
-        clk), .CDN(n384), .Q(\iCore/rht_LP_scl_buf [13]) );
-  DFCNQD1BWP \iCore/rht_LP_scl_buf_reg[14]  ( .D(\iCore/rht_LP_scl [14]), .CP(
-        clk), .CDN(n384), .Q(\iCore/rht_LP_scl_buf [14]) );
-  DFCNQD1BWP \iCore/rht_LP_scl_buf_reg[15]  ( .D(\iCore/rht_LP_scl [15]), .CP(
-        clk), .CDN(n384), .Q(\iCore/rht_LP_scl_buf [15]) );
-  DFCNQD1BWP \iCore/lft_HP_scl_buf_reg[0]  ( .D(\iCore/lft_HP_scl [0]), .CP(
-        clk), .CDN(n384), .Q(\iCore/lft_HP_scl_buf [0]) );
-  DFCNQD1BWP \iCore/lft_HP_scl_buf_reg[1]  ( .D(\iCore/lft_HP_scl [1]), .CP(
-        clk), .CDN(n384), .Q(\iCore/lft_HP_scl_buf [1]) );
-  DFCNQD1BWP \iCore/lft_HP_scl_buf_reg[2]  ( .D(\iCore/lft_HP_scl [2]), .CP(
-        clk), .CDN(n384), .Q(\iCore/lft_HP_scl_buf [2]) );
-  DFCNQD1BWP \iCore/lft_HP_scl_buf_reg[3]  ( .D(\iCore/lft_HP_scl [3]), .CP(
-        clk), .CDN(n384), .Q(\iCore/lft_HP_scl_buf [3]) );
-  DFCNQD1BWP \iCore/lft_HP_scl_buf_reg[4]  ( .D(\iCore/lft_HP_scl [4]), .CP(
-        clk), .CDN(n384), .Q(\iCore/lft_HP_scl_buf [4]) );
-  DFCNQD1BWP \iCore/lft_HP_scl_buf_reg[5]  ( .D(\iCore/lft_HP_scl [5]), .CP(
-        clk), .CDN(n384), .Q(\iCore/lft_HP_scl_buf [5]) );
-  DFCNQD1BWP \iCore/lft_HP_scl_buf_reg[6]  ( .D(\iCore/lft_HP_scl [6]), .CP(
-        clk), .CDN(n383), .Q(\iCore/lft_HP_scl_buf [6]) );
-  DFCNQD1BWP \iCore/lft_HP_scl_buf_reg[7]  ( .D(\iCore/lft_HP_scl [7]), .CP(
-        clk), .CDN(n383), .Q(\iCore/lft_HP_scl_buf [7]) );
-  DFCNQD1BWP \iCore/lft_HP_scl_buf_reg[8]  ( .D(\iCore/lft_HP_scl [8]), .CP(
-        clk), .CDN(n383), .Q(\iCore/lft_HP_scl_buf [8]) );
-  DFCNQD1BWP \iCore/lft_HP_scl_buf_reg[9]  ( .D(\iCore/lft_HP_scl [9]), .CP(
-        clk), .CDN(n383), .Q(\iCore/lft_HP_scl_buf [9]) );
-  DFCNQD1BWP \iCore/lft_HP_scl_buf_reg[10]  ( .D(\iCore/lft_HP_scl [10]), .CP(
-        clk), .CDN(n383), .Q(\iCore/lft_HP_scl_buf [10]) );
-  DFCNQD1BWP \iCore/lft_HP_scl_buf_reg[11]  ( .D(\iCore/lft_HP_scl [11]), .CP(
-        clk), .CDN(n383), .Q(\iCore/lft_HP_scl_buf [11]) );
-  DFCNQD1BWP \iCore/lft_HP_scl_buf_reg[12]  ( .D(\iCore/lft_HP_scl [12]), .CP(
-        clk), .CDN(n383), .Q(\iCore/lft_HP_scl_buf [12]) );
-  DFCNQD1BWP \iCore/lft_HP_scl_buf_reg[13]  ( .D(\iCore/lft_HP_scl [13]), .CP(
-        clk), .CDN(n383), .Q(\iCore/lft_HP_scl_buf [13]) );
-  DFCNQD1BWP \iCore/lft_HP_scl_buf_reg[14]  ( .D(\iCore/lft_HP_scl [14]), .CP(
-        clk), .CDN(n383), .Q(\iCore/lft_HP_scl_buf [14]) );
-  DFCNQD1BWP \iCore/lft_HP_scl_buf_reg[15]  ( .D(\iCore/lft_HP_scl [15]), .CP(
-        clk), .CDN(n383), .Q(\iCore/lft_HP_scl_buf [15]) );
-  DFCNQD1BWP \iCore/lft_B3_scl_buf_reg[0]  ( .D(\iCore/lft_B3_scl [0]), .CP(
-        clk), .CDN(n383), .Q(\iCore/lft_B3_scl_buf [0]) );
-  DFCNQD1BWP \iCore/lft_B3_scl_buf_reg[1]  ( .D(\iCore/lft_B3_scl [1]), .CP(
-        clk), .CDN(n383), .Q(\iCore/lft_B3_scl_buf [1]) );
-  DFCNQD1BWP \iCore/lft_B3_scl_buf_reg[2]  ( .D(\iCore/lft_B3_scl [2]), .CP(
-        clk), .CDN(n383), .Q(\iCore/lft_B3_scl_buf [2]) );
-  DFCNQD1BWP \iCore/lft_B3_scl_buf_reg[3]  ( .D(\iCore/lft_B3_scl [3]), .CP(
-        clk), .CDN(n383), .Q(\iCore/lft_B3_scl_buf [3]) );
-  DFCNQD1BWP \iCore/lft_B3_scl_buf_reg[4]  ( .D(\iCore/lft_B3_scl [4]), .CP(
-        clk), .CDN(n383), .Q(\iCore/lft_B3_scl_buf [4]) );
-  DFCNQD1BWP \iCore/lft_B3_scl_buf_reg[5]  ( .D(\iCore/lft_B3_scl [5]), .CP(
-        clk), .CDN(n383), .Q(\iCore/lft_B3_scl_buf [5]) );
-  DFCNQD1BWP \iCore/lft_B3_scl_buf_reg[6]  ( .D(\iCore/lft_B3_scl [6]), .CP(
-        clk), .CDN(n383), .Q(\iCore/lft_B3_scl_buf [6]) );
-  DFCNQD1BWP \iCore/lft_B3_scl_buf_reg[7]  ( .D(\iCore/lft_B3_scl [7]), .CP(
-        clk), .CDN(n383), .Q(\iCore/lft_B3_scl_buf [7]) );
-  DFCNQD1BWP \iCore/lft_B3_scl_buf_reg[8]  ( .D(\iCore/lft_B3_scl [8]), .CP(
-        clk), .CDN(n383), .Q(\iCore/lft_B3_scl_buf [8]) );
-  DFCNQD1BWP \iCore/lft_B3_scl_buf_reg[9]  ( .D(\iCore/lft_B3_scl [9]), .CP(
-        clk), .CDN(n383), .Q(\iCore/lft_B3_scl_buf [9]) );
-  DFCNQD1BWP \iCore/lft_B3_scl_buf_reg[10]  ( .D(\iCore/lft_B3_scl [10]), .CP(
-        clk), .CDN(n383), .Q(\iCore/lft_B3_scl_buf [10]) );
-  DFCNQD1BWP \iCore/lft_B3_scl_buf_reg[11]  ( .D(\iCore/lft_B3_scl [11]), .CP(
-        clk), .CDN(n383), .Q(\iCore/lft_B3_scl_buf [11]) );
-  DFCNQD1BWP \iCore/lft_B3_scl_buf_reg[12]  ( .D(\iCore/lft_B3_scl [12]), .CP(
-        clk), .CDN(n383), .Q(\iCore/lft_B3_scl_buf [12]) );
-  DFCNQD1BWP \iCore/lft_B3_scl_buf_reg[13]  ( .D(\iCore/lft_B3_scl [13]), .CP(
-        clk), .CDN(n383), .Q(\iCore/lft_B3_scl_buf [13]) );
-  DFCNQD1BWP \iCore/lft_B3_scl_buf_reg[14]  ( .D(\iCore/lft_B3_scl [14]), .CP(
-        clk), .CDN(n383), .Q(\iCore/lft_B3_scl_buf [14]) );
-  DFCNQD1BWP \iCore/lft_B3_scl_buf_reg[15]  ( .D(\iCore/lft_B3_scl [15]), .CP(
-        clk), .CDN(n383), .Q(\iCore/lft_B3_scl_buf [15]) );
-  DFCNQD1BWP \iCore/lft_B2_scl_buf_reg[0]  ( .D(\iCore/lft_B2_scl [0]), .CP(
-        clk), .CDN(n382), .Q(\iCore/lft_B2_scl_buf [0]) );
-  DFCNQD1BWP \iCore/lft_B2_scl_buf_reg[1]  ( .D(\iCore/lft_B2_scl [1]), .CP(
-        clk), .CDN(n382), .Q(\iCore/lft_B2_scl_buf [1]) );
-  DFCNQD1BWP \iCore/lft_B2_scl_buf_reg[2]  ( .D(\iCore/lft_B2_scl [2]), .CP(
-        clk), .CDN(n382), .Q(\iCore/lft_B2_scl_buf [2]) );
-  DFCNQD1BWP \iCore/lft_B2_scl_buf_reg[3]  ( .D(\iCore/lft_B2_scl [3]), .CP(
-        clk), .CDN(n382), .Q(\iCore/lft_B2_scl_buf [3]) );
-  DFCNQD1BWP \iCore/lft_B2_scl_buf_reg[4]  ( .D(\iCore/lft_B2_scl [4]), .CP(
-        clk), .CDN(n382), .Q(\iCore/lft_B2_scl_buf [4]) );
-  DFCNQD1BWP \iCore/lft_B2_scl_buf_reg[5]  ( .D(\iCore/lft_B2_scl [5]), .CP(
-        clk), .CDN(n382), .Q(\iCore/lft_B2_scl_buf [5]) );
-  DFCNQD1BWP \iCore/lft_B2_scl_buf_reg[6]  ( .D(\iCore/lft_B2_scl [6]), .CP(
-        clk), .CDN(n382), .Q(\iCore/lft_B2_scl_buf [6]) );
-  DFCNQD1BWP \iCore/lft_B2_scl_buf_reg[7]  ( .D(\iCore/lft_B2_scl [7]), .CP(
-        clk), .CDN(n382), .Q(\iCore/lft_B2_scl_buf [7]) );
-  DFCNQD1BWP \iCore/lft_B2_scl_buf_reg[8]  ( .D(\iCore/lft_B2_scl [8]), .CP(
-        clk), .CDN(n382), .Q(\iCore/lft_B2_scl_buf [8]) );
-  DFCNQD1BWP \iCore/lft_B2_scl_buf_reg[9]  ( .D(\iCore/lft_B2_scl [9]), .CP(
-        clk), .CDN(n382), .Q(\iCore/lft_B2_scl_buf [9]) );
-  DFCNQD1BWP \iCore/lft_B2_scl_buf_reg[10]  ( .D(\iCore/lft_B2_scl [10]), .CP(
-        clk), .CDN(n382), .Q(\iCore/lft_B2_scl_buf [10]) );
-  DFCNQD1BWP \iCore/lft_B2_scl_buf_reg[11]  ( .D(\iCore/lft_B2_scl [11]), .CP(
-        clk), .CDN(n382), .Q(\iCore/lft_B2_scl_buf [11]) );
-  DFCNQD1BWP \iCore/lft_B2_scl_buf_reg[12]  ( .D(\iCore/lft_B2_scl [12]), .CP(
-        clk), .CDN(n382), .Q(\iCore/lft_B2_scl_buf [12]) );
-  DFCNQD1BWP \iCore/lft_B2_scl_buf_reg[13]  ( .D(\iCore/lft_B2_scl [13]), .CP(
-        clk), .CDN(n382), .Q(\iCore/lft_B2_scl_buf [13]) );
-  DFCNQD1BWP \iCore/lft_B2_scl_buf_reg[14]  ( .D(\iCore/lft_B2_scl [14]), .CP(
-        clk), .CDN(n382), .Q(\iCore/lft_B2_scl_buf [14]) );
-  DFCNQD1BWP \iCore/lft_B2_scl_buf_reg[15]  ( .D(\iCore/lft_B2_scl [15]), .CP(
-        clk), .CDN(n382), .Q(\iCore/lft_B2_scl_buf [15]) );
-  DFCNQD1BWP \iCore/lft_B1_scl_buf_reg[0]  ( .D(\iCore/lft_B1_scl [0]), .CP(
-        clk), .CDN(n382), .Q(\iCore/lft_B1_scl_buf [0]) );
-  DFCNQD1BWP \iCore/lft_B1_scl_buf_reg[1]  ( .D(\iCore/lft_B1_scl [1]), .CP(
-        clk), .CDN(n382), .Q(\iCore/lft_B1_scl_buf [1]) );
-  DFCNQD1BWP \iCore/lft_B1_scl_buf_reg[2]  ( .D(\iCore/lft_B1_scl [2]), .CP(
-        clk), .CDN(n382), .Q(\iCore/lft_B1_scl_buf [2]) );
-  DFCNQD1BWP \iCore/lft_B1_scl_buf_reg[3]  ( .D(\iCore/lft_B1_scl [3]), .CP(
-        clk), .CDN(n382), .Q(\iCore/lft_B1_scl_buf [3]) );
-  DFCNQD1BWP \iCore/lft_B1_scl_buf_reg[4]  ( .D(\iCore/lft_B1_scl [4]), .CP(
-        clk), .CDN(n382), .Q(\iCore/lft_B1_scl_buf [4]) );
-  DFCNQD1BWP \iCore/lft_B1_scl_buf_reg[5]  ( .D(\iCore/lft_B1_scl [5]), .CP(
-        clk), .CDN(n382), .Q(\iCore/lft_B1_scl_buf [5]) );
-  DFCNQD1BWP \iCore/lft_B1_scl_buf_reg[6]  ( .D(\iCore/lft_B1_scl [6]), .CP(
-        clk), .CDN(n382), .Q(\iCore/lft_B1_scl_buf [6]) );
-  DFCNQD1BWP \iCore/lft_B1_scl_buf_reg[7]  ( .D(\iCore/lft_B1_scl [7]), .CP(
-        clk), .CDN(n382), .Q(\iCore/lft_B1_scl_buf [7]) );
-  DFCNQD1BWP \iCore/lft_B1_scl_buf_reg[8]  ( .D(\iCore/lft_B1_scl [8]), .CP(
-        clk), .CDN(n382), .Q(\iCore/lft_B1_scl_buf [8]) );
-  DFCNQD1BWP \iCore/lft_B1_scl_buf_reg[9]  ( .D(\iCore/lft_B1_scl [9]), .CP(
-        clk), .CDN(n381), .Q(\iCore/lft_B1_scl_buf [9]) );
-  DFCNQD1BWP \iCore/lft_B1_scl_buf_reg[10]  ( .D(\iCore/lft_B1_scl [10]), .CP(
-        clk), .CDN(n381), .Q(\iCore/lft_B1_scl_buf [10]) );
-  DFCNQD1BWP \iCore/lft_B1_scl_buf_reg[11]  ( .D(\iCore/lft_B1_scl [11]), .CP(
-        clk), .CDN(n381), .Q(\iCore/lft_B1_scl_buf [11]) );
-  DFCNQD1BWP \iCore/lft_B1_scl_buf_reg[12]  ( .D(\iCore/lft_B1_scl [12]), .CP(
-        clk), .CDN(n381), .Q(\iCore/lft_B1_scl_buf [12]) );
-  DFCNQD1BWP \iCore/lft_B1_scl_buf_reg[13]  ( .D(\iCore/lft_B1_scl [13]), .CP(
-        clk), .CDN(n381), .Q(\iCore/lft_B1_scl_buf [13]) );
-  DFCNQD1BWP \iCore/lft_B1_scl_buf_reg[14]  ( .D(\iCore/lft_B1_scl [14]), .CP(
-        clk), .CDN(n381), .Q(\iCore/lft_B1_scl_buf [14]) );
-  DFCNQD1BWP \iCore/lft_B1_scl_buf_reg[15]  ( .D(\iCore/lft_B1_scl [15]), .CP(
-        clk), .CDN(n381), .Q(\iCore/lft_B1_scl_buf [15]) );
-  DFCNQD1BWP \iCore/lft_LP_scl_buf_reg[0]  ( .D(\iCore/lft_LP_scl [0]), .CP(
-        clk), .CDN(n381), .Q(\iCore/lft_LP_scl_buf [0]) );
-  DFCNQD1BWP \iCore/lft_LP_scl_buf_reg[1]  ( .D(\iCore/lft_LP_scl [1]), .CP(
-        clk), .CDN(n381), .Q(\iCore/lft_LP_scl_buf [1]) );
-  DFCNQD1BWP \iCore/lft_LP_scl_buf_reg[2]  ( .D(\iCore/lft_LP_scl [2]), .CP(
-        clk), .CDN(n381), .Q(\iCore/lft_LP_scl_buf [2]) );
-  DFCNQD1BWP \iCore/lft_LP_scl_buf_reg[3]  ( .D(\iCore/lft_LP_scl [3]), .CP(
-        clk), .CDN(n381), .Q(\iCore/lft_LP_scl_buf [3]) );
-  DFCNQD1BWP \iCore/lft_LP_scl_buf_reg[4]  ( .D(\iCore/lft_LP_scl [4]), .CP(
-        clk), .CDN(n381), .Q(\iCore/lft_LP_scl_buf [4]) );
-  DFCNQD1BWP \iCore/lft_LP_scl_buf_reg[5]  ( .D(\iCore/lft_LP_scl [5]), .CP(
-        clk), .CDN(n381), .Q(\iCore/lft_LP_scl_buf [5]) );
-  DFCNQD1BWP \iCore/lft_LP_scl_buf_reg[6]  ( .D(\iCore/lft_LP_scl [6]), .CP(
-        clk), .CDN(n381), .Q(\iCore/lft_LP_scl_buf [6]) );
-  DFCNQD1BWP \iCore/lft_LP_scl_buf_reg[7]  ( .D(\iCore/lft_LP_scl [7]), .CP(
-        clk), .CDN(n381), .Q(\iCore/lft_LP_scl_buf [7]) );
-  DFCNQD1BWP \iCore/lft_LP_scl_buf_reg[8]  ( .D(\iCore/lft_LP_scl [8]), .CP(
-        clk), .CDN(n381), .Q(\iCore/lft_LP_scl_buf [8]) );
-  DFCNQD1BWP \iCore/lft_LP_scl_buf_reg[9]  ( .D(\iCore/lft_LP_scl [9]), .CP(
-        clk), .CDN(n381), .Q(\iCore/lft_LP_scl_buf [9]) );
-  DFCNQD1BWP \iCore/lft_LP_scl_buf_reg[10]  ( .D(\iCore/lft_LP_scl [10]), .CP(
-        clk), .CDN(n381), .Q(\iCore/lft_LP_scl_buf [10]) );
-  DFCNQD1BWP \iCore/lft_LP_scl_buf_reg[11]  ( .D(\iCore/lft_LP_scl [11]), .CP(
-        clk), .CDN(n381), .Q(\iCore/lft_LP_scl_buf [11]) );
-  DFCNQD1BWP \iCore/lft_LP_scl_buf_reg[12]  ( .D(\iCore/lft_LP_scl [12]), .CP(
-        clk), .CDN(n381), .Q(\iCore/lft_LP_scl_buf [12]) );
-  DFCNQD1BWP \iCore/lft_LP_scl_buf_reg[13]  ( .D(\iCore/lft_LP_scl [13]), .CP(
-        clk), .CDN(n381), .Q(\iCore/lft_LP_scl_buf [13]) );
-  DFCNQD1BWP \iCore/lft_LP_scl_buf_reg[14]  ( .D(\iCore/lft_LP_scl [14]), .CP(
-        clk), .CDN(n381), .Q(\iCore/lft_LP_scl_buf [14]) );
-  DFCNQD1BWP \iCore/lft_LP_scl_buf_reg[15]  ( .D(\iCore/lft_LP_scl [15]), .CP(
-        clk), .CDN(n381), .Q(\iCore/lft_LP_scl_buf [15]) );
   DFCNQD1BWP \iCore/lft_sum_out_buf_reg[0]  ( .D(\iCore/lft_sum_out [0]), .CP(
-        clk), .CDN(n381), .Q(\iCore/lft_sum_out_buf [0]) );
+        clk), .CDN(n346), .Q(\iCore/lft_sum_out_buf [0]) );
   DFCNQD1BWP \iCore/lft_sum_out_buf_reg[1]  ( .D(\iCore/lft_sum_out [1]), .CP(
-        clk), .CDN(n381), .Q(\iCore/lft_sum_out_buf [1]) );
+        clk), .CDN(n346), .Q(\iCore/lft_sum_out_buf [1]) );
   DFCNQD1BWP \iCore/lft_sum_out_buf_reg[2]  ( .D(\iCore/lft_sum_out [2]), .CP(
-        clk), .CDN(n381), .Q(\iCore/lft_sum_out_buf [2]) );
+        clk), .CDN(n346), .Q(\iCore/lft_sum_out_buf [2]) );
   DFCNQD1BWP \iCore/lft_sum_out_buf_reg[3]  ( .D(\iCore/lft_sum_out [3]), .CP(
-        clk), .CDN(n380), .Q(\iCore/lft_sum_out_buf [3]) );
+        clk), .CDN(n346), .Q(\iCore/lft_sum_out_buf [3]) );
+  DFCNQD1BWP \iCore/lft_sum_out_buf_reg[4]  ( .D(\iCore/lft_sum_out [4]), .CP(
+        clk), .CDN(n347), .Q(\iCore/lft_sum_out_buf [4]) );
   DFCNQD1BWP \iCore/lft_sum_out_buf_reg[5]  ( .D(\iCore/lft_sum_out [5]), .CP(
-        clk), .CDN(n380), .Q(\iCore/lft_sum_out_buf [5]) );
+        clk), .CDN(n347), .Q(\iCore/lft_sum_out_buf [5]) );
   DFCNQD1BWP \iCore/lft_sum_out_buf_reg[6]  ( .D(\iCore/lft_sum_out [6]), .CP(
-        clk), .CDN(n380), .Q(\iCore/lft_sum_out_buf [6]) );
+        clk), .CDN(n347), .Q(\iCore/lft_sum_out_buf [6]) );
   DFCNQD1BWP \iCore/lft_sum_out_buf_reg[7]  ( .D(\iCore/lft_sum_out [7]), .CP(
-        clk), .CDN(n380), .Q(\iCore/lft_sum_out_buf [7]) );
+        clk), .CDN(n347), .Q(\iCore/lft_sum_out_buf [7]) );
   DFCNQD1BWP \iCore/lft_sum_out_buf_reg[8]  ( .D(\iCore/lft_sum_out [8]), .CP(
-        clk), .CDN(n380), .Q(\iCore/lft_sum_out_buf [8]) );
+        clk), .CDN(n347), .Q(\iCore/lft_sum_out_buf [8]) );
+  DFCNQD1BWP \iCore/lft_sum_out_buf_reg[9]  ( .D(\iCore/lft_sum_out [9]), .CP(
+        clk), .CDN(n347), .Q(\iCore/lft_sum_out_buf [9]) );
   DFCNQD1BWP \iCore/lft_sum_out_buf_reg[10]  ( .D(\iCore/lft_sum_out [10]), 
-        .CP(clk), .CDN(n380), .Q(\iCore/lft_sum_out_buf [10]) );
+        .CP(clk), .CDN(n347), .Q(\iCore/lft_sum_out_buf [10]) );
   DFCNQD1BWP \iCore/lft_sum_out_buf_reg[11]  ( .D(\iCore/lft_sum_out [11]), 
-        .CP(clk), .CDN(n380), .Q(\iCore/lft_sum_out_buf [11]) );
+        .CP(clk), .CDN(n347), .Q(\iCore/lft_sum_out_buf [11]) );
   DFCNQD1BWP \iCore/lft_sum_out_buf_reg[12]  ( .D(\iCore/lft_sum_out [12]), 
-        .CP(clk), .CDN(n380), .Q(\iCore/lft_sum_out_buf [12]) );
+        .CP(clk), .CDN(n347), .Q(\iCore/lft_sum_out_buf [12]) );
   DFCNQD1BWP \iCore/lft_sum_out_buf_reg[13]  ( .D(\iCore/lft_sum_out [13]), 
-        .CP(clk), .CDN(n380), .Q(\iCore/lft_sum_out_buf [13]) );
+        .CP(clk), .CDN(n347), .Q(\iCore/lft_sum_out_buf [13]) );
   DFCNQD1BWP \iCore/lft_sum_out_buf_reg[14]  ( .D(\iCore/lft_sum_out [14]), 
-        .CP(clk), .CDN(n380), .Q(\iCore/lft_sum_out_buf [14]) );
+        .CP(clk), .CDN(n347), .Q(\iCore/lft_sum_out_buf [14]) );
   DFCNQD1BWP \iCore/lft_sum_out_buf_reg[15]  ( .D(\iCore/lft_sum_out [15]), 
-        .CP(clk), .CDN(n380), .Q(\iCore/lft_sum_out_buf [15]) );
-  DFCNQD1BWP \iCore/rht_HP_scl_buf_reg[0]  ( .D(\iCore/rht_HP_scl [0]), .CP(
-        clk), .CDN(n380), .Q(\iCore/rht_HP_scl_buf [0]) );
-  DFCNQD1BWP \iCore/rht_HP_scl_buf_reg[1]  ( .D(\iCore/rht_HP_scl [1]), .CP(
-        clk), .CDN(n380), .Q(\iCore/rht_HP_scl_buf [1]) );
-  DFCNQD1BWP \iCore/rht_HP_scl_buf_reg[2]  ( .D(\iCore/rht_HP_scl [2]), .CP(
-        clk), .CDN(n380), .Q(\iCore/rht_HP_scl_buf [2]) );
-  DFCNQD1BWP \iCore/rht_HP_scl_buf_reg[3]  ( .D(\iCore/rht_HP_scl [3]), .CP(
-        clk), .CDN(n380), .Q(\iCore/rht_HP_scl_buf [3]) );
-  DFCNQD1BWP \iCore/rht_HP_scl_buf_reg[4]  ( .D(\iCore/rht_HP_scl [4]), .CP(
-        clk), .CDN(n380), .Q(\iCore/rht_HP_scl_buf [4]) );
-  DFCNQD1BWP \iCore/rht_HP_scl_buf_reg[5]  ( .D(\iCore/rht_HP_scl [5]), .CP(
-        clk), .CDN(n380), .Q(\iCore/rht_HP_scl_buf [5]) );
-  DFCNQD1BWP \iCore/rht_HP_scl_buf_reg[6]  ( .D(\iCore/rht_HP_scl [6]), .CP(
-        clk), .CDN(n380), .Q(\iCore/rht_HP_scl_buf [6]) );
-  DFCNQD1BWP \iCore/rht_HP_scl_buf_reg[7]  ( .D(\iCore/rht_HP_scl [7]), .CP(
-        clk), .CDN(n380), .Q(\iCore/rht_HP_scl_buf [7]) );
-  DFCNQD1BWP \iCore/rht_HP_scl_buf_reg[8]  ( .D(\iCore/rht_HP_scl [8]), .CP(
-        clk), .CDN(n380), .Q(\iCore/rht_HP_scl_buf [8]) );
-  DFCNQD1BWP \iCore/rht_HP_scl_buf_reg[9]  ( .D(\iCore/rht_HP_scl [9]), .CP(
-        clk), .CDN(n380), .Q(\iCore/rht_HP_scl_buf [9]) );
-  DFCNQD1BWP \iCore/rht_HP_scl_buf_reg[10]  ( .D(\iCore/rht_HP_scl [10]), .CP(
-        clk), .CDN(n380), .Q(\iCore/rht_HP_scl_buf [10]) );
-  DFCNQD1BWP \iCore/rht_HP_scl_buf_reg[11]  ( .D(\iCore/rht_HP_scl [11]), .CP(
-        clk), .CDN(n380), .Q(\iCore/rht_HP_scl_buf [11]) );
-  DFCNQD1BWP \iCore/rht_HP_scl_buf_reg[12]  ( .D(\iCore/rht_HP_scl [12]), .CP(
-        clk), .CDN(n380), .Q(\iCore/rht_HP_scl_buf [12]) );
-  DFCNQD1BWP \iCore/rht_HP_scl_buf_reg[13]  ( .D(\iCore/rht_HP_scl [13]), .CP(
-        clk), .CDN(n379), .Q(\iCore/rht_HP_scl_buf [13]) );
-  DFCNQD1BWP \iCore/rht_HP_scl_buf_reg[14]  ( .D(\iCore/rht_HP_scl [14]), .CP(
-        clk), .CDN(n379), .Q(\iCore/rht_HP_scl_buf [14]) );
-  DFCNQD1BWP \iCore/rht_HP_scl_buf_reg[15]  ( .D(\iCore/rht_HP_scl [15]), .CP(
-        clk), .CDN(n379), .Q(\iCore/rht_HP_scl_buf [15]) );
+        .CP(clk), .CDN(n347), .Q(\iCore/lft_sum_out_buf [15]) );
   DFCNQD1BWP \iCore/rht_sum_out_buf_reg[0]  ( .D(\iCore/rht_sum_out [0]), .CP(
-        clk), .CDN(n379), .Q(\iCore/rht_sum_out_buf [0]) );
+        clk), .CDN(n347), .Q(\iCore/rht_sum_out_buf [0]) );
   DFCNQD1BWP \iCore/rht_sum_out_buf_reg[1]  ( .D(\iCore/rht_sum_out [1]), .CP(
-        clk), .CDN(n379), .Q(\iCore/rht_sum_out_buf [1]) );
+        clk), .CDN(n347), .Q(\iCore/rht_sum_out_buf [1]) );
   DFCNQD1BWP \iCore/rht_sum_out_buf_reg[2]  ( .D(\iCore/rht_sum_out [2]), .CP(
-        clk), .CDN(n379), .Q(\iCore/rht_sum_out_buf [2]) );
+        clk), .CDN(n347), .Q(\iCore/rht_sum_out_buf [2]) );
   DFCNQD1BWP \iCore/rht_sum_out_buf_reg[3]  ( .D(\iCore/rht_sum_out [3]), .CP(
-        clk), .CDN(n379), .Q(\iCore/rht_sum_out_buf [3]) );
+        clk), .CDN(n347), .Q(\iCore/rht_sum_out_buf [3]) );
+  DFCNQD1BWP \iCore/rht_sum_out_buf_reg[4]  ( .D(\iCore/rht_sum_out [4]), .CP(
+        clk), .CDN(n347), .Q(\iCore/rht_sum_out_buf [4]) );
   DFCNQD1BWP \iCore/rht_sum_out_buf_reg[5]  ( .D(\iCore/rht_sum_out [5]), .CP(
-        clk), .CDN(n379), .Q(\iCore/rht_sum_out_buf [5]) );
+        clk), .CDN(n347), .Q(\iCore/rht_sum_out_buf [5]) );
   DFCNQD1BWP \iCore/rht_sum_out_buf_reg[6]  ( .D(\iCore/rht_sum_out [6]), .CP(
-        clk), .CDN(n379), .Q(\iCore/rht_sum_out_buf [6]) );
+        clk), .CDN(n347), .Q(\iCore/rht_sum_out_buf [6]) );
   DFCNQD1BWP \iCore/rht_sum_out_buf_reg[7]  ( .D(\iCore/rht_sum_out [7]), .CP(
-        clk), .CDN(n379), .Q(\iCore/rht_sum_out_buf [7]) );
+        clk), .CDN(n347), .Q(\iCore/rht_sum_out_buf [7]) );
   DFCNQD1BWP \iCore/rht_sum_out_buf_reg[8]  ( .D(\iCore/rht_sum_out [8]), .CP(
-        clk), .CDN(n379), .Q(\iCore/rht_sum_out_buf [8]) );
+        clk), .CDN(n347), .Q(\iCore/rht_sum_out_buf [8]) );
   DFCNQD1BWP \iCore/rht_sum_out_buf_reg[9]  ( .D(\iCore/rht_sum_out [9]), .CP(
-        clk), .CDN(n379), .Q(\iCore/rht_sum_out_buf [9]) );
+        clk), .CDN(n347), .Q(\iCore/rht_sum_out_buf [9]) );
   DFCNQD1BWP \iCore/rht_sum_out_buf_reg[10]  ( .D(\iCore/rht_sum_out [10]), 
-        .CP(clk), .CDN(n379), .Q(\iCore/rht_sum_out_buf [10]) );
+        .CP(clk), .CDN(n347), .Q(\iCore/rht_sum_out_buf [10]) );
   DFCNQD1BWP \iCore/rht_sum_out_buf_reg[11]  ( .D(\iCore/rht_sum_out [11]), 
-        .CP(clk), .CDN(n379), .Q(\iCore/rht_sum_out_buf [11]) );
+        .CP(clk), .CDN(n347), .Q(\iCore/rht_sum_out_buf [11]) );
   DFCNQD1BWP \iCore/rht_sum_out_buf_reg[12]  ( .D(\iCore/rht_sum_out [12]), 
-        .CP(clk), .CDN(n379), .Q(\iCore/rht_sum_out_buf [12]) );
+        .CP(clk), .CDN(n347), .Q(\iCore/rht_sum_out_buf [12]) );
   DFCNQD1BWP \iCore/rht_sum_out_buf_reg[13]  ( .D(\iCore/rht_sum_out [13]), 
-        .CP(clk), .CDN(n379), .Q(\iCore/rht_sum_out_buf [13]) );
+        .CP(clk), .CDN(n347), .Q(\iCore/rht_sum_out_buf [13]) );
   DFCNQD1BWP \iCore/rht_sum_out_buf_reg[14]  ( .D(\iCore/rht_sum_out [14]), 
-        .CP(clk), .CDN(n379), .Q(\iCore/rht_sum_out_buf [14]) );
+        .CP(clk), .CDN(n348), .Q(\iCore/rht_sum_out_buf [14]) );
   DFCNQD1BWP \iCore/rht_sum_out_buf_reg[15]  ( .D(\iCore/rht_sum_out [15]), 
-        .CP(clk), .CDN(n379), .Q(\iCore/rht_sum_out_buf [15]) );
-  DFCNQD1BWP \iCS/shift_reg_reg[0]  ( .D(n181), .CP(clk), .CDN(n379), .Q(
+        .CP(clk), .CDN(n348), .Q(\iCore/rht_sum_out_buf [15]) );
+  DFCNQD1BWP \iCS/shift_reg_reg[0]  ( .D(n181), .CP(clk), .CDN(n348), .Q(
         \iCS/shift_reg [0]) );
-  DFCNQD1BWP \iCS/shift_reg_reg[1]  ( .D(n180), .CP(clk), .CDN(n379), .Q(
+  DFCNQD1BWP \iCS/shift_reg_reg[1]  ( .D(n180), .CP(clk), .CDN(n348), .Q(
         \iCS/shift_reg [1]) );
-  DFCNQD1BWP \iCS/shift_reg_reg[2]  ( .D(n179), .CP(clk), .CDN(n379), .Q(
+  DFCNQD1BWP \iCS/shift_reg_reg[2]  ( .D(n179), .CP(clk), .CDN(n348), .Q(
         \iCS/shift_reg [2]) );
-  DFCNQD1BWP \iCS/shift_reg_reg[3]  ( .D(n178), .CP(clk), .CDN(n379), .Q(
+  DFCNQD1BWP \iCS/shift_reg_reg[3]  ( .D(n178), .CP(clk), .CDN(n348), .Q(
         \iCS/shift_reg [3]) );
-  DFCNQD1BWP \iCS/shift_reg_reg[4]  ( .D(n177), .CP(clk), .CDN(n379), .Q(
+  DFCNQD1BWP \iCS/shift_reg_reg[4]  ( .D(n177), .CP(clk), .CDN(n348), .Q(
         \iCS/shift_reg [4]) );
-  DFCNQD1BWP \iCS/shift_reg_reg[5]  ( .D(n176), .CP(clk), .CDN(n379), .Q(
+  DFCNQD1BWP \iCS/shift_reg_reg[5]  ( .D(n176), .CP(clk), .CDN(n348), .Q(
         \iCS/shift_reg [5]) );
-  DFCNQD1BWP \iCS/shift_reg_reg[6]  ( .D(n175), .CP(clk), .CDN(n379), .Q(
+  DFCNQD1BWP \iCS/shift_reg_reg[6]  ( .D(n175), .CP(clk), .CDN(n348), .Q(
         \iCS/shift_reg [6]) );
-  DFCNQD1BWP \iCS/shift_reg_reg[7]  ( .D(n174), .CP(clk), .CDN(n378), .Q(
+  DFCNQD1BWP \iCS/shift_reg_reg[7]  ( .D(n174), .CP(clk), .CDN(n348), .Q(
         \iCS/shift_reg [7]) );
-  DFCNQD1BWP \iCS/shift_reg_reg[8]  ( .D(n173), .CP(clk), .CDN(n378), .Q(
+  DFCNQD1BWP \iCS/shift_reg_reg[8]  ( .D(n173), .CP(clk), .CDN(n348), .Q(
         \iCS/shift_reg [8]) );
-  DFCNQD1BWP \iCS/shift_reg_reg[9]  ( .D(n172), .CP(clk), .CDN(n378), .Q(
+  DFCNQD1BWP \iCS/shift_reg_reg[9]  ( .D(n172), .CP(clk), .CDN(n348), .Q(
         \iCS/shift_reg [9]) );
-  DFCNQD1BWP \iCS/shift_reg_reg[10]  ( .D(n171), .CP(clk), .CDN(n378), .Q(
+  DFCNQD1BWP \iCS/shift_reg_reg[10]  ( .D(n171), .CP(clk), .CDN(n348), .Q(
         \iCS/shift_reg [10]) );
-  DFCNQD1BWP \iCS/shift_reg_reg[11]  ( .D(n170), .CP(clk), .CDN(n378), .Q(
+  DFCNQD1BWP \iCS/shift_reg_reg[11]  ( .D(n170), .CP(clk), .CDN(n348), .Q(
         \iCS/shift_reg [11]) );
-  DFCNQD1BWP \iCS/shift_reg_reg[12]  ( .D(n169), .CP(clk), .CDN(n378), .Q(
+  DFCNQD1BWP \iCS/shift_reg_reg[12]  ( .D(n169), .CP(clk), .CDN(n348), .Q(
         \iCS/shift_reg [12]) );
-  DFCNQD1BWP \iCS/shift_reg_reg[13]  ( .D(n168), .CP(clk), .CDN(n378), .Q(
+  DFCNQD1BWP \iCS/shift_reg_reg[13]  ( .D(n168), .CP(clk), .CDN(n348), .Q(
         \iCS/shift_reg [13]) );
-  DFCNQD1BWP \iCS/shift_reg_reg[14]  ( .D(n167), .CP(clk), .CDN(n378), .Q(
+  DFCNQD1BWP \iCS/shift_reg_reg[14]  ( .D(n167), .CP(clk), .CDN(n348), .Q(
         \iCS/shift_reg [14]) );
-  DFCNQD1BWP \iCS/shift_reg_reg[15]  ( .D(n166), .CP(clk), .CDN(n382), .Q(
+  DFCNQD1BWP \iCS/shift_reg_reg[15]  ( .D(n166), .CP(clk), .CDN(n348), .Q(
         \iCS/shift_reg [15]) );
   XOR2D1BWP U1 ( .A1(\iCore/wrt_sig ), .A2(\iCore/wrt_en ), .Z(n128) );
-  AO222D1BWP U55 ( .A1(rht_out[0]), .A2(n299), .B1(\iCS/shift_reg [0]), .B2(
-        n40), .C1(lft_out[0]), .C2(n295), .Z(n181) );
+  AO222D1BWP U55 ( .A1(rht_out[0]), .A2(n305), .B1(\iCS/shift_reg [0]), .B2(
+        n40), .C1(lft_out[0]), .C2(n301), .Z(n181) );
   XNR2D1BWP U226 ( .A1(n121), .A2(\iA2D/state [1]), .ZN(\iA2D/nxt_state [1])
          );
-  SPI_mstr \iA2D/iDUT  ( .clk(clk), .rst_n(n370), .SS_n(A2D_SS_n), .SCLK(
+  SPI_mstr \iA2D/iDUT  ( .clk(clk), .rst_n(n339), .SS_n(A2D_SS_n), .SCLK(
         A2D_SCLK), .MISO(A2D_MISO), .MOSI(A2D_MOSI), .wrt(n131), .done(
         \iA2D/done_en ), .rd_data({SYNOPSYS_UNCONNECTED__0, 
         SYNOPSYS_UNCONNECTED__1, SYNOPSYS_UNCONNECTED__2, 
@@ -785,607 +397,605 @@ module Equalizer ( clk, RST_n, LED, A2D_SS_n, A2D_MOSI, A2D_SCLK, A2D_MISO,
         \iA2D/*Logic0* , \iA2D/*Logic0* , \iA2D/*Logic0* , \iA2D/*Logic0* , 
         \iA2D/*Logic0* , \iA2D/*Logic0* , \iA2D/*Logic0* , \iA2D/*Logic0* })
          );
-  band_scale_11 \iCore/rht_scale_vol_final  ( .clk(clk), .pot(volume), .audio(
-        \iCore/rht_sum_out_buf ), .scaled(rht_out) );
-  band_scale_10 \iCore/lft_scale_vol_final  ( .clk(clk), .pot(volume), .audio(
-        \iCore/lft_sum_out_buf ), .scaled(lft_out) );
-  band_scale_sum_1 \iCore/rht_scale_vol  ( .LP_scl(\iCore/rht_LP_scl_buf ), 
-        .B1_scl(\iCore/rht_B1_scl_buf ), .B2_scl(\iCore/rht_B2_scl_buf ), 
-        .B3_scl(\iCore/rht_B3_scl_buf ), .HP_scl(\iCore/rht_HP_scl_buf ), 
-        .out(\iCore/rht_sum_out ) );
-  band_scale_sum_0 \iCore/lft_scale_vol  ( .LP_scl(\iCore/lft_LP_scl_buf ), 
-        .B1_scl(\iCore/lft_B1_scl_buf ), .B2_scl(\iCore/lft_B2_scl_buf ), 
-        .B3_scl(\iCore/lft_B3_scl_buf ), .HP_scl(\iCore/lft_HP_scl_buf ), 
-        .out(\iCore/lft_sum_out ) );
+  band_scale_11 \iCore/rht_scale_vol_final  ( .clk(clk), .pot({volume[11:7], 
+        n293, volume[5:1], n300}), .audio(\iCore/rht_sum_out_buf ), .scaled(
+        rht_out) );
+  band_scale_10 \iCore/lft_scale_vol_final  ( .clk(clk), .pot({volume[11:7], 
+        n293, volume[5:1], n300}), .audio(\iCore/lft_sum_out_buf ), .scaled(
+        lft_out) );
+  band_scale_sum_1 \iCore/rht_scale_vol  ( .LP_scl(\iCore/rht_LP_scl ), 
+        .B1_scl(\iCore/rht_B1_scl ), .B2_scl(\iCore/rht_B2_scl ), .B3_scl(
+        \iCore/rht_B3_scl ), .HP_scl(\iCore/rht_HP_scl ), .out(
+        \iCore/rht_sum_out ) );
+  band_scale_sum_0 \iCore/lft_scale_vol  ( .LP_scl(\iCore/lft_LP_scl ), 
+        .B1_scl(\iCore/lft_B1_scl ), .B2_scl(\iCore/lft_B2_scl ), .B3_scl(
+        \iCore/lft_B3_scl ), .HP_scl(\iCore/lft_HP_scl ), .out(
+        \iCore/lft_sum_out ) );
   band_scale_9 \iCore/rht_scale_HP  ( .clk(clk), .pot(HP_pot), .audio(
         \iCore/rht_HP_out ), .scaled(\iCore/rht_HP_scl ) );
   band_scale_8 \iCore/rht_scale_B3  ( .clk(clk), .pot(B3_pot), .audio(
         \iCore/rht_B3_out ), .scaled(\iCore/rht_B3_scl ) );
-  band_scale_7 \iCore/rht_scale_B2  ( .clk(clk), .pot(B2_pot), .audio(
-        \iCore/rht_B2_out ), .scaled(\iCore/rht_B2_scl ) );
-  band_scale_6 \iCore/rht_scale_B1  ( .clk(clk), .pot(B1_pot), .audio(
-        \iCore/rht_B1_out ), .scaled(\iCore/rht_B1_scl ) );
-  band_scale_5 \iCore/rht_scale_lp  ( .clk(clk), .pot(LP_pot), .audio(
-        \iCore/rht_LP_out ), .scaled(\iCore/rht_LP_scl ) );
-  HP_FIR_1 \iCore/rht_HP  ( .clk(clk), .rst_n(n368), .sequencing(n330), 
-        .smpl_in({n326, \iCore/rht_q1536_out [14:8], n327, 
-        \iCore/rht_q1536_out [6:1], n329}), .smpl_out(\iCore/rht_HP_out ) );
-  B3_FIR_1 \iCore/rht_B3  ( .clk(clk), .rst_n(n370), .sequencing(n330), 
-        .smpl_in({n326, \iCore/rht_q1536_out [14:2], n328, n329}), .smpl_out(
+  band_scale_7 \iCore/rht_scale_B2  ( .clk(clk), .pot({B2_pot[11:7], n294, 
+        n295, B2_pot[4:0]}), .audio(\iCore/rht_B2_out ), .scaled(
+        \iCore/rht_B2_scl ) );
+  band_scale_6 \iCore/rht_scale_B1  ( .clk(clk), .pot({B1_pot[11:1], n297}), 
+        .audio(\iCore/rht_B1_out ), .scaled(\iCore/rht_B1_scl ) );
+  band_scale_5 \iCore/rht_scale_lp  ( .clk(clk), .pot({LP_pot[11:4], n299, 
+        LP_pot[2:1], n296}), .audio(\iCore/rht_LP_out ), .scaled(
+        \iCore/rht_LP_scl ) );
+  HP_FIR_1 \iCore/rht_HP  ( .clk(clk), .rst_n(n338), .sequencing(
+        \iCore/rht_seq_1536 ), .smpl_in(\iCore/rht_q1536_out ), .smpl_out(
+        \iCore/rht_HP_out ) );
+  B3_FIR_1 \iCore/rht_B3  ( .clk(clk), .rst_n(n339), .sequencing(
+        \iCore/rht_seq_1536 ), .smpl_in(\iCore/rht_q1536_out ), .smpl_out(
         \iCore/rht_B3_out ) );
-  B2_FIR_1 \iCore/rht_B2  ( .clk(clk), .rst_n(n369), .sequencing(n325), 
-        .smpl_in({\iCore/rht_q1024_out [15:3], n322, n323, n324}), .smpl_out(
+  B2_FIR_1 \iCore/rht_B2  ( .clk(clk), .rst_n(n338), .sequencing(
+        \iCore/rht_seq_1024 ), .smpl_in(\iCore/rht_q1024_out ), .smpl_out(
         \iCore/rht_B2_out ) );
-  B1_FIR_1 \iCore/rht_B1  ( .clk(clk), .rst_n(n369), .sequencing(n325), 
-        .smpl_in({\iCore/rht_q1024_out [15:3], n322, n323, n324}), .smpl_out(
+  B1_FIR_1 \iCore/rht_B1  ( .clk(clk), .rst_n(n338), .sequencing(
+        \iCore/rht_seq_1024 ), .smpl_in(\iCore/rht_q1024_out ), .smpl_out(
         \iCore/rht_B1_out ) );
-  LP_FIR_1 \iCore/rht_LP  ( .clk(clk), .rst_n(n367), .sequencing(n325), 
-        .smpl_in({\iCore/rht_q1024_out [15:5], n321, \iCore/rht_q1024_out [3], 
-        n322, n323, n324}), .smpl_out(\iCore/rht_LP_out ) );
-  queue1024_3 \iCore/rht_q1536  ( .clk(clk), .rst_n(n370), .new_smpl(rht_in), 
+  LP_FIR_1 \iCore/rht_LP  ( .clk(clk), .rst_n(n337), .sequencing(
+        \iCore/rht_seq_1024 ), .smpl_in(\iCore/rht_q1024_out ), .smpl_out(
+        \iCore/rht_LP_out ) );
+  queue1024_3 \iCore/rht_q1536  ( .clk(clk), .rst_n(n340), .new_smpl(rht_in), 
         .smpl_out(\iCore/rht_q1536_out ), .wrt_smpl(\iCore/wrt_sig ), 
         .sequencing(\iCore/rht_seq_1536 ) );
-  queue1024_2 \iCore/rht_q1024  ( .clk(clk), .rst_n(n371), .new_smpl(rht_in), 
+  queue1024_2 \iCore/rht_q1024  ( .clk(clk), .rst_n(n339), .new_smpl(rht_in), 
         .smpl_out(\iCore/rht_q1024_out ), .wrt_smpl(\iCore/_1_net_ ), 
         .sequencing(\iCore/rht_seq_1024 ) );
   band_scale_4 \iCore/lft_scale_HP  ( .clk(clk), .pot(HP_pot), .audio(
         \iCore/lft_HP_out ), .scaled(\iCore/lft_HP_scl ) );
   band_scale_3 \iCore/lft_scale_B3  ( .clk(clk), .pot(B3_pot), .audio(
         \iCore/lft_B3_out ), .scaled(\iCore/lft_B3_scl ) );
-  band_scale_2 \iCore/lft_scale_B2  ( .clk(clk), .pot(B2_pot), .audio(
-        \iCore/lft_B2_out ), .scaled(\iCore/lft_B2_scl ) );
+  band_scale_2 \iCore/lft_scale_B2  ( .clk(clk), .pot({B2_pot[11:7], n294, 
+        n295, B2_pot[4:0]}), .audio(\iCore/lft_B2_out ), .scaled(
+        \iCore/lft_B2_scl ) );
   band_scale_1 \iCore/lft_scale_B1  ( .clk(clk), .pot(B1_pot), .audio(
         \iCore/lft_B1_out ), .scaled(\iCore/lft_B1_scl ) );
-  band_scale_0 \iCore/lft_scale_lp  ( .clk(clk), .pot(LP_pot), .audio(
-        \iCore/lft_LP_out ), .scaled(\iCore/lft_LP_scl ) );
-  HP_FIR_0 \iCore/lft_HP  ( .clk(clk), .rst_n(n369), .sequencing(n320), 
-        .smpl_in({n315, \iCore/lft_q1536_out [14:3], n317, n318, n319}), 
-        .smpl_out(\iCore/lft_HP_out ) );
-  B3_FIR_0 \iCore/lft_B3  ( .clk(clk), .rst_n(n367), .sequencing(n320), 
-        .smpl_in({n315, \iCore/lft_q1536_out [14:8], n316, 
-        \iCore/lft_q1536_out [6:3], n317, n318, n319}), .smpl_out(
+  band_scale_0 \iCore/lft_scale_lp  ( .clk(clk), .pot({LP_pot[11:1], n292}), 
+        .audio(\iCore/lft_LP_out ), .scaled(\iCore/lft_LP_scl ) );
+  HP_FIR_0 \iCore/lft_HP  ( .clk(clk), .rst_n(n337), .sequencing(
+        \iCore/lft_seq_1536 ), .smpl_in(\iCore/lft_q1536_out ), .smpl_out(
+        \iCore/lft_HP_out ) );
+  B3_FIR_0 \iCore/lft_B3  ( .clk(clk), .rst_n(n336), .sequencing(
+        \iCore/lft_seq_1536 ), .smpl_in(\iCore/lft_q1536_out ), .smpl_out(
         \iCore/lft_B3_out ) );
-  B2_FIR_0 \iCore/lft_B2  ( .clk(clk), .rst_n(n368), .sequencing(n314), 
-        .smpl_in({n309, \iCore/lft_q1024_out [14:4], n311, n312, n313, 
-        \iCore/lft_q1024_out [0]}), .smpl_out(\iCore/lft_B2_out ) );
-  B1_FIR_0 \iCore/lft_B1  ( .clk(clk), .rst_n(n367), .sequencing(n314), 
-        .smpl_in({n292, \iCore/lft_q1024_out [14:4], n311, n312, n313, 
-        \iCore/lft_q1024_out [0]}), .smpl_out(\iCore/lft_B1_out ) );
-  LP_FIR_0 \iCore/lft_LP  ( .clk(clk), .rst_n(n368), .sequencing(n314), 
-        .smpl_in({n293, \iCore/lft_q1024_out [14], n310, 
-        \iCore/lft_q1024_out [12:4], n311, n312, n313, 
-        \iCore/lft_q1024_out [0]}), .smpl_out(\iCore/lft_LP_out ) );
-  queue1024_1 \iCore/lft_q1536  ( .clk(clk), .rst_n(n371), .new_smpl(lft_in), 
+  B2_FIR_0 \iCore/lft_B2  ( .clk(clk), .rst_n(n336), .sequencing(
+        \iCore/lft_seq_1024 ), .smpl_in(\iCore/lft_q1024_out ), .smpl_out(
+        \iCore/lft_B2_out ) );
+  B1_FIR_0 \iCore/lft_B1  ( .clk(clk), .rst_n(n336), .sequencing(
+        \iCore/lft_seq_1024 ), .smpl_in(\iCore/lft_q1024_out ), .smpl_out(
+        \iCore/lft_B1_out ) );
+  LP_FIR_0 \iCore/lft_LP  ( .clk(clk), .rst_n(n337), .sequencing(
+        \iCore/lft_seq_1024 ), .smpl_in(\iCore/lft_q1024_out ), .smpl_out(
+        \iCore/lft_LP_out ) );
+  queue1024_1 \iCore/lft_q1536  ( .clk(clk), .rst_n(n340), .new_smpl(lft_in), 
         .smpl_out(\iCore/lft_q1536_out ), .wrt_smpl(\iCore/wrt_sig ), 
         .sequencing(\iCore/lft_seq_1536 ) );
-  queue1024_0 \iCore/lft_q1024  ( .clk(clk), .rst_n(n370), .new_smpl(lft_in), 
+  queue1024_0 \iCore/lft_q1024  ( .clk(clk), .rst_n(n339), .new_smpl(lft_in), 
         .smpl_out(\iCore/lft_q1024_out ), .wrt_smpl(\iCore/_1_net_ ), 
         .sequencing(\iCore/lft_seq_1024 ) );
   Equalizer_DW01_inc_1 \iCS/add_30  ( .A({LRCLK, \iCS/timer , SCL, 
         \iCS/timer_3 , \iCS/timer_2 , MCLK, \iCS/timer_0 }), .SUM({\iCS/N26 , 
         \iCS/N25 , \iCS/N24 , \iCS/N23 , \iCS/N22 , \iCS/N21 , \iCS/N20 , 
         \iCS/N19 , \iCS/N18 , \iCS/N17 }) );
-  EDFCND1BWP \iCS/lft_in_buf_reg[15]  ( .D(n15), .E(n296), .CP(clk), .CDN(n371), .QN(n147) );
-  EDFCND1BWP \iCS/rht_in_buf_reg[15]  ( .D(n30), .E(n164), .CP(clk), .CDN(n372), .QN(n163) );
-  DFCNQD4BWP \iCS/timer_reg[4]  ( .D(\iCS/N21 ), .CP(clk), .CDN(n375), .Q(SCL)
+  EDFCND1BWP \iCS/lft_in_buf_reg[15]  ( .D(n15), .E(n302), .CP(clk), .CDN(n340), .QN(n147) );
+  EDFCND1BWP \iCS/rht_in_buf_reg[15]  ( .D(n30), .E(n164), .CP(clk), .CDN(n341), .QN(n163) );
+  DFCNQD4BWP \iSLD/POT_LP_reg[1]  ( .D(n290), .CP(clk), .CDN(n344), .Q(
+        LP_pot[1]) );
+  DFCNQD4BWP \iSLD/POT_HP_reg[1]  ( .D(n242), .CP(clk), .CDN(n344), .Q(
+        HP_pot[1]) );
+  DFCNQD4BWP \iSLD/POT_B2_reg[1]  ( .D(n266), .CP(clk), .CDN(n343), .Q(
+        B2_pot[1]) );
+  DFCNQD4BWP \iSLD/POT_B1_reg[1]  ( .D(n278), .CP(clk), .CDN(n342), .Q(
+        B1_pot[1]) );
+  DFCNQD4BWP \iSLD/POT_HP_reg[4]  ( .D(n239), .CP(clk), .CDN(n344), .Q(
+        HP_pot[4]) );
+  DFCNQD4BWP \iSLD/VOLUME_reg[1]  ( .D(n230), .CP(clk), .CDN(n343), .Q(
+        volume[1]) );
+  DFCNQD4BWP \iSLD/POT_B1_reg[3]  ( .D(n276), .CP(clk), .CDN(n342), .Q(
+        B1_pot[3]) );
+  DFCNQD4BWP \iSLD/POT_B3_reg[1]  ( .D(n254), .CP(clk), .CDN(n342), .Q(
+        B3_pot[1]) );
+  DFCNQD4BWP \iSLD/POT_B2_reg[4]  ( .D(n263), .CP(clk), .CDN(n343), .Q(
+        B2_pot[4]) );
+  DFCNQD4BWP \iSLD/POT_HP_reg[2]  ( .D(n241), .CP(clk), .CDN(n344), .Q(
+        HP_pot[2]) );
+  DFCNQD4BWP \iSLD/POT_B3_reg[2]  ( .D(n253), .CP(clk), .CDN(n342), .Q(
+        B3_pot[2]) );
+  DFCNQD4BWP \iSLD/VOLUME_reg[2]  ( .D(n229), .CP(clk), .CDN(n343), .Q(
+        volume[2]) );
+  DFCNQD4BWP \iSLD/POT_HP_reg[3]  ( .D(n240), .CP(clk), .CDN(n344), .Q(
+        HP_pot[3]) );
+  DFCNQD4BWP \iSLD/POT_LP_reg[2]  ( .D(n289), .CP(clk), .CDN(n344), .Q(
+        LP_pot[2]) );
+  DFCNQD4BWP \iSLD/VOLUME_reg[3]  ( .D(n228), .CP(clk), .CDN(n343), .Q(
+        volume[3]) );
+  DFCNQD4BWP \iSLD/POT_B1_reg[2]  ( .D(n277), .CP(clk), .CDN(n341), .Q(
+        B1_pot[2]) );
+  DFCNQD4BWP \iSLD/POT_B2_reg[3]  ( .D(n264), .CP(clk), .CDN(n343), .Q(
+        B2_pot[3]) );
+  DFCNQD4BWP \iSLD/POT_LP_reg[4]  ( .D(n287), .CP(clk), .CDN(n344), .Q(
+        LP_pot[4]) );
+  DFCNQD4BWP \iSLD/VOLUME_reg[4]  ( .D(n227), .CP(clk), .CDN(n343), .Q(
+        volume[4]) );
+  DFCNQD4BWP \iSLD/POT_HP_reg[0]  ( .D(n243), .CP(clk), .CDN(n344), .Q(
+        HP_pot[0]) );
+  DFCNQD4BWP \iSLD/POT_LP_reg[3]  ( .D(n288), .CP(clk), .CDN(n344), .Q(
+        LP_pot[3]) );
+  DFCNQD4BWP \iSLD/POT_B2_reg[2]  ( .D(n265), .CP(clk), .CDN(n343), .Q(
+        B2_pot[2]) );
+  DFCNQD4BWP \iSLD/POT_B1_reg[0]  ( .D(n279), .CP(clk), .CDN(n341), .Q(
+        B1_pot[0]) );
+  DFCNQD4BWP \iSLD/POT_B3_reg[4]  ( .D(n251), .CP(clk), .CDN(n342), .Q(
+        B3_pot[4]) );
+  DFCNQD4BWP \iSLD/POT_B2_reg[0]  ( .D(n267), .CP(clk), .CDN(n343), .Q(
+        B2_pot[0]) );
+  DFCNQD4BWP \iSLD/POT_B3_reg[0]  ( .D(n255), .CP(clk), .CDN(n342), .Q(
+        B3_pot[0]) );
+  DFCNQD4BWP \iSLD/POT_B3_reg[3]  ( .D(n252), .CP(clk), .CDN(n342), .Q(
+        B3_pot[3]) );
+  DFCNQD4BWP \iSLD/POT_B3_reg[5]  ( .D(n250), .CP(clk), .CDN(n342), .Q(
+        B3_pot[5]) );
+  DFCNQD1BWP \iSLD/POT_LP_reg[0]  ( .D(n291), .CP(clk), .CDN(n344), .Q(
+        LP_pot[0]) );
+  DFCNQD4BWP \iCS/timer_reg[4]  ( .D(\iCS/N21 ), .CP(clk), .CDN(n341), .Q(SCL)
          );
-  DFCNQD4BWP \iCS/timer_reg[1]  ( .D(\iCS/N18 ), .CP(clk), .CDN(n375), .Q(MCLK) );
-  DFCNQD4BWP \iCS/RSTn_reg  ( .D(n129), .CP(clk), .CDN(n375), .Q(RSTn) );
-  DFCNQD4BWP \iCS/SDin_reg  ( .D(\iCS/shift_reg [15]), .CP(clk), .CDN(n375), 
+  DFCNQD4BWP \iCS/timer_reg[1]  ( .D(\iCS/N18 ), .CP(clk), .CDN(n342), .Q(MCLK) );
+  DFCNQD4BWP \iCS/RSTn_reg  ( .D(n129), .CP(clk), .CDN(n341), .Q(RSTn) );
+  DFCNQD4BWP \iCS/SDin_reg  ( .D(\iCS/shift_reg [15]), .CP(clk), .CDN(n342), 
         .Q(SDin) );
-  DFCNQD4BWP \iCS/timer_reg[9]  ( .D(\iCS/N26 ), .CP(clk), .CDN(n375), .Q(
+  DFCNQD4BWP \iCS/timer_reg[9]  ( .D(\iCS/N26 ), .CP(clk), .CDN(n342), .Q(
         LRCLK) );
-  DFCNQD4BWP \iSLD/POT_LP_reg[6]  ( .D(n285), .CP(clk), .CDN(n377), .Q(
-        LP_pot[6]) );
-  DFCNQD4BWP \iSLD/POT_HP_reg[6]  ( .D(n237), .CP(clk), .CDN(n378), .Q(
-        HP_pot[6]) );
-  DFCNQD4BWP \iSLD/POT_B3_reg[6]  ( .D(n249), .CP(clk), .CDN(n376), .Q(
-        B3_pot[6]) );
-  DFCNQD2BWP \iCore/lft_sum_out_buf_reg[4]  ( .D(\iCore/lft_sum_out [4]), .CP(
-        clk), .CDN(n380), .Q(\iCore/lft_sum_out_buf [4]) );
-  DFCNQD2BWP \iCore/rht_sum_out_buf_reg[4]  ( .D(\iCore/rht_sum_out [4]), .CP(
-        clk), .CDN(n379), .Q(\iCore/rht_sum_out_buf [4]) );
-  EDFCND1BWP \iCS/rht_in_buf_reg[14]  ( .D(n29), .E(n164), .CP(clk), .CDN(n372), .Q(n30), .QN(n162) );
-  EDFCND1BWP \iCS/rht_in_buf_reg[13]  ( .D(n28), .E(n164), .CP(clk), .CDN(n372), .Q(n29), .QN(n161) );
-  EDFCND1BWP \iCS/rht_in_buf_reg[12]  ( .D(n27), .E(n164), .CP(clk), .CDN(n372), .Q(n28), .QN(n160) );
-  EDFCND1BWP \iCS/rht_in_buf_reg[11]  ( .D(n26), .E(n164), .CP(clk), .CDN(n372), .Q(n27), .QN(n159) );
-  EDFCND1BWP \iCS/rht_in_buf_reg[10]  ( .D(n25), .E(n164), .CP(clk), .CDN(n372), .Q(n26), .QN(n158) );
-  EDFCND1BWP \iCS/rht_in_buf_reg[9]  ( .D(n24), .E(n164), .CP(clk), .CDN(n372), 
+  DFCSNQD2BWP \iSLD/VOLUME_reg[0]  ( .D(n231), .CP(clk), .CDN(rst_n), .SDN(
+        \iRST/*Logic1* ), .Q(n300) );
+  EDFCND1BWP \iCS/rht_in_buf_reg[14]  ( .D(n29), .E(n164), .CP(clk), .CDN(n341), .Q(n30), .QN(n162) );
+  EDFCND1BWP \iCS/rht_in_buf_reg[13]  ( .D(n28), .E(n164), .CP(clk), .CDN(n341), .Q(n29), .QN(n161) );
+  EDFCND1BWP \iCS/rht_in_buf_reg[12]  ( .D(n27), .E(n164), .CP(clk), .CDN(n341), .Q(n28), .QN(n160) );
+  EDFCND1BWP \iCS/rht_in_buf_reg[11]  ( .D(n26), .E(n164), .CP(clk), .CDN(n341), .Q(n27), .QN(n159) );
+  EDFCND1BWP \iCS/rht_in_buf_reg[10]  ( .D(n25), .E(n164), .CP(clk), .CDN(n340), .Q(n26), .QN(n158) );
+  EDFCND1BWP \iCS/rht_in_buf_reg[9]  ( .D(n24), .E(n164), .CP(clk), .CDN(n341), 
         .Q(n25), .QN(n157) );
-  EDFCND1BWP \iCS/rht_in_buf_reg[8]  ( .D(n23), .E(n164), .CP(clk), .CDN(n372), 
+  EDFCND1BWP \iCS/rht_in_buf_reg[8]  ( .D(n23), .E(n164), .CP(clk), .CDN(n341), 
         .Q(n24), .QN(n156) );
-  EDFCND1BWP \iCS/rht_in_buf_reg[7]  ( .D(n22), .E(n164), .CP(clk), .CDN(n372), 
+  EDFCND1BWP \iCS/rht_in_buf_reg[7]  ( .D(n22), .E(n164), .CP(clk), .CDN(n341), 
         .Q(n23), .QN(n155) );
-  EDFCND1BWP \iCS/rht_in_buf_reg[6]  ( .D(n21), .E(n164), .CP(clk), .CDN(n372), 
+  EDFCND1BWP \iCS/rht_in_buf_reg[6]  ( .D(n21), .E(n164), .CP(clk), .CDN(n341), 
         .Q(n22), .QN(n154) );
-  EDFCND1BWP \iCS/rht_in_buf_reg[5]  ( .D(n20), .E(n164), .CP(clk), .CDN(n372), 
+  EDFCND1BWP \iCS/rht_in_buf_reg[5]  ( .D(n20), .E(n164), .CP(clk), .CDN(n341), 
         .Q(n21), .QN(n153) );
-  EDFCND1BWP \iCS/rht_in_buf_reg[4]  ( .D(n19), .E(n164), .CP(clk), .CDN(n372), 
+  EDFCND1BWP \iCS/rht_in_buf_reg[4]  ( .D(n19), .E(n164), .CP(clk), .CDN(n341), 
         .Q(n20), .QN(n152) );
-  EDFCND1BWP \iCS/rht_in_buf_reg[3]  ( .D(n18), .E(n164), .CP(clk), .CDN(n372), 
+  EDFCND1BWP \iCS/rht_in_buf_reg[3]  ( .D(n18), .E(n164), .CP(clk), .CDN(n341), 
         .Q(n19), .QN(n151) );
-  EDFCND1BWP \iCS/rht_in_buf_reg[2]  ( .D(n17), .E(n164), .CP(clk), .CDN(n372), 
+  EDFCND1BWP \iCS/rht_in_buf_reg[2]  ( .D(n17), .E(n164), .CP(clk), .CDN(n341), 
         .Q(n18), .QN(n150) );
-  EDFCND1BWP \iCS/rht_in_buf_reg[1]  ( .D(n16), .E(n164), .CP(clk), .CDN(n371), 
+  EDFCND1BWP \iCS/rht_in_buf_reg[1]  ( .D(n16), .E(n164), .CP(clk), .CDN(n341), 
         .Q(n17), .QN(n149) );
   EDFCND1BWP \iCS/rht_in_buf_reg[0]  ( .D(SDout), .E(n164), .CP(clk), .CDN(
-        n371), .Q(n16), .QN(n148) );
-  EDFCND1BWP \iCS/lft_in_buf_reg[14]  ( .D(n14), .E(n296), .CP(clk), .CDN(n371), .Q(n15), .QN(n146) );
-  EDFCND1BWP \iCS/lft_in_buf_reg[13]  ( .D(n13), .E(n296), .CP(clk), .CDN(n372), .Q(n14), .QN(n145) );
-  EDFCND1BWP \iCS/lft_in_buf_reg[12]  ( .D(n12), .E(n296), .CP(clk), .CDN(n371), .Q(n13), .QN(n144) );
-  EDFCND1BWP \iCS/lft_in_buf_reg[11]  ( .D(n11), .E(n296), .CP(clk), .CDN(n371), .Q(n12), .QN(n143) );
-  EDFCND1BWP \iCS/lft_in_buf_reg[10]  ( .D(n10), .E(n296), .CP(clk), .CDN(n371), .Q(n11), .QN(n142) );
-  EDFCND1BWP \iCS/lft_in_buf_reg[9]  ( .D(n9), .E(n296), .CP(clk), .CDN(n371), 
+        n341), .Q(n16), .QN(n148) );
+  EDFCND1BWP \iCS/lft_in_buf_reg[14]  ( .D(n14), .E(n302), .CP(clk), .CDN(n340), .Q(n15), .QN(n146) );
+  EDFCND1BWP \iCS/lft_in_buf_reg[13]  ( .D(n13), .E(n302), .CP(clk), .CDN(n336), .Q(n14), .QN(n145) );
+  EDFCND1BWP \iCS/lft_in_buf_reg[12]  ( .D(n12), .E(n302), .CP(clk), .CDN(n340), .Q(n13), .QN(n144) );
+  EDFCND1BWP \iCS/lft_in_buf_reg[11]  ( .D(n11), .E(n302), .CP(clk), .CDN(n340), .Q(n12), .QN(n143) );
+  EDFCND1BWP \iCS/lft_in_buf_reg[10]  ( .D(n10), .E(n302), .CP(clk), .CDN(n340), .Q(n11), .QN(n142) );
+  EDFCND1BWP \iCS/lft_in_buf_reg[9]  ( .D(n9), .E(n302), .CP(clk), .CDN(n340), 
         .Q(n10), .QN(n141) );
-  EDFCND1BWP \iCS/lft_in_buf_reg[8]  ( .D(n8), .E(n297), .CP(clk), .CDN(n371), 
+  EDFCND1BWP \iCS/lft_in_buf_reg[8]  ( .D(n8), .E(n303), .CP(clk), .CDN(n340), 
         .Q(n9), .QN(n140) );
-  EDFCND1BWP \iCS/lft_in_buf_reg[7]  ( .D(n7), .E(n297), .CP(clk), .CDN(n371), 
+  EDFCND1BWP \iCS/lft_in_buf_reg[7]  ( .D(n7), .E(n303), .CP(clk), .CDN(n340), 
         .Q(n8), .QN(n139) );
-  EDFCND1BWP \iCS/lft_in_buf_reg[6]  ( .D(n6), .E(n297), .CP(clk), .CDN(n371), 
+  EDFCND1BWP \iCS/lft_in_buf_reg[6]  ( .D(n6), .E(n303), .CP(clk), .CDN(n340), 
         .Q(n7), .QN(n138) );
-  EDFCND1BWP \iCS/lft_in_buf_reg[5]  ( .D(n5), .E(n297), .CP(clk), .CDN(n371), 
+  EDFCND1BWP \iCS/lft_in_buf_reg[5]  ( .D(n5), .E(n303), .CP(clk), .CDN(n340), 
         .Q(n6), .QN(n137) );
-  EDFCND1BWP \iCS/lft_in_buf_reg[4]  ( .D(n4), .E(n297), .CP(clk), .CDN(n370), 
+  EDFCND1BWP \iCS/lft_in_buf_reg[4]  ( .D(n4), .E(n303), .CP(clk), .CDN(n340), 
         .Q(n5), .QN(n136) );
-  EDFCND1BWP \iCS/lft_in_buf_reg[3]  ( .D(n3), .E(n297), .CP(clk), .CDN(n369), 
+  EDFCND1BWP \iCS/lft_in_buf_reg[3]  ( .D(n3), .E(n303), .CP(clk), .CDN(n340), 
         .Q(n4), .QN(n135) );
-  EDFCND1BWP \iCS/lft_in_buf_reg[2]  ( .D(n2), .E(n297), .CP(clk), .CDN(n368), 
+  EDFCND1BWP \iCS/lft_in_buf_reg[2]  ( .D(n2), .E(n303), .CP(clk), .CDN(n339), 
         .Q(n3), .QN(n134) );
-  EDFCND1BWP \iCS/lft_in_buf_reg[1]  ( .D(n1), .E(n297), .CP(clk), .CDN(n367), 
+  EDFCND1BWP \iCS/lft_in_buf_reg[1]  ( .D(n1), .E(n303), .CP(clk), .CDN(n338), 
         .Q(n2), .QN(n133) );
-  EDFCND1BWP \iCS/lft_in_buf_reg[0]  ( .D(SDout), .E(n297), .CP(clk), .CDN(
-        n371), .Q(n1), .QN(n132) );
-  DFCNQD4BWP \iSLD/POT_B2_reg[8]  ( .D(n259), .CP(clk), .CDN(n377), .Q(
-        B2_pot[8]) );
-  DFCNQD4BWP \iSLD/POT_LP_reg[8]  ( .D(n283), .CP(clk), .CDN(n377), .Q(
-        LP_pot[8]) );
-  DFCNQD4BWP \iSLD/POT_B3_reg[8]  ( .D(n247), .CP(clk), .CDN(n376), .Q(
-        B3_pot[8]) );
-  DFCNQD4BWP \iSLD/POT_HP_reg[8]  ( .D(n235), .CP(clk), .CDN(n378), .Q(
-        HP_pot[8]) );
-  DFCNQD4BWP \iSLD/POT_B1_reg[8]  ( .D(n271), .CP(clk), .CDN(n376), .Q(
-        B1_pot[8]) );
-  DFCNQD4BWP \iSLD/VOLUME_reg[8]  ( .D(n223), .CP(clk), .CDN(n376), .Q(
-        volume[8]) );
-  DFCNQD4BWP \iSLD/POT_B2_reg[9]  ( .D(n258), .CP(clk), .CDN(n377), .Q(
-        B2_pot[9]) );
-  DFCNQD4BWP \iSLD/POT_LP_reg[7]  ( .D(n284), .CP(clk), .CDN(n377), .Q(
-        LP_pot[7]) );
-  DFCNQD4BWP \iSLD/POT_HP_reg[7]  ( .D(n236), .CP(clk), .CDN(n378), .Q(
-        HP_pot[7]) );
-  DFCNQD4BWP \iSLD/POT_B3_reg[7]  ( .D(n248), .CP(clk), .CDN(n376), .Q(
+  EDFCND1BWP \iCS/lft_in_buf_reg[0]  ( .D(SDout), .E(n303), .CP(clk), .CDN(
+        n337), .Q(n1), .QN(n132) );
+  DFCND1BWP \iSLD/POT_B2_reg[5]  ( .D(n262), .CP(clk), .CDN(n343), .Q(n295) );
+  DFCNQD1BWP \iSLD/POT_LP_reg[6]  ( .D(n285), .CP(clk), .CDN(n344), .Q(
+        LP_pot[6]) );
+  DFCNQD4BWP \iSLD/POT_B1_reg[4]  ( .D(n275), .CP(clk), .CDN(n342), .Q(
+        B1_pot[4]) );
+  DFCNQD4BWP \iSLD/VOLUME_reg[5]  ( .D(n226), .CP(clk), .CDN(n343), .Q(
+        volume[5]) );
+  DFCNQD4BWP \iSLD/POT_LP_reg[5]  ( .D(n286), .CP(clk), .CDN(n344), .Q(
+        LP_pot[5]) );
+  DFCNQD4BWP \iSLD/POT_HP_reg[5]  ( .D(n238), .CP(clk), .CDN(n344), .Q(
+        HP_pot[5]) );
+  DFCNQD2BWP \iSLD/POT_B1_reg[5]  ( .D(n274), .CP(clk), .CDN(n342), .Q(
+        B1_pot[5]) );
+  DFCNQD2BWP \iSLD/POT_B3_reg[7]  ( .D(n248), .CP(clk), .CDN(n342), .Q(
         B3_pot[7]) );
-  DFCNQD4BWP \iCore/lft_sum_out_buf_reg[9]  ( .D(\iCore/lft_sum_out [9]), .CP(
-        clk), .CDN(n380), .Q(\iCore/lft_sum_out_buf [9]) );
-  CKBD1BWP U242 ( .I(\iCore/lft_q1536_out [0]), .Z(n319) );
-  CKBD1BWP U243 ( .I(\iCore/rht_q1536_out [0]), .Z(n329) );
-  CKND0BWP U244 ( .I(B2_pot[5]), .ZN(n354) );
-  CKND0BWP U245 ( .I(HP_pot[3]), .ZN(n340) );
-  CKND0BWP U246 ( .I(LP_pot[3]), .ZN(n364) );
-  CKND0BWP U247 ( .I(B2_pot[3]), .ZN(n352) );
-  CKND0BWP U248 ( .I(volume[3]), .ZN(n334) );
-  CKND0BWP U249 ( .I(B3_pot[3]), .ZN(n346) );
-  CKND0BWP U250 ( .I(B1_pot[3]), .ZN(n358) );
-  BUFFD4BWP U251 ( .I(\iCore/rht_q1536_out [7]), .Z(n327) );
-  CKND0BWP U252 ( .I(HP_pot[5]), .ZN(n342) );
-  CKND0BWP U253 ( .I(LP_pot[5]), .ZN(n366) );
-  CKND0BWP U254 ( .I(volume[5]), .ZN(n336) );
-  CKND0BWP U255 ( .I(volume[1]), .ZN(n332) );
-  CKND0BWP U256 ( .I(B3_pot[5]), .ZN(n348) );
-  CKND0BWP U257 ( .I(B3_pot[1]), .ZN(n344) );
-  CKND0BWP U258 ( .I(B1_pot[5]), .ZN(n360) );
-  CKND0BWP U259 ( .I(B1_pot[1]), .ZN(n356) );
-  CKND0BWP U260 ( .I(HP_pot[2]), .ZN(n339) );
-  CKND0BWP U261 ( .I(HP_pot[0]), .ZN(n337) );
-  CKND0BWP U262 ( .I(LP_pot[2]), .ZN(n363) );
-  CKND0BWP U263 ( .I(LP_pot[0]), .ZN(n361) );
-  CKND0BWP U264 ( .I(B2_pot[2]), .ZN(n351) );
-  CKND0BWP U265 ( .I(B2_pot[0]), .ZN(n349) );
-  CKND0BWP U266 ( .I(volume[2]), .ZN(n333) );
-  CKND0BWP U267 ( .I(volume[0]), .ZN(n331) );
-  CKND0BWP U268 ( .I(B3_pot[2]), .ZN(n345) );
-  CKND0BWP U269 ( .I(B3_pot[0]), .ZN(n343) );
-  CKND0BWP U270 ( .I(B1_pot[2]), .ZN(n357) );
-  CKND0BWP U271 ( .I(B1_pot[0]), .ZN(n355) );
-  CKND0BWP U272 ( .I(HP_pot[1]), .ZN(n338) );
-  CKND0BWP U273 ( .I(LP_pot[1]), .ZN(n362) );
-  CKND0BWP U274 ( .I(B2_pot[1]), .ZN(n350) );
-  CKND0BWP U275 ( .I(volume[4]), .ZN(n335) );
-  CKND0BWP U276 ( .I(B1_pot[4]), .ZN(n359) );
-  CKND0BWP U277 ( .I(HP_pot[4]), .ZN(n341) );
-  CKND0BWP U278 ( .I(LP_pot[4]), .ZN(n365) );
-  CKND0BWP U279 ( .I(B2_pot[4]), .ZN(n353) );
-  CKND0BWP U280 ( .I(B3_pot[4]), .ZN(n347) );
-  CKBD2BWP U281 ( .I(\iCore/lft_q1024_out [13]), .Z(n310) );
-  BUFFD4BWP U282 ( .I(\iCore/lft_q1024_out [15]), .Z(n292) );
-  BUFFD4BWP U283 ( .I(\iCore/lft_q1024_out [15]), .Z(n293) );
-  CKBD2BWP U284 ( .I(\iCore/rht_q1536_out [1]), .Z(n328) );
-  BUFFD4BWP U285 ( .I(\iCore/lft_q1024_out [15]), .Z(n309) );
-  CKBD4BWP U286 ( .I(\iCore/rht_q1024_out [1]), .Z(n323) );
-  BUFFD4BWP U287 ( .I(\iCore/lft_q1536_out [7]), .Z(n316) );
-  BUFFD4BWP U288 ( .I(\iCore/rht_q1024_out [2]), .Z(n322) );
-  CKBD4BWP U289 ( .I(\iCore/rht_q1024_out [4]), .Z(n321) );
-  BUFFD4BWP U290 ( .I(\iCore/lft_q1536_out [1]), .Z(n318) );
-  AN3D1BWP U291 ( .A1(n71), .A2(n88), .A3(SCL), .Z(n89) );
-  BUFFD4BWP U292 ( .I(\iCore/lft_q1024_out [1]), .Z(n313) );
-  BUFFD4BWP U293 ( .I(\iCore/lft_q1024_out [3]), .Z(n311) );
-  BUFFD4BWP U294 ( .I(\iCore/rht_q1536_out [15]), .Z(n326) );
-  OR2D0BWP U295 ( .A1(RSTn), .A2(n299), .Z(n129) );
-  BUFFD4BWP U296 ( .I(\iCore/lft_q1024_out [2]), .Z(n312) );
-  INVD2BWP U297 ( .I(n87), .ZN(n416) );
-  CKBD0BWP U298 ( .I(n165), .Z(n297) );
-  OAI211D0BWP U299 ( .A1(n80), .A2(n88), .B(n303), .C(n87), .ZN(n81) );
-  OAI21D0BWP U300 ( .A1(n419), .A2(n79), .B(n71), .ZN(n76) );
-  BUFFD2BWP U301 ( .I(rst_n), .Z(n388) );
-  CKBD0BWP U302 ( .I(rst_n), .Z(n389) );
-  AOI22D0BWP U303 ( .A1(\iCS/shift_reg [14]), .A2(n416), .B1(lft_out[15]), 
-        .B2(n295), .ZN(n38) );
-  AOI22D0BWP U304 ( .A1(\iCS/shift_reg [13]), .A2(n416), .B1(lft_out[14]), 
-        .B2(n295), .ZN(n43) );
-  AOI22D0BWP U305 ( .A1(\iCS/shift_reg [12]), .A2(n416), .B1(lft_out[13]), 
-        .B2(n295), .ZN(n45) );
-  AOI22D0BWP U306 ( .A1(\iCS/shift_reg [11]), .A2(n416), .B1(lft_out[12]), 
-        .B2(n295), .ZN(n47) );
-  AOI22D0BWP U307 ( .A1(\iCS/shift_reg [10]), .A2(n416), .B1(lft_out[11]), 
-        .B2(n295), .ZN(n49) );
-  AOI22D0BWP U308 ( .A1(\iCS/shift_reg [9]), .A2(n416), .B1(lft_out[10]), .B2(
-        n295), .ZN(n51) );
-  AOI22D0BWP U309 ( .A1(\iCS/shift_reg [8]), .A2(n416), .B1(lft_out[9]), .B2(
-        n295), .ZN(n53) );
-  AOI22D0BWP U310 ( .A1(\iCS/shift_reg [7]), .A2(n416), .B1(lft_out[8]), .B2(
-        n295), .ZN(n55) );
-  AOI22D0BWP U311 ( .A1(\iCS/shift_reg [6]), .A2(n416), .B1(lft_out[7]), .B2(
-        n295), .ZN(n57) );
-  AOI22D0BWP U312 ( .A1(\iCS/shift_reg [5]), .A2(n416), .B1(lft_out[6]), .B2(
-        n295), .ZN(n59) );
-  AOI22D0BWP U313 ( .A1(\iCS/shift_reg [4]), .A2(n416), .B1(lft_out[5]), .B2(
-        n295), .ZN(n61) );
-  AOI22D0BWP U314 ( .A1(\iCS/shift_reg [3]), .A2(n416), .B1(lft_out[4]), .B2(
-        n295), .ZN(n63) );
-  AOI22D0BWP U315 ( .A1(\iCS/shift_reg [2]), .A2(n416), .B1(lft_out[3]), .B2(
-        n295), .ZN(n65) );
-  AOI22D0BWP U316 ( .A1(\iCS/shift_reg [1]), .A2(n416), .B1(lft_out[2]), .B2(
-        n295), .ZN(n67) );
-  AOI22D0BWP U317 ( .A1(\iCS/shift_reg [0]), .A2(n416), .B1(lft_out[1]), .B2(
-        n295), .ZN(n69) );
-  BUFFD4BWP U318 ( .I(\iCore/lft_q1536_out [15]), .Z(n315) );
-  CKBD0BWP U319 ( .I(rst_n), .Z(n386) );
-  CKBD0BWP U320 ( .I(rst_n), .Z(n387) );
-  INVD1BWP U321 ( .I(n108), .ZN(n393) );
-  INVD1BWP U322 ( .I(n109), .ZN(n392) );
-  INVD1BWP U323 ( .I(n106), .ZN(n394) );
-  INVD1BWP U324 ( .I(n111), .ZN(n390) );
-  ND2D1BWP U325 ( .A1(n294), .A2(n406), .ZN(n108) );
-  CKBD1BWP U326 ( .I(n302), .Z(n307) );
-  CKBD1BWP U327 ( .I(n301), .Z(n306) );
-  CKBD1BWP U328 ( .I(n300), .Z(n303) );
-  CKBD1BWP U329 ( .I(n300), .Z(n304) );
-  CKBD1BWP U330 ( .I(n301), .Z(n305) );
-  CKBD1BWP U331 ( .I(n302), .Z(n308) );
-  NR2XD0BWP U332 ( .A1(n296), .A2(n164), .ZN(n87) );
-  CKBD1BWP U333 ( .I(n165), .Z(n296) );
-  INVD1BWP U334 ( .I(chnnl[0]), .ZN(n406) );
-  OR3XD1BWP U335 ( .A1(n406), .A2(n391), .A3(chnnl[1]), .Z(n109) );
-  INVD1BWP U336 ( .I(n90), .ZN(n402) );
-  INVD1BWP U337 ( .I(n104), .ZN(n395) );
-  ND2D1BWP U338 ( .A1(n294), .A2(chnnl[0]), .ZN(n106) );
-  AN2XD1BWP U339 ( .A1(chnnl[1]), .A2(n107), .Z(n294) );
-  OR3XD1BWP U340 ( .A1(chnnl[0]), .A2(n391), .A3(chnnl[1]), .Z(n111) );
-  INVD1BWP U341 ( .I(chnnl[2]), .ZN(n396) );
-  INVD1BWP U342 ( .I(n107), .ZN(n391) );
-  CKBD1BWP U343 ( .I(n74), .Z(n302) );
-  CKBD1BWP U344 ( .I(n74), .Z(n301) );
-  CKBD1BWP U345 ( .I(n74), .Z(n300) );
-  NR3D2BWP U346 ( .A1(n298), .A2(n295), .A3(n416), .ZN(n40) );
-  AN2D2BWP U347 ( .A1(n79), .A2(n89), .Z(n164) );
-  MOAI22D0BWP U348 ( .A1(n81), .A2(n424), .B1(\iCS/N68 ), .B2(n416), .ZN(n217)
+  DFCND2BWP \iSLD/POT_B2_reg[6]  ( .D(n261), .CP(clk), .CDN(n343), .Q(n294) );
+  DFCNQD2BWP \iSLD/POT_HP_reg[6]  ( .D(n237), .CP(clk), .CDN(n344), .Q(
+        HP_pot[6]) );
+  DFCNQD2BWP \iSLD/POT_B3_reg[6]  ( .D(n249), .CP(clk), .CDN(n342), .Q(
+        B3_pot[6]) );
+  DFCNQD2BWP \iSLD/POT_B2_reg[7]  ( .D(n260), .CP(clk), .CDN(n343), .Q(
+        B2_pot[7]) );
+  DFCND2BWP \iSLD/VOLUME_reg[6]  ( .D(n225), .CP(clk), .CDN(n343), .Q(n293) );
+  TIEHBWP U242 ( .Z(\iRST/*Logic1* ) );
+  CKBD2BWP U243 ( .I(LP_pot[0]), .Z(n292) );
+  CKBD2BWP U244 ( .I(LP_pot[0]), .Z(n296) );
+  CKND6BWP U245 ( .I(n298), .ZN(n299) );
+  BUFFD4BWP U246 ( .I(B1_pot[0]), .Z(n297) );
+  INVD3BWP U247 ( .I(LP_pot[3]), .ZN(n298) );
+  OR2D0BWP U248 ( .A1(RSTn), .A2(n305), .Z(n129) );
+  CKND2BWP U249 ( .I(n87), .ZN(n368) );
+  CKBD1BWP U250 ( .I(n326), .Z(n331) );
+  CKBD1BWP U251 ( .I(n325), .Z(n330) );
+  CKBD1BWP U252 ( .I(n324), .Z(n327) );
+  CKBD1BWP U253 ( .I(n324), .Z(n328) );
+  CKBD1BWP U254 ( .I(n325), .Z(n329) );
+  CKBD1BWP U255 ( .I(n104), .Z(n318) );
+  CKBD1BWP U256 ( .I(n111), .Z(n307) );
+  CKBD1BWP U257 ( .I(n109), .Z(n310) );
+  CKBD1BWP U258 ( .I(n111), .Z(n306) );
+  CKBD1BWP U259 ( .I(n104), .Z(n319) );
+  CKBD1BWP U260 ( .I(n109), .Z(n309) );
+  CKBD1BWP U261 ( .I(n106), .Z(n316) );
+  CKBD1BWP U262 ( .I(n90), .Z(n322) );
+  CKBD1BWP U263 ( .I(n106), .Z(n315) );
+  CKBD1BWP U264 ( .I(n108), .Z(n313) );
+  CKBD1BWP U265 ( .I(n90), .Z(n321) );
+  CKBD1BWP U266 ( .I(n108), .Z(n312) );
+  CKBD1BWP U267 ( .I(n104), .Z(n320) );
+  CKBD1BWP U268 ( .I(n111), .Z(n308) );
+  CKBD1BWP U269 ( .I(n109), .Z(n311) );
+  CKBD1BWP U270 ( .I(n90), .Z(n323) );
+  CKBD1BWP U271 ( .I(n106), .Z(n317) );
+  CKBD1BWP U272 ( .I(n108), .Z(n314) );
+  CKBD1BWP U273 ( .I(n326), .Z(n332) );
+  NR2XD0BWP U274 ( .A1(n302), .A2(n164), .ZN(n87) );
+  CKBD1BWP U275 ( .I(n165), .Z(n303) );
+  CKBD1BWP U276 ( .I(n165), .Z(n302) );
+  ND3D1BWP U277 ( .A1(n363), .A2(n362), .A3(n107), .ZN(n111) );
+  ND3D1BWP U278 ( .A1(chnnl[0]), .A2(n362), .A3(n107), .ZN(n109) );
+  ND3D1BWP U279 ( .A1(chnnl[0]), .A2(chnnl[2]), .A3(n361), .ZN(n90) );
+  ND3D1BWP U280 ( .A1(chnnl[2]), .A2(n363), .A3(n361), .ZN(n104) );
+  ND3D1BWP U281 ( .A1(chnnl[1]), .A2(chnnl[0]), .A3(n107), .ZN(n106) );
+  ND3D1BWP U282 ( .A1(chnnl[1]), .A2(n363), .A3(n107), .ZN(n108) );
+  INVD1BWP U283 ( .I(chnnl[0]), .ZN(n363) );
+  INVD1BWP U284 ( .I(chnnl[1]), .ZN(n362) );
+  CKBD1BWP U285 ( .I(n74), .Z(n326) );
+  CKBD1BWP U286 ( .I(n74), .Z(n325) );
+  CKBD1BWP U287 ( .I(n74), .Z(n324) );
+  OAI211D1BWP U288 ( .A1(n80), .A2(n88), .B(n327), .C(n87), .ZN(n81) );
+  NR3D2BWP U289 ( .A1(n304), .A2(n301), .A3(n368), .ZN(n40) );
+  AN2D2BWP U290 ( .A1(n79), .A2(n89), .Z(n164) );
+  MOAI22D0BWP U291 ( .A1(n81), .A2(n376), .B1(\iCS/N68 ), .B2(n368), .ZN(n217)
          );
-  CKBD1BWP U349 ( .I(n389), .Z(n370) );
-  CKBD2BWP U350 ( .I(n388), .Z(n371) );
-  INR2D1BWP U351 ( .A1(n89), .B1(n80), .ZN(n165) );
-  CKBD1BWP U352 ( .I(n31), .Z(n298) );
-  CKBD1BWP U353 ( .I(n31), .Z(n299) );
-  ND3D1BWP U354 ( .A1(n114), .A2(n116), .A3(n113), .ZN(chnnl[0]) );
-  INVD1BWP U355 ( .I(n37), .ZN(n131) );
-  OR3XD1BWP U356 ( .A1(n406), .A2(n396), .A3(n112), .Z(n90) );
-  INVD1BWP U357 ( .I(n112), .ZN(n405) );
-  ND2D1BWP U358 ( .A1(n422), .A2(n79), .ZN(n74) );
-  INVD1BWP U359 ( .I(n88), .ZN(n422) );
-  ND3D1BWP U360 ( .A1(n114), .A2(n117), .A3(n113), .ZN(chnnl[1]) );
-  OAI221D1BWP U361 ( .A1(n112), .A2(n116), .B1(n405), .B2(n113), .C(n117), 
+  CKBD1BWP U292 ( .I(n333), .Z(n339) );
+  CKBD2BWP U293 ( .I(n333), .Z(n340) );
+  INR2D1BWP U294 ( .A1(n89), .B1(n80), .ZN(n165) );
+  CKBD1BWP U295 ( .I(n31), .Z(n304) );
+  CKBD1BWP U296 ( .I(n31), .Z(n305) );
+  INVD1BWP U297 ( .I(n37), .ZN(n131) );
+  INVD1BWP U298 ( .I(n112), .ZN(n361) );
+  ND3D1BWP U299 ( .A1(n114), .A2(n116), .A3(n113), .ZN(chnnl[0]) );
+  NR2XD0BWP U300 ( .A1(n112), .A2(chnnl[2]), .ZN(n107) );
+  ND3D1BWP U301 ( .A1(n114), .A2(n117), .A3(n113), .ZN(chnnl[1]) );
+  ND2D1BWP U302 ( .A1(n374), .A2(n79), .ZN(n74) );
+  ND2D1BWP U303 ( .A1(n114), .A2(n115), .ZN(chnnl[2]) );
+  INVD1BWP U304 ( .I(n88), .ZN(n374) );
+  OAI221D1BWP U305 ( .A1(n112), .A2(n116), .B1(n361), .B2(n113), .C(n117), 
         .ZN(\iSLD/nxt_state [1]) );
-  OAI221D1BWP U362 ( .A1(n112), .A2(n113), .B1(n405), .B2(n114), .C(n115), 
-        .ZN(\iSLD/nxt_state [2]) );
-  MOAI22D0BWP U363 ( .A1(n80), .A2(n88), .B1(n88), .B2(n79), .ZN(
+  MOAI22D0BWP U306 ( .A1(n80), .A2(n88), .B1(n88), .B2(n79), .ZN(
         \iCS/nxt_st [1]) );
-  OR3XD1BWP U364 ( .A1(n112), .A2(n396), .A3(chnnl[0]), .Z(n104) );
-  ND2D1BWP U365 ( .A1(n114), .A2(n115), .ZN(chnnl[2]) );
-  NR2XD0BWP U366 ( .A1(n112), .A2(chnnl[2]), .ZN(n107) );
-  CKBD3BWP U367 ( .I(n387), .Z(n379) );
-  CKBD3BWP U368 ( .I(n387), .Z(n380) );
-  CKBD3BWP U369 ( .I(n386), .Z(n381) );
-  CKBD3BWP U370 ( .I(n386), .Z(n382) );
-  CKBD3BWP U371 ( .I(n386), .Z(n383) );
-  CKBD3BWP U372 ( .I(n386), .Z(n384) );
-  CKBD3BWP U373 ( .I(n388), .Z(n373) );
-  CKBD3BWP U374 ( .I(n388), .Z(n374) );
-  CKBD3BWP U375 ( .I(n388), .Z(n375) );
-  CKBD3BWP U376 ( .I(n387), .Z(n376) );
-  CKBD3BWP U377 ( .I(n387), .Z(n377) );
-  CKBD3BWP U378 ( .I(n387), .Z(n378) );
-  CKBD2BWP U379 ( .I(n388), .Z(n372) );
-  CKBD2BWP U380 ( .I(n386), .Z(n385) );
-  CKBD1BWP U381 ( .I(n389), .Z(n369) );
-  CKBD1BWP U382 ( .I(n389), .Z(n368) );
-  CKBD1BWP U383 ( .I(n389), .Z(n367) );
-  NR4D0BWP U384 ( .A1(MCLK), .A2(\iCS/timer_0 ), .A3(\iCS/timer_2 ), .A4(
+  OAI221D1BWP U307 ( .A1(n112), .A2(n113), .B1(n361), .B2(n114), .C(n115), 
+        .ZN(\iSLD/nxt_state [2]) );
+  CKBD3BWP U308 ( .I(n334), .Z(n344) );
+  CKBD3BWP U309 ( .I(n334), .Z(n343) );
+  CKBD3BWP U310 ( .I(n334), .Z(n342) );
+  CKBD3BWP U311 ( .I(n335), .Z(n347) );
+  CKBD3BWP U312 ( .I(n335), .Z(n346) );
+  CKBD3BWP U313 ( .I(n334), .Z(n345) );
+  CKBD2BWP U314 ( .I(n334), .Z(n341) );
+  CKBD2BWP U315 ( .I(n335), .Z(n348) );
+  CKBD1BWP U316 ( .I(n333), .Z(n336) );
+  CKBD1BWP U317 ( .I(n333), .Z(n338) );
+  CKBD1BWP U318 ( .I(n333), .Z(n337) );
+  NR4D0BWP U319 ( .A1(MCLK), .A2(\iCS/timer_0 ), .A3(\iCS/timer_2 ), .A4(
         \iCS/timer_3 ), .ZN(n71) );
-  CKAN2D0BWP U385 ( .A1(LRCLK), .A2(MCLK), .Z(n36) );
-  OAI211D1BWP U386 ( .A1(n422), .A2(n80), .B(n122), .C(n303), .ZN(
+  ND2D1BWP U320 ( .A1(n327), .A2(n75), .ZN(n214) );
+  OAI31D0BWP U321 ( .A1(n76), .A2(SCL), .A3(n374), .B(valid), .ZN(n75) );
+  OAI21D1BWP U322 ( .A1(n371), .A2(n79), .B(n71), .ZN(n76) );
+  INVD1BWP U323 ( .I(n80), .ZN(n371) );
+  OAI211D1BWP U324 ( .A1(n374), .A2(n80), .B(n122), .C(n327), .ZN(
         \iCS/nxt_st [0]) );
-  IND4D0BWP U387 ( .A1(\iCS/st [0]), .B1(RSTn), .B2(n295), .B3(n420), .ZN(n122) );
-  ND2D1BWP U388 ( .A1(n303), .A2(n75), .ZN(n214) );
-  OAI31D0BWP U389 ( .A1(n76), .A2(SCL), .A3(n422), .B(valid), .ZN(n75) );
-  INVD1BWP U390 ( .I(n80), .ZN(n419) );
-  OAI21D1BWP U391 ( .A1(n32), .A2(n33), .B(n418), .ZN(n130) );
-  INVD1BWP U392 ( .I(\iCS/lrclk_cycle_cmplt ), .ZN(n418) );
-  ND4D1BWP U393 ( .A1(\iCS/timer_3 ), .A2(\iCS/timer_2 ), .A3(n35), .A4(
+  IND4D0BWP U325 ( .A1(\iCS/st [0]), .B1(RSTn), .B2(n301), .B3(n372), .ZN(n122) );
+  CKAN2D0BWP U326 ( .A1(LRCLK), .A2(MCLK), .Z(n36) );
+  AN3D0BWP U327 ( .A1(n71), .A2(n88), .A3(SCL), .Z(n89) );
+  OAI21D1BWP U328 ( .A1(n32), .A2(n33), .B(n370), .ZN(n130) );
+  INVD1BWP U329 ( .I(\iCS/lrclk_cycle_cmplt ), .ZN(n370) );
+  ND4D1BWP U330 ( .A1(\iCS/timer_3 ), .A2(\iCS/timer_2 ), .A3(n35), .A4(
         \iCS/timer_0 ), .ZN(n33) );
-  ND4D0BWP U394 ( .A1(\iCS/timer [6]), .A2(\iCS/timer [5]), .A3(n36), .A4(SCL), 
+  ND4D0BWP U331 ( .A1(\iCS/timer [6]), .A2(\iCS/timer [5]), .A3(n36), .A4(SCL), 
         .ZN(n32) );
-  MOAI22D0BWP U395 ( .A1(n81), .A2(n426), .B1(\iCS/N70 ), .B2(n416), .ZN(n215)
+  MOAI22D0BWP U332 ( .A1(n81), .A2(n378), .B1(\iCS/N70 ), .B2(n368), .ZN(n215)
          );
-  INVD1BWP U396 ( .I(\iCS/shift_cnt [3]), .ZN(n426) );
-  MOAI22D0BWP U397 ( .A1(n81), .A2(n425), .B1(\iCS/N69 ), .B2(n416), .ZN(n216)
+  INVD1BWP U333 ( .I(\iCS/shift_cnt [3]), .ZN(n378) );
+  MOAI22D0BWP U334 ( .A1(n81), .A2(n377), .B1(\iCS/N69 ), .B2(n368), .ZN(n216)
          );
-  INVD1BWP U398 ( .I(\iCS/shift_cnt [2]), .ZN(n425) );
-  MOAI22D0BWP U399 ( .A1(n81), .A2(n423), .B1(n423), .B2(n416), .ZN(n218) );
-  MOAI22D0BWP U400 ( .A1(n421), .A2(n81), .B1(\iCS/N71 ), .B2(n416), .ZN(n219)
+  INVD1BWP U335 ( .I(\iCS/shift_cnt [2]), .ZN(n377) );
+  MOAI22D0BWP U336 ( .A1(n81), .A2(n375), .B1(n375), .B2(n368), .ZN(n218) );
+  MOAI22D0BWP U337 ( .A1(n373), .A2(n81), .B1(\iCS/N71 ), .B2(n368), .ZN(n219)
          );
-  INVD1BWP U401 ( .I(\iCS/shift_cnt [4]), .ZN(n421) );
-  CKBD2BWP U402 ( .I(n42), .Z(n295) );
-  AN4D1BWP U403 ( .A1(n417), .A2(n71), .A3(LRCLK), .A4(n73), .Z(n42) );
-  CKND0BWP U404 ( .I(SCL), .ZN(n417) );
-  AN4D1BWP U405 ( .A1(\iCS/lrclk_cycle_cmplt ), .A2(n71), .A3(n72), .A4(n73), 
+  INVD1BWP U338 ( .I(\iCS/shift_cnt [4]), .ZN(n373) );
+  CKBD2BWP U339 ( .I(n42), .Z(n301) );
+  AN4D1BWP U340 ( .A1(n369), .A2(n71), .A3(LRCLK), .A4(n73), .Z(n42) );
+  CKND0BWP U341 ( .I(SCL), .ZN(n369) );
+  AN4D1BWP U342 ( .A1(\iCS/lrclk_cycle_cmplt ), .A2(n71), .A3(n72), .A4(n73), 
         .Z(n31) );
-  NR2D0BWP U406 ( .A1(SCL), .A2(LRCLK), .ZN(n72) );
-  ND2D1BWP U407 ( .A1(n38), .A2(n39), .ZN(n166) );
-  AOI22D1BWP U408 ( .A1(\iCS/shift_reg [15]), .A2(n40), .B1(rht_out[15]), .B2(
-        n298), .ZN(n39) );
-  ND2D1BWP U409 ( .A1(n43), .A2(n44), .ZN(n167) );
-  AOI22D1BWP U410 ( .A1(\iCS/shift_reg [14]), .A2(n40), .B1(rht_out[14]), .B2(
-        n298), .ZN(n44) );
-  ND2D1BWP U411 ( .A1(n45), .A2(n46), .ZN(n168) );
-  AOI22D1BWP U412 ( .A1(\iCS/shift_reg [13]), .A2(n40), .B1(rht_out[13]), .B2(
-        n298), .ZN(n46) );
-  ND2D1BWP U413 ( .A1(n47), .A2(n48), .ZN(n169) );
-  AOI22D1BWP U414 ( .A1(\iCS/shift_reg [12]), .A2(n40), .B1(rht_out[12]), .B2(
-        n298), .ZN(n48) );
-  ND2D1BWP U415 ( .A1(n49), .A2(n50), .ZN(n170) );
-  AOI22D1BWP U416 ( .A1(\iCS/shift_reg [11]), .A2(n40), .B1(rht_out[11]), .B2(
-        n298), .ZN(n50) );
-  ND2D1BWP U417 ( .A1(n51), .A2(n52), .ZN(n171) );
-  AOI22D1BWP U418 ( .A1(\iCS/shift_reg [10]), .A2(n40), .B1(rht_out[10]), .B2(
-        n298), .ZN(n52) );
-  ND2D1BWP U419 ( .A1(n53), .A2(n54), .ZN(n172) );
-  AOI22D1BWP U420 ( .A1(\iCS/shift_reg [9]), .A2(n40), .B1(rht_out[9]), .B2(
-        n298), .ZN(n54) );
-  ND2D1BWP U421 ( .A1(n55), .A2(n56), .ZN(n173) );
-  AOI22D1BWP U422 ( .A1(\iCS/shift_reg [8]), .A2(n40), .B1(rht_out[8]), .B2(
-        n299), .ZN(n56) );
-  ND2D1BWP U423 ( .A1(n57), .A2(n58), .ZN(n174) );
-  AOI22D1BWP U424 ( .A1(\iCS/shift_reg [7]), .A2(n40), .B1(rht_out[7]), .B2(
-        n299), .ZN(n58) );
-  ND2D1BWP U425 ( .A1(n59), .A2(n60), .ZN(n175) );
-  AOI22D1BWP U426 ( .A1(\iCS/shift_reg [6]), .A2(n40), .B1(rht_out[6]), .B2(
-        n299), .ZN(n60) );
-  ND2D1BWP U427 ( .A1(n61), .A2(n62), .ZN(n176) );
-  AOI22D1BWP U428 ( .A1(\iCS/shift_reg [5]), .A2(n40), .B1(rht_out[5]), .B2(
-        n299), .ZN(n62) );
-  ND2D1BWP U429 ( .A1(n63), .A2(n64), .ZN(n177) );
-  AOI22D1BWP U430 ( .A1(\iCS/shift_reg [4]), .A2(n40), .B1(rht_out[4]), .B2(
-        n299), .ZN(n64) );
-  ND2D1BWP U431 ( .A1(n65), .A2(n66), .ZN(n178) );
-  AOI22D1BWP U432 ( .A1(\iCS/shift_reg [3]), .A2(n40), .B1(rht_out[3]), .B2(
-        n299), .ZN(n66) );
-  ND2D1BWP U433 ( .A1(n67), .A2(n68), .ZN(n179) );
-  AOI22D1BWP U434 ( .A1(\iCS/shift_reg [2]), .A2(n40), .B1(rht_out[2]), .B2(
-        n299), .ZN(n68) );
-  ND2D1BWP U435 ( .A1(n69), .A2(n70), .ZN(n180) );
-  AOI22D1BWP U436 ( .A1(\iCS/shift_reg [1]), .A2(n40), .B1(rht_out[1]), .B2(
-        n299), .ZN(n70) );
-  BUFFD4BWP U437 ( .I(\iCore/rht_q1024_out [0]), .Z(n324) );
-  BUFFD4BWP U438 ( .I(\iCore/lft_q1536_out [2]), .Z(n317) );
-  ND4D1BWP U439 ( .A1(\iCS/shift_cnt [4]), .A2(n423), .A3(n125), .A4(n424), 
+  NR2D0BWP U343 ( .A1(SCL), .A2(LRCLK), .ZN(n72) );
+  ND2D1BWP U344 ( .A1(n38), .A2(n39), .ZN(n166) );
+  AOI22D1BWP U345 ( .A1(\iCS/shift_reg [14]), .A2(n368), .B1(lft_out[15]), 
+        .B2(n301), .ZN(n38) );
+  AOI22D1BWP U346 ( .A1(\iCS/shift_reg [15]), .A2(n40), .B1(rht_out[15]), .B2(
+        n304), .ZN(n39) );
+  ND2D1BWP U347 ( .A1(n43), .A2(n44), .ZN(n167) );
+  AOI22D1BWP U348 ( .A1(\iCS/shift_reg [13]), .A2(n368), .B1(lft_out[14]), 
+        .B2(n301), .ZN(n43) );
+  AOI22D1BWP U349 ( .A1(\iCS/shift_reg [14]), .A2(n40), .B1(rht_out[14]), .B2(
+        n304), .ZN(n44) );
+  ND2D1BWP U350 ( .A1(n45), .A2(n46), .ZN(n168) );
+  AOI22D1BWP U351 ( .A1(\iCS/shift_reg [12]), .A2(n368), .B1(lft_out[13]), 
+        .B2(n301), .ZN(n45) );
+  AOI22D1BWP U352 ( .A1(\iCS/shift_reg [13]), .A2(n40), .B1(rht_out[13]), .B2(
+        n304), .ZN(n46) );
+  ND2D1BWP U353 ( .A1(n47), .A2(n48), .ZN(n169) );
+  AOI22D1BWP U354 ( .A1(\iCS/shift_reg [11]), .A2(n368), .B1(lft_out[12]), 
+        .B2(n301), .ZN(n47) );
+  AOI22D1BWP U355 ( .A1(\iCS/shift_reg [12]), .A2(n40), .B1(rht_out[12]), .B2(
+        n304), .ZN(n48) );
+  ND2D1BWP U356 ( .A1(n49), .A2(n50), .ZN(n170) );
+  AOI22D1BWP U357 ( .A1(\iCS/shift_reg [10]), .A2(n368), .B1(lft_out[11]), 
+        .B2(n301), .ZN(n49) );
+  AOI22D1BWP U358 ( .A1(\iCS/shift_reg [11]), .A2(n40), .B1(rht_out[11]), .B2(
+        n304), .ZN(n50) );
+  ND2D1BWP U359 ( .A1(n51), .A2(n52), .ZN(n171) );
+  AOI22D1BWP U360 ( .A1(\iCS/shift_reg [9]), .A2(n368), .B1(lft_out[10]), .B2(
+        n301), .ZN(n51) );
+  AOI22D1BWP U361 ( .A1(\iCS/shift_reg [10]), .A2(n40), .B1(rht_out[10]), .B2(
+        n304), .ZN(n52) );
+  ND2D1BWP U362 ( .A1(n53), .A2(n54), .ZN(n172) );
+  AOI22D1BWP U363 ( .A1(\iCS/shift_reg [8]), .A2(n368), .B1(lft_out[9]), .B2(
+        n301), .ZN(n53) );
+  AOI22D1BWP U364 ( .A1(\iCS/shift_reg [9]), .A2(n40), .B1(rht_out[9]), .B2(
+        n304), .ZN(n54) );
+  ND2D1BWP U365 ( .A1(n55), .A2(n56), .ZN(n173) );
+  AOI22D1BWP U366 ( .A1(\iCS/shift_reg [7]), .A2(n368), .B1(lft_out[8]), .B2(
+        n301), .ZN(n55) );
+  AOI22D1BWP U367 ( .A1(\iCS/shift_reg [8]), .A2(n40), .B1(rht_out[8]), .B2(
+        n305), .ZN(n56) );
+  ND2D1BWP U368 ( .A1(n57), .A2(n58), .ZN(n174) );
+  AOI22D1BWP U369 ( .A1(\iCS/shift_reg [6]), .A2(n368), .B1(lft_out[7]), .B2(
+        n301), .ZN(n57) );
+  AOI22D1BWP U370 ( .A1(\iCS/shift_reg [7]), .A2(n40), .B1(rht_out[7]), .B2(
+        n305), .ZN(n58) );
+  ND2D1BWP U371 ( .A1(n59), .A2(n60), .ZN(n175) );
+  AOI22D1BWP U372 ( .A1(\iCS/shift_reg [5]), .A2(n368), .B1(lft_out[6]), .B2(
+        n301), .ZN(n59) );
+  AOI22D1BWP U373 ( .A1(\iCS/shift_reg [6]), .A2(n40), .B1(rht_out[6]), .B2(
+        n305), .ZN(n60) );
+  ND2D1BWP U374 ( .A1(n61), .A2(n62), .ZN(n176) );
+  AOI22D1BWP U375 ( .A1(\iCS/shift_reg [4]), .A2(n368), .B1(lft_out[5]), .B2(
+        n301), .ZN(n61) );
+  AOI22D1BWP U376 ( .A1(\iCS/shift_reg [5]), .A2(n40), .B1(rht_out[5]), .B2(
+        n305), .ZN(n62) );
+  ND2D1BWP U377 ( .A1(n63), .A2(n64), .ZN(n177) );
+  AOI22D1BWP U378 ( .A1(\iCS/shift_reg [3]), .A2(n368), .B1(lft_out[4]), .B2(
+        n301), .ZN(n63) );
+  AOI22D1BWP U379 ( .A1(\iCS/shift_reg [4]), .A2(n40), .B1(rht_out[4]), .B2(
+        n305), .ZN(n64) );
+  ND2D1BWP U380 ( .A1(n65), .A2(n66), .ZN(n178) );
+  AOI22D1BWP U381 ( .A1(\iCS/shift_reg [2]), .A2(n368), .B1(lft_out[3]), .B2(
+        n301), .ZN(n65) );
+  AOI22D1BWP U382 ( .A1(\iCS/shift_reg [3]), .A2(n40), .B1(rht_out[3]), .B2(
+        n305), .ZN(n66) );
+  ND2D1BWP U383 ( .A1(n67), .A2(n68), .ZN(n179) );
+  AOI22D1BWP U384 ( .A1(\iCS/shift_reg [1]), .A2(n368), .B1(lft_out[2]), .B2(
+        n301), .ZN(n67) );
+  AOI22D1BWP U385 ( .A1(\iCS/shift_reg [2]), .A2(n40), .B1(rht_out[2]), .B2(
+        n305), .ZN(n68) );
+  ND2D1BWP U386 ( .A1(n69), .A2(n70), .ZN(n180) );
+  AOI22D1BWP U387 ( .A1(\iCS/shift_reg [0]), .A2(n368), .B1(lft_out[1]), .B2(
+        n301), .ZN(n69) );
+  AOI22D1BWP U388 ( .A1(\iCS/shift_reg [1]), .A2(n40), .B1(rht_out[1]), .B2(
+        n305), .ZN(n70) );
+  CKBD1BWP U389 ( .I(rst_n), .Z(n333) );
+  ND4D1BWP U390 ( .A1(\iCS/shift_cnt [4]), .A2(n375), .A3(n125), .A4(n376), 
         .ZN(n88) );
-  NR2XD0BWP U440 ( .A1(\iCS/shift_cnt [3]), .A2(\iCS/shift_cnt [2]), .ZN(n125)
+  NR2XD0BWP U391 ( .A1(\iCS/shift_cnt [3]), .A2(\iCS/shift_cnt [2]), .ZN(n125)
          );
-  IND2D1BWP U441 ( .A1(n121), .B1(\iA2D/state [1]), .ZN(n112) );
-  ND3D1BWP U442 ( .A1(\iSLD/state [0]), .A2(n413), .A3(\iSLD/state [1]), .ZN(
+  ND3D1BWP U392 ( .A1(\iSLD/state [0]), .A2(n364), .A3(\iSLD/state [1]), .ZN(
         n113) );
-  NR4D0BWP U443 ( .A1(\iCS/timer [8]), .A2(\iCS/timer [7]), .A3(\iCS/timer [6]), .A4(\iCS/timer [5]), .ZN(n73) );
-  ND2D1BWP U444 ( .A1(\iCS/st [0]), .A2(n420), .ZN(n80) );
-  ND3D1BWP U445 ( .A1(\iSLD/state [2]), .A2(n404), .A3(\iSLD/state [0]), .ZN(
+  NR4D0BWP U393 ( .A1(\iCS/timer [8]), .A2(\iCS/timer [7]), .A3(\iCS/timer [6]), .A4(\iCS/timer [5]), .ZN(n73) );
+  IND2D1BWP U394 ( .A1(n121), .B1(\iA2D/state [1]), .ZN(n112) );
+  ND2D1BWP U395 ( .A1(\iCS/st [0]), .A2(n372), .ZN(n80) );
+  MOAI22D0BWP U396 ( .A1(n322), .A2(n353), .B1(volume[4]), .B2(n321), .ZN(n227) );
+  MOAI22D0BWP U397 ( .A1(n323), .A2(n349), .B1(n300), .B2(n321), .ZN(n231) );
+  MOAI22D0BWP U398 ( .A1(n351), .A2(n314), .B1(B2_pot[2]), .B2(n312), .ZN(n265) );
+  MOAI22D0BWP U399 ( .A1(n352), .A2(n308), .B1(n299), .B2(n306), .ZN(n288) );
+  MOAI22D0BWP U400 ( .A1(n352), .A2(n311), .B1(B1_pot[3]), .B2(n309), .ZN(n276) );
+  MOAI22D0BWP U401 ( .A1(n352), .A2(n317), .B1(B3_pot[3]), .B2(n315), .ZN(n252) );
+  ND3D1BWP U402 ( .A1(\iSLD/state [2]), .A2(n366), .A3(\iSLD/state [0]), .ZN(
         n114) );
-  OAI32D1BWP U446 ( .A1(n112), .A2(\iSLD/state [0]), .A3(n118), .B1(n406), 
-        .B2(n405), .ZN(\iSLD/nxt_state [0]) );
-  NR2XD0BWP U447 ( .A1(n413), .A2(n404), .ZN(n118) );
-  INVD1BWP U448 ( .I(\iSLD/state [1]), .ZN(n404) );
-  INVD1BWP U449 ( .I(\iSLD/state [2]), .ZN(n413) );
-  NR2XD0BWP U450 ( .A1(n420), .A2(\iCS/st [0]), .ZN(n79) );
-  ND3D1BWP U451 ( .A1(n404), .A2(n413), .A3(\iSLD/state [0]), .ZN(n116) );
-  ND3D1BWP U452 ( .A1(n414), .A2(n413), .A3(\iSLD/state [1]), .ZN(n117) );
-  INVD1BWP U453 ( .I(res[0]), .ZN(n397) );
-  INVD1BWP U454 ( .I(res[1]), .ZN(n398) );
-  INVD1BWP U455 ( .I(res[2]), .ZN(n399) );
-  INVD1BWP U456 ( .I(res[3]), .ZN(n400) );
-  INVD1BWP U457 ( .I(res[4]), .ZN(n401) );
-  INVD1BWP U458 ( .I(res[5]), .ZN(n403) );
-  OAI21D1BWP U459 ( .A1(\iA2D/state [1]), .A2(strt_cnv), .B(n415), .ZN(n37) );
-  MOAI22D0BWP U460 ( .A1(n90), .A2(n407), .B1(volume[6]), .B2(n90), .ZN(n225)
-         );
-  MOAI22D0BWP U461 ( .A1(n90), .A2(n408), .B1(volume[7]), .B2(n90), .ZN(n224)
-         );
-  MOAI22D0BWP U462 ( .A1(n90), .A2(n409), .B1(volume[8]), .B2(n90), .ZN(n223)
-         );
-  MOAI22D0BWP U463 ( .A1(n90), .A2(n410), .B1(volume[9]), .B2(n90), .ZN(n222)
-         );
-  MOAI22D0BWP U464 ( .A1(n90), .A2(n411), .B1(volume[10]), .B2(n90), .ZN(n221)
-         );
-  MOAI22D0BWP U465 ( .A1(n90), .A2(n412), .B1(volume[11]), .B2(n90), .ZN(n220)
-         );
-  ND3D1BWP U466 ( .A1(n414), .A2(n404), .A3(\iSLD/state [2]), .ZN(n115) );
-  INVD1BWP U467 ( .I(res[6]), .ZN(n407) );
-  INVD1BWP U468 ( .I(res[7]), .ZN(n408) );
-  INVD1BWP U469 ( .I(res[8]), .ZN(n409) );
-  INVD1BWP U470 ( .I(res[9]), .ZN(n410) );
-  INVD1BWP U471 ( .I(res[10]), .ZN(n411) );
-  INVD1BWP U472 ( .I(res[11]), .ZN(n412) );
-  INVD1BWP U473 ( .I(\iSLD/state [0]), .ZN(n414) );
-  MOAI22D0BWP U474 ( .A1(n407), .A2(n109), .B1(B1_pot[6]), .B2(n109), .ZN(n273) );
-  MOAI22D0BWP U475 ( .A1(n408), .A2(n109), .B1(B1_pot[7]), .B2(n109), .ZN(n272) );
-  MOAI22D0BWP U476 ( .A1(n409), .A2(n109), .B1(B1_pot[8]), .B2(n109), .ZN(n271) );
-  MOAI22D0BWP U477 ( .A1(n410), .A2(n109), .B1(B1_pot[9]), .B2(n109), .ZN(n270) );
-  MOAI22D0BWP U478 ( .A1(n411), .A2(n109), .B1(B1_pot[10]), .B2(n109), .ZN(
+  OAI32D1BWP U403 ( .A1(n112), .A2(\iSLD/state [0]), .A3(n118), .B1(n363), 
+        .B2(n361), .ZN(\iSLD/nxt_state [0]) );
+  NR2XD0BWP U404 ( .A1(n364), .A2(n366), .ZN(n118) );
+  INVD1BWP U405 ( .I(\iSLD/state [1]), .ZN(n366) );
+  INVD1BWP U406 ( .I(\iSLD/state [2]), .ZN(n364) );
+  NR2XD0BWP U407 ( .A1(n372), .A2(\iCS/st [0]), .ZN(n79) );
+  ND3D1BWP U408 ( .A1(n366), .A2(n364), .A3(\iSLD/state [0]), .ZN(n116) );
+  ND3D1BWP U409 ( .A1(n365), .A2(n364), .A3(\iSLD/state [1]), .ZN(n117) );
+  OAI21D1BWP U410 ( .A1(\iA2D/state [1]), .A2(strt_cnv), .B(n367), .ZN(n37) );
+  ND3D1BWP U411 ( .A1(n365), .A2(n366), .A3(\iSLD/state [2]), .ZN(n115) );
+  INVD1BWP U412 ( .I(res[6]), .ZN(n355) );
+  INVD1BWP U413 ( .I(res[7]), .ZN(n356) );
+  INVD1BWP U414 ( .I(res[8]), .ZN(n357) );
+  INVD1BWP U415 ( .I(res[9]), .ZN(n358) );
+  INVD1BWP U416 ( .I(res[10]), .ZN(n359) );
+  INVD1BWP U417 ( .I(res[11]), .ZN(n360) );
+  INVD1BWP U418 ( .I(res[2]), .ZN(n351) );
+  INVD1BWP U419 ( .I(res[1]), .ZN(n350) );
+  INVD1BWP U420 ( .I(res[5]), .ZN(n354) );
+  INVD1BWP U421 ( .I(res[4]), .ZN(n353) );
+  INVD1BWP U422 ( .I(\iSLD/state [0]), .ZN(n365) );
+  INVD1BWP U423 ( .I(res[3]), .ZN(n352) );
+  INVD1BWP U424 ( .I(res[0]), .ZN(n349) );
+  MOAI22D0BWP U425 ( .A1(n351), .A2(n308), .B1(LP_pot[2]), .B2(n306), .ZN(n289) );
+  MOAI22D0BWP U426 ( .A1(n351), .A2(n311), .B1(B1_pot[2]), .B2(n309), .ZN(n277) );
+  MOAI22D0BWP U427 ( .A1(n351), .A2(n317), .B1(B3_pot[2]), .B2(n315), .ZN(n253) );
+  MOAI22D0BWP U428 ( .A1(n351), .A2(n320), .B1(HP_pot[2]), .B2(n318), .ZN(n241) );
+  MOAI22D0BWP U429 ( .A1(n353), .A2(n313), .B1(B2_pot[4]), .B2(n312), .ZN(n263) );
+  MOAI22D0BWP U430 ( .A1(n353), .A2(n319), .B1(HP_pot[4]), .B2(n318), .ZN(n239) );
+  MOAI22D0BWP U431 ( .A1(n353), .A2(n307), .B1(LP_pot[4]), .B2(n306), .ZN(n287) );
+  MOAI22D0BWP U432 ( .A1(n353), .A2(n316), .B1(B3_pot[4]), .B2(n315), .ZN(n251) );
+  MOAI22D0BWP U433 ( .A1(n353), .A2(n310), .B1(B1_pot[4]), .B2(n309), .ZN(n275) );
+  MOAI22D0BWP U434 ( .A1(n354), .A2(n307), .B1(LP_pot[5]), .B2(n306), .ZN(n286) );
+  MOAI22D0BWP U435 ( .A1(n354), .A2(n316), .B1(B3_pot[5]), .B2(n315), .ZN(n250) );
+  MOAI22D0BWP U436 ( .A1(n354), .A2(n319), .B1(HP_pot[5]), .B2(n318), .ZN(n238) );
+  MOAI22D0BWP U437 ( .A1(n350), .A2(n320), .B1(HP_pot[1]), .B2(n318), .ZN(n242) );
+  MOAI22D0BWP U438 ( .A1(n354), .A2(n310), .B1(B1_pot[5]), .B2(n309), .ZN(n274) );
+  MOAI22D0BWP U439 ( .A1(n350), .A2(n311), .B1(B1_pot[1]), .B2(n309), .ZN(n278) );
+  MOAI22D0BWP U440 ( .A1(n350), .A2(n308), .B1(LP_pot[1]), .B2(n306), .ZN(n290) );
+  MOAI22D0BWP U441 ( .A1(n350), .A2(n314), .B1(B2_pot[1]), .B2(n312), .ZN(n266) );
+  MOAI22D0BWP U442 ( .A1(n355), .A2(n310), .B1(B1_pot[6]), .B2(n309), .ZN(n273) );
+  MOAI22D0BWP U443 ( .A1(n356), .A2(n310), .B1(B1_pot[7]), .B2(n309), .ZN(n272) );
+  MOAI22D0BWP U444 ( .A1(n357), .A2(n310), .B1(B1_pot[8]), .B2(n310), .ZN(n271) );
+  MOAI22D0BWP U445 ( .A1(n358), .A2(n310), .B1(B1_pot[9]), .B2(n310), .ZN(n270) );
+  MOAI22D0BWP U446 ( .A1(n359), .A2(n311), .B1(B1_pot[10]), .B2(n310), .ZN(
         n269) );
-  MOAI22D0BWP U479 ( .A1(n412), .A2(n109), .B1(B1_pot[11]), .B2(n109), .ZN(
+  MOAI22D0BWP U447 ( .A1(n360), .A2(n311), .B1(B1_pot[11]), .B2(n309), .ZN(
         n268) );
-  MOAI22D0BWP U480 ( .A1(n407), .A2(n106), .B1(B3_pot[6]), .B2(n106), .ZN(n249) );
-  MOAI22D0BWP U481 ( .A1(n408), .A2(n106), .B1(B3_pot[7]), .B2(n106), .ZN(n248) );
-  MOAI22D0BWP U482 ( .A1(n409), .A2(n106), .B1(B3_pot[8]), .B2(n106), .ZN(n247) );
-  MOAI22D0BWP U483 ( .A1(n410), .A2(n106), .B1(B3_pot[9]), .B2(n106), .ZN(n246) );
-  MOAI22D0BWP U484 ( .A1(n411), .A2(n106), .B1(B3_pot[10]), .B2(n106), .ZN(
+  MOAI22D0BWP U448 ( .A1(n355), .A2(n316), .B1(B3_pot[6]), .B2(n315), .ZN(n249) );
+  MOAI22D0BWP U449 ( .A1(n356), .A2(n316), .B1(B3_pot[7]), .B2(n315), .ZN(n248) );
+  MOAI22D0BWP U450 ( .A1(n357), .A2(n316), .B1(B3_pot[8]), .B2(n316), .ZN(n247) );
+  MOAI22D0BWP U451 ( .A1(n358), .A2(n316), .B1(B3_pot[9]), .B2(n316), .ZN(n246) );
+  MOAI22D0BWP U452 ( .A1(n359), .A2(n317), .B1(B3_pot[10]), .B2(n316), .ZN(
         n245) );
-  MOAI22D0BWP U485 ( .A1(n412), .A2(n106), .B1(B3_pot[11]), .B2(n106), .ZN(
+  MOAI22D0BWP U453 ( .A1(n360), .A2(n317), .B1(B3_pot[11]), .B2(n315), .ZN(
         n244) );
-  MOAI22D0BWP U486 ( .A1(n407), .A2(n108), .B1(B2_pot[6]), .B2(n108), .ZN(n261) );
-  MOAI22D0BWP U487 ( .A1(n408), .A2(n108), .B1(B2_pot[7]), .B2(n108), .ZN(n260) );
-  MOAI22D0BWP U488 ( .A1(n409), .A2(n108), .B1(B2_pot[8]), .B2(n108), .ZN(n259) );
-  MOAI22D0BWP U489 ( .A1(n410), .A2(n108), .B1(B2_pot[9]), .B2(n108), .ZN(n258) );
-  MOAI22D0BWP U490 ( .A1(n411), .A2(n108), .B1(B2_pot[10]), .B2(n108), .ZN(
+  MOAI22D0BWP U454 ( .A1(n355), .A2(n313), .B1(n294), .B2(n312), .ZN(n261) );
+  MOAI22D0BWP U455 ( .A1(n356), .A2(n313), .B1(B2_pot[7]), .B2(n312), .ZN(n260) );
+  MOAI22D0BWP U456 ( .A1(n357), .A2(n313), .B1(B2_pot[8]), .B2(n313), .ZN(n259) );
+  MOAI22D0BWP U457 ( .A1(n358), .A2(n313), .B1(B2_pot[9]), .B2(n313), .ZN(n258) );
+  MOAI22D0BWP U458 ( .A1(n359), .A2(n314), .B1(B2_pot[10]), .B2(n313), .ZN(
         n257) );
-  MOAI22D0BWP U491 ( .A1(n412), .A2(n108), .B1(B2_pot[11]), .B2(n108), .ZN(
+  MOAI22D0BWP U459 ( .A1(n360), .A2(n314), .B1(B2_pot[11]), .B2(n312), .ZN(
         n256) );
-  MOAI22D0BWP U492 ( .A1(n407), .A2(n111), .B1(LP_pot[6]), .B2(n111), .ZN(n285) );
-  MOAI22D0BWP U493 ( .A1(n408), .A2(n111), .B1(LP_pot[7]), .B2(n111), .ZN(n284) );
-  MOAI22D0BWP U494 ( .A1(n409), .A2(n111), .B1(LP_pot[8]), .B2(n111), .ZN(n283) );
-  MOAI22D0BWP U495 ( .A1(n410), .A2(n111), .B1(LP_pot[9]), .B2(n111), .ZN(n282) );
-  MOAI22D0BWP U496 ( .A1(n411), .A2(n111), .B1(LP_pot[10]), .B2(n111), .ZN(
+  MOAI22D0BWP U460 ( .A1(n355), .A2(n307), .B1(LP_pot[6]), .B2(n306), .ZN(n285) );
+  MOAI22D0BWP U461 ( .A1(n356), .A2(n307), .B1(LP_pot[7]), .B2(n306), .ZN(n284) );
+  MOAI22D0BWP U462 ( .A1(n357), .A2(n307), .B1(LP_pot[8]), .B2(n307), .ZN(n283) );
+  MOAI22D0BWP U463 ( .A1(n358), .A2(n307), .B1(LP_pot[9]), .B2(n307), .ZN(n282) );
+  MOAI22D0BWP U464 ( .A1(n359), .A2(n308), .B1(LP_pot[10]), .B2(n307), .ZN(
         n281) );
-  MOAI22D0BWP U497 ( .A1(n412), .A2(n111), .B1(LP_pot[11]), .B2(n111), .ZN(
+  MOAI22D0BWP U465 ( .A1(n360), .A2(n308), .B1(LP_pot[11]), .B2(n306), .ZN(
         n280) );
-  MOAI22D0BWP U498 ( .A1(n407), .A2(n104), .B1(HP_pot[6]), .B2(n104), .ZN(n237) );
-  MOAI22D0BWP U499 ( .A1(n408), .A2(n104), .B1(HP_pot[7]), .B2(n104), .ZN(n236) );
-  MOAI22D0BWP U500 ( .A1(n409), .A2(n104), .B1(HP_pot[8]), .B2(n104), .ZN(n235) );
-  MOAI22D0BWP U501 ( .A1(n410), .A2(n104), .B1(HP_pot[9]), .B2(n104), .ZN(n234) );
-  MOAI22D0BWP U502 ( .A1(n411), .A2(n104), .B1(HP_pot[10]), .B2(n104), .ZN(
+  MOAI22D0BWP U466 ( .A1(n355), .A2(n319), .B1(HP_pot[6]), .B2(n318), .ZN(n237) );
+  MOAI22D0BWP U467 ( .A1(n356), .A2(n319), .B1(HP_pot[7]), .B2(n318), .ZN(n236) );
+  MOAI22D0BWP U468 ( .A1(n357), .A2(n319), .B1(HP_pot[8]), .B2(n319), .ZN(n235) );
+  MOAI22D0BWP U469 ( .A1(n358), .A2(n319), .B1(HP_pot[9]), .B2(n319), .ZN(n234) );
+  MOAI22D0BWP U470 ( .A1(n359), .A2(n320), .B1(HP_pot[10]), .B2(n319), .ZN(
         n233) );
-  MOAI22D0BWP U503 ( .A1(n412), .A2(n104), .B1(HP_pot[11]), .B2(n104), .ZN(
+  MOAI22D0BWP U471 ( .A1(n360), .A2(n320), .B1(HP_pot[11]), .B2(n318), .ZN(
         n232) );
-  MOAI22D0BWP U504 ( .A1(n306), .A2(n148), .B1(rht_in[0]), .B2(n304), .ZN(n197) );
-  MOAI22D0BWP U505 ( .A1(n306), .A2(n149), .B1(rht_in[1]), .B2(n304), .ZN(n196) );
-  MOAI22D0BWP U506 ( .A1(n306), .A2(n150), .B1(rht_in[2]), .B2(n304), .ZN(n195) );
-  MOAI22D0BWP U507 ( .A1(n306), .A2(n152), .B1(rht_in[4]), .B2(n305), .ZN(n193) );
-  MOAI22D0BWP U508 ( .A1(n306), .A2(n153), .B1(rht_in[5]), .B2(n305), .ZN(n192) );
-  MOAI22D0BWP U509 ( .A1(n306), .A2(n154), .B1(rht_in[6]), .B2(n305), .ZN(n191) );
-  MOAI22D0BWP U510 ( .A1(n306), .A2(n155), .B1(rht_in[7]), .B2(n305), .ZN(n190) );
-  MOAI22D0BWP U511 ( .A1(n306), .A2(n156), .B1(rht_in[8]), .B2(n305), .ZN(n189) );
-  MOAI22D0BWP U512 ( .A1(n307), .A2(n157), .B1(rht_in[9]), .B2(n305), .ZN(n188) );
-  MOAI22D0BWP U513 ( .A1(n307), .A2(n158), .B1(rht_in[10]), .B2(n305), .ZN(
+  MOAI22D0BWP U472 ( .A1(n349), .A2(n320), .B1(HP_pot[0]), .B2(n318), .ZN(n243) );
+  MOAI22D0BWP U473 ( .A1(n349), .A2(n317), .B1(B3_pot[0]), .B2(n315), .ZN(n255) );
+  MOAI22D0BWP U474 ( .A1(n352), .A2(n320), .B1(HP_pot[3]), .B2(n318), .ZN(n240) );
+  MOAI22D0BWP U475 ( .A1(n323), .A2(n351), .B1(volume[2]), .B2(n321), .ZN(n229) );
+  MOAI22D0BWP U476 ( .A1(n323), .A2(n350), .B1(volume[1]), .B2(n321), .ZN(n230) );
+  MOAI22D0BWP U477 ( .A1(n322), .A2(n355), .B1(n293), .B2(n321), .ZN(n225) );
+  MOAI22D0BWP U478 ( .A1(n322), .A2(n356), .B1(volume[7]), .B2(n321), .ZN(n224) );
+  MOAI22D0BWP U479 ( .A1(n322), .A2(n357), .B1(volume[8]), .B2(n322), .ZN(n223) );
+  MOAI22D0BWP U480 ( .A1(n322), .A2(n358), .B1(volume[9]), .B2(n322), .ZN(n222) );
+  MOAI22D0BWP U481 ( .A1(n323), .A2(n359), .B1(volume[10]), .B2(n322), .ZN(
+        n221) );
+  MOAI22D0BWP U482 ( .A1(n323), .A2(n360), .B1(volume[11]), .B2(n321), .ZN(
+        n220) );
+  MOAI22D0BWP U483 ( .A1(n322), .A2(n354), .B1(volume[5]), .B2(n321), .ZN(n226) );
+  MOAI22D0BWP U484 ( .A1(n330), .A2(n148), .B1(rht_in[0]), .B2(n328), .ZN(n197) );
+  MOAI22D0BWP U485 ( .A1(n330), .A2(n149), .B1(rht_in[1]), .B2(n328), .ZN(n196) );
+  MOAI22D0BWP U486 ( .A1(n330), .A2(n150), .B1(rht_in[2]), .B2(n328), .ZN(n195) );
+  MOAI22D0BWP U487 ( .A1(n330), .A2(n152), .B1(rht_in[4]), .B2(n329), .ZN(n193) );
+  MOAI22D0BWP U488 ( .A1(n330), .A2(n153), .B1(rht_in[5]), .B2(n329), .ZN(n192) );
+  MOAI22D0BWP U489 ( .A1(n330), .A2(n154), .B1(rht_in[6]), .B2(n329), .ZN(n191) );
+  MOAI22D0BWP U490 ( .A1(n330), .A2(n155), .B1(rht_in[7]), .B2(n329), .ZN(n190) );
+  MOAI22D0BWP U491 ( .A1(n330), .A2(n156), .B1(rht_in[8]), .B2(n329), .ZN(n189) );
+  MOAI22D0BWP U492 ( .A1(n331), .A2(n157), .B1(rht_in[9]), .B2(n329), .ZN(n188) );
+  MOAI22D0BWP U493 ( .A1(n331), .A2(n158), .B1(rht_in[10]), .B2(n329), .ZN(
         n187) );
-  MOAI22D0BWP U514 ( .A1(n307), .A2(n159), .B1(rht_in[11]), .B2(n305), .ZN(
+  MOAI22D0BWP U494 ( .A1(n331), .A2(n159), .B1(rht_in[11]), .B2(n329), .ZN(
         n186) );
-  MOAI22D0BWP U515 ( .A1(n307), .A2(n160), .B1(rht_in[12]), .B2(n305), .ZN(
+  MOAI22D0BWP U495 ( .A1(n331), .A2(n160), .B1(rht_in[12]), .B2(n329), .ZN(
         n185) );
-  MOAI22D0BWP U516 ( .A1(n307), .A2(n134), .B1(lft_in[2]), .B2(n303), .ZN(n211) );
-  MOAI22D0BWP U517 ( .A1(n307), .A2(n135), .B1(lft_in[3]), .B2(n303), .ZN(n210) );
-  MOAI22D0BWP U518 ( .A1(n307), .A2(n136), .B1(lft_in[4]), .B2(n303), .ZN(n209) );
-  MOAI22D0BWP U519 ( .A1(n307), .A2(n137), .B1(lft_in[5]), .B2(n303), .ZN(n208) );
-  MOAI22D0BWP U520 ( .A1(n307), .A2(n138), .B1(lft_in[6]), .B2(n304), .ZN(n207) );
-  MOAI22D0BWP U521 ( .A1(n307), .A2(n139), .B1(lft_in[7]), .B2(n303), .ZN(n206) );
-  MOAI22D0BWP U522 ( .A1(n307), .A2(n140), .B1(lft_in[8]), .B2(n303), .ZN(n205) );
-  MOAI22D0BWP U523 ( .A1(n307), .A2(n141), .B1(lft_in[9]), .B2(n304), .ZN(n204) );
-  MOAI22D0BWP U524 ( .A1(n306), .A2(n142), .B1(lft_in[10]), .B2(n304), .ZN(
+  MOAI22D0BWP U496 ( .A1(n331), .A2(n134), .B1(lft_in[2]), .B2(n327), .ZN(n211) );
+  MOAI22D0BWP U497 ( .A1(n331), .A2(n135), .B1(lft_in[3]), .B2(n327), .ZN(n210) );
+  MOAI22D0BWP U498 ( .A1(n331), .A2(n136), .B1(lft_in[4]), .B2(n327), .ZN(n209) );
+  MOAI22D0BWP U499 ( .A1(n331), .A2(n137), .B1(lft_in[5]), .B2(n327), .ZN(n208) );
+  MOAI22D0BWP U500 ( .A1(n331), .A2(n138), .B1(lft_in[6]), .B2(n328), .ZN(n207) );
+  MOAI22D0BWP U501 ( .A1(n331), .A2(n139), .B1(lft_in[7]), .B2(n327), .ZN(n206) );
+  MOAI22D0BWP U502 ( .A1(n331), .A2(n140), .B1(lft_in[8]), .B2(n327), .ZN(n205) );
+  MOAI22D0BWP U503 ( .A1(n331), .A2(n141), .B1(lft_in[9]), .B2(n328), .ZN(n204) );
+  MOAI22D0BWP U504 ( .A1(n330), .A2(n142), .B1(lft_in[10]), .B2(n328), .ZN(
         n203) );
-  MOAI22D0BWP U525 ( .A1(n306), .A2(n143), .B1(lft_in[11]), .B2(n304), .ZN(
+  MOAI22D0BWP U505 ( .A1(n330), .A2(n143), .B1(lft_in[11]), .B2(n328), .ZN(
         n202) );
-  MOAI22D0BWP U526 ( .A1(n307), .A2(n144), .B1(lft_in[12]), .B2(n304), .ZN(
+  MOAI22D0BWP U506 ( .A1(n331), .A2(n144), .B1(lft_in[12]), .B2(n328), .ZN(
         n201) );
-  MOAI22D0BWP U527 ( .A1(n306), .A2(n145), .B1(lft_in[13]), .B2(n304), .ZN(
+  MOAI22D0BWP U507 ( .A1(n330), .A2(n145), .B1(lft_in[13]), .B2(n328), .ZN(
         n200) );
-  MOAI22D0BWP U528 ( .A1(n306), .A2(n146), .B1(lft_in[14]), .B2(n304), .ZN(
+  MOAI22D0BWP U508 ( .A1(n330), .A2(n146), .B1(lft_in[14]), .B2(n328), .ZN(
         n199) );
-  MOAI22D0BWP U529 ( .A1(n306), .A2(n147), .B1(lft_in[15]), .B2(n304), .ZN(
+  MOAI22D0BWP U509 ( .A1(n330), .A2(n147), .B1(lft_in[15]), .B2(n328), .ZN(
         n198) );
-  MOAI22D0BWP U530 ( .A1(n305), .A2(n151), .B1(rht_in[3]), .B2(n304), .ZN(n194) );
-  INVD1BWP U531 ( .I(\iCS/st [1]), .ZN(n420) );
-  MOAI22D0BWP U532 ( .A1(n308), .A2(n161), .B1(rht_in[13]), .B2(n305), .ZN(
+  MOAI22D0BWP U510 ( .A1(n329), .A2(n151), .B1(rht_in[3]), .B2(n328), .ZN(n194) );
+  INVD1BWP U511 ( .I(\iCS/st [1]), .ZN(n372) );
+  MOAI22D0BWP U512 ( .A1(n332), .A2(n161), .B1(rht_in[13]), .B2(n329), .ZN(
         n184) );
-  MOAI22D0BWP U533 ( .A1(n308), .A2(n162), .B1(rht_in[14]), .B2(n305), .ZN(
+  MOAI22D0BWP U513 ( .A1(n332), .A2(n162), .B1(rht_in[14]), .B2(n329), .ZN(
         n183) );
-  MOAI22D0BWP U534 ( .A1(n308), .A2(n163), .B1(rht_in[15]), .B2(n303), .ZN(
+  MOAI22D0BWP U514 ( .A1(n332), .A2(n163), .B1(rht_in[15]), .B2(n327), .ZN(
         n182) );
-  MOAI22D0BWP U535 ( .A1(n308), .A2(n132), .B1(lft_in[0]), .B2(n303), .ZN(n213) );
-  MOAI22D0BWP U536 ( .A1(n308), .A2(n133), .B1(lft_in[1]), .B2(n303), .ZN(n212) );
-  INVD1BWP U537 ( .I(\iA2D/state [0]), .ZN(n415) );
-  AN2XD1BWP U538 ( .A1(\iCore/wrt_sig ), .A2(\iCore/wrt_en ), .Z(
+  MOAI22D0BWP U515 ( .A1(n332), .A2(n132), .B1(lft_in[0]), .B2(n327), .ZN(n213) );
+  MOAI22D0BWP U516 ( .A1(n332), .A2(n133), .B1(lft_in[1]), .B2(n327), .ZN(n212) );
+  INVD1BWP U517 ( .I(\iA2D/state [0]), .ZN(n367) );
+  AN2XD1BWP U518 ( .A1(\iCore/wrt_sig ), .A2(\iCore/wrt_en ), .Z(
         \iCore/_1_net_ ) );
-  OAI21D1BWP U539 ( .A1(\iA2D/done_en ), .A2(n415), .B(n37), .ZN(
+  OAI21D1BWP U519 ( .A1(\iA2D/done_en ), .A2(n367), .B(n37), .ZN(
         \iA2D/nxt_state [0]) );
-  ND2D1BWP U540 ( .A1(\iA2D/state [0]), .A2(\iA2D/done_en ), .ZN(n121) );
-  CKBD1BWP U541 ( .I(\iCore/rht_seq_1024 ), .Z(n325) );
-  CKBD1BWP U542 ( .I(\iCore/lft_seq_1024 ), .Z(n314) );
-  INVD1BWP U543 ( .I(\iCS/shift_cnt [0]), .ZN(n423) );
-  HA1D0BWP U544 ( .A(\iCS/shift_cnt [2]), .B(\iCS/add_119/carry [2]), .CO(
+  ND2D1BWP U520 ( .A1(\iA2D/state [0]), .A2(\iA2D/done_en ), .ZN(n121) );
+  INVD1BWP U521 ( .I(\iCS/shift_cnt [0]), .ZN(n375) );
+  HA1D0BWP U522 ( .A(\iCS/shift_cnt [2]), .B(\iCS/add_119/carry [2]), .CO(
         \iCS/add_119/carry [3]), .S(\iCS/N69 ) );
-  HA1D0BWP U545 ( .A(\iCS/shift_cnt [1]), .B(\iCS/shift_cnt [0]), .CO(
+  HA1D0BWP U523 ( .A(\iCS/shift_cnt [1]), .B(\iCS/shift_cnt [0]), .CO(
         \iCS/add_119/carry [2]), .S(\iCS/N68 ) );
-  INVD1BWP U546 ( .I(\iCS/shift_cnt [1]), .ZN(n424) );
-  INR2D1BWP U547 ( .A1(valid), .B1(\iCore/valid_d ), .ZN(\iCore/N4 ) );
-  CKBD1BWP U548 ( .I(\iCore/lft_seq_1536 ), .Z(n320) );
-  CKBD1BWP U549 ( .I(\iCore/rht_seq_1536 ), .Z(n330) );
-  HA1D0BWP U550 ( .A(\iCS/shift_cnt [3]), .B(\iCS/add_119/carry [3]), .CO(
+  INVD1BWP U524 ( .I(\iCS/shift_cnt [1]), .ZN(n376) );
+  INR2D1BWP U525 ( .A1(valid), .B1(\iCore/valid_d ), .ZN(\iCore/N3 ) );
+  HA1D0BWP U526 ( .A(\iCS/shift_cnt [3]), .B(\iCS/add_119/carry [3]), .CO(
         \iCS/add_119/carry [4]), .S(\iCS/N70 ) );
-  AN2XD1BWP U551 ( .A1(\iCS/timer [7]), .A2(\iCS/timer [8]), .Z(n35) );
-  TIEHBWP U552 ( .Z(\iRST/*Logic1* ) );
-  TIELBWP U553 ( .ZN(\iA2D/*Logic0* ) );
-  MUX2ND0BWP U554 ( .I0(n361), .I1(n397), .S(n390), .ZN(n291) );
-  MUX2ND0BWP U555 ( .I0(n362), .I1(n398), .S(n390), .ZN(n290) );
-  MUX2ND0BWP U556 ( .I0(n363), .I1(n399), .S(n390), .ZN(n289) );
-  MUX2ND0BWP U557 ( .I0(n364), .I1(n400), .S(n390), .ZN(n288) );
-  MUX2ND0BWP U558 ( .I0(n365), .I1(n401), .S(n390), .ZN(n287) );
-  MUX2ND0BWP U559 ( .I0(n366), .I1(n403), .S(n390), .ZN(n286) );
-  MUX2ND0BWP U560 ( .I0(n355), .I1(n397), .S(n392), .ZN(n279) );
-  MUX2ND0BWP U561 ( .I0(n356), .I1(n398), .S(n392), .ZN(n278) );
-  MUX2ND0BWP U562 ( .I0(n357), .I1(n399), .S(n392), .ZN(n277) );
-  MUX2ND0BWP U563 ( .I0(n358), .I1(n400), .S(n392), .ZN(n276) );
-  MUX2ND0BWP U564 ( .I0(n359), .I1(n401), .S(n392), .ZN(n275) );
-  MUX2ND0BWP U565 ( .I0(n360), .I1(n403), .S(n392), .ZN(n274) );
-  MUX2ND0BWP U566 ( .I0(n349), .I1(n397), .S(n393), .ZN(n267) );
-  MUX2ND0BWP U567 ( .I0(n350), .I1(n398), .S(n393), .ZN(n266) );
-  MUX2ND0BWP U568 ( .I0(n351), .I1(n399), .S(n393), .ZN(n265) );
-  MUX2ND0BWP U569 ( .I0(n352), .I1(n400), .S(n393), .ZN(n264) );
-  MUX2ND0BWP U570 ( .I0(n353), .I1(n401), .S(n393), .ZN(n263) );
-  MUX2ND0BWP U571 ( .I0(n354), .I1(n403), .S(n393), .ZN(n262) );
-  MUX2ND0BWP U572 ( .I0(n343), .I1(n397), .S(n394), .ZN(n255) );
-  MUX2ND0BWP U573 ( .I0(n344), .I1(n398), .S(n394), .ZN(n254) );
-  MUX2ND0BWP U574 ( .I0(n345), .I1(n399), .S(n394), .ZN(n253) );
-  MUX2ND0BWP U575 ( .I0(n346), .I1(n400), .S(n394), .ZN(n252) );
-  MUX2ND0BWP U576 ( .I0(n347), .I1(n401), .S(n394), .ZN(n251) );
-  MUX2ND0BWP U577 ( .I0(n348), .I1(n403), .S(n394), .ZN(n250) );
-  MUX2ND0BWP U578 ( .I0(n337), .I1(n397), .S(n395), .ZN(n243) );
-  MUX2ND0BWP U579 ( .I0(n338), .I1(n398), .S(n395), .ZN(n242) );
-  MUX2ND0BWP U580 ( .I0(n339), .I1(n399), .S(n395), .ZN(n241) );
-  MUX2ND0BWP U581 ( .I0(n340), .I1(n400), .S(n395), .ZN(n240) );
-  MUX2ND0BWP U582 ( .I0(n341), .I1(n401), .S(n395), .ZN(n239) );
-  MUX2ND0BWP U583 ( .I0(n342), .I1(n403), .S(n395), .ZN(n238) );
-  MUX2ND0BWP U584 ( .I0(n331), .I1(n397), .S(n402), .ZN(n231) );
-  MUX2ND0BWP U585 ( .I0(n332), .I1(n398), .S(n402), .ZN(n230) );
-  MUX2ND0BWP U586 ( .I0(n333), .I1(n399), .S(n402), .ZN(n229) );
-  MUX2ND0BWP U587 ( .I0(n334), .I1(n400), .S(n402), .ZN(n228) );
-  MUX2ND0BWP U588 ( .I0(n335), .I1(n401), .S(n402), .ZN(n227) );
-  MUX2ND0BWP U589 ( .I0(n336), .I1(n403), .S(n402), .ZN(n226) );
-  CKXOR2D0BWP U590 ( .A1(\iCS/add_119/carry [4]), .A2(\iCS/shift_cnt [4]), .Z(
+  AN2XD1BWP U527 ( .A1(\iCS/timer [7]), .A2(\iCS/timer [8]), .Z(n35) );
+  CKBD1BWP U528 ( .I(rst_n), .Z(n334) );
+  CKBD1BWP U529 ( .I(rst_n), .Z(n335) );
+  TIELBWP U530 ( .ZN(\iA2D/*Logic0* ) );
+  MOAI22D0BWP U531 ( .A1(n349), .A2(n308), .B1(n296), .B2(n306), .ZN(n291) );
+  MOAI22D0BWP U532 ( .A1(n354), .A2(n313), .B1(n295), .B2(n312), .ZN(n262) );
+  MOAI22D0BWP U533 ( .A1(n349), .A2(n314), .B1(B2_pot[0]), .B2(n312), .ZN(n267) );
+  MOAI22D0BWP U534 ( .A1(n352), .A2(n314), .B1(B2_pot[3]), .B2(n312), .ZN(n264) );
+  MOAI22D0BWP U535 ( .A1(n349), .A2(n311), .B1(n297), .B2(n309), .ZN(n279) );
+  MOAI22D0BWP U536 ( .A1(n323), .A2(n352), .B1(volume[3]), .B2(n321), .ZN(n228) );
+  MOAI22D0BWP U537 ( .A1(n350), .A2(n317), .B1(B3_pot[1]), .B2(n315), .ZN(n254) );
+  CKXOR2D0BWP U538 ( .A1(\iCS/add_119/carry [4]), .A2(\iCS/shift_cnt [4]), .Z(
         \iCS/N71 ) );
 endmodule
 

@@ -4,16 +4,19 @@ input [11:0] pot;
 input signed [15:0] audio;
 output wire [15:0] scaled;
 
-reg [23:0] mult_pot;
+//reg [23:0] mult_pot;
+wire [23:0] mult_pot;
 wire signed [12:0] signed_mult_pot;
 reg signed [28:0] signed_audio_scaled;
+//wire signed [28:0] signed_audio_scaled;
 wire [3:0] sat_bits;
 wire sat_pos, sat_neg;
 
-//Intentional flop stage
-always@(posedge clk) begin
-    mult_pot <= pot*pot;
-end
+////Intentional flop stage
+//always@(posedge clk) begin
+//    mult_pot <= pot*pot;
+//end
+assign mult_pot = pot*pot;
 
 assign signed_mult_pot = {1'b0, mult_pot[23:12]};
 
@@ -21,6 +24,7 @@ assign signed_mult_pot = {1'b0, mult_pot[23:12]};
 always@(posedge clk) begin
     signed_audio_scaled <= signed_mult_pot*audio;
 end
+//assign signed_audio_scaled = signed_mult_pot*audio;
 
 assign sat_bits = signed_audio_scaled[28:25];
 
