@@ -163,14 +163,14 @@ band_scale rht_scale_HP(.pot(HP_pot),
                     .scaled(rht_HP_scl)
                     );
 /**** OUTPUT ****/
-band_scale_sum lft_scale_vol(.LP_scl(lft_LP_scl),
+band_scale_sum lft_scale_sum(.LP_scl(lft_LP_scl),
                             .B1_scl(lft_B1_scl),
                             .B2_scl(lft_B2_scl),
                             .B3_scl(lft_B3_scl),
                             .HP_scl(lft_HP_scl),
                             .out(lft_sum_out)
                             );
-band_scale_sum rht_scale_vol(.LP_scl(rht_LP_scl),
+band_scale_sum rht_scale_sum(.LP_scl(rht_LP_scl),
                             .B1_scl(rht_B1_scl),
                             .B2_scl(rht_B2_scl),
                             .B3_scl(rht_B3_scl),
