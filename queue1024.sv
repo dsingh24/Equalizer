@@ -1,14 +1,14 @@
-module queue1024(clk, rst_n, new_smpl, smpl_out, wrt_smpl, sequencing);
+module queue1024(clk, rst_n, new_smpl, smpl_out, wrt_smpl, sequencing, AMP_ON);
 
 input clk, rst_n, wrt_smpl;
 input [15:0] new_smpl; //lft_in or rht_in
-output reg sequencing;
+output reg sequencing, AMP_ON;
 output reg [15:0] smpl_out;
 
 reg [9:0] old_ptr, new_ptr, read_ptr, end_ptr;
 reg [15:0] ram_rdata, ram_wdata;
 reg we, readout_done;
-logic inc_new, inc_old, readout, wr_data;
+logic inc_new, inc_old, readout, wr_data, amp_on;
 
 typedef enum reg [1:0] {IDLE, WAIT, FULL, READOUT} state;
 state st, nxt_st;
@@ -103,6 +103,15 @@ end
 
 always @(posedge clk, negedge rst_n) begin
     if(!rst_n) begin
+        AMP_ON <= 1'b0;
+    end else begin
+        if(amp_on) //from SM
+            AMP_ON <= 1'b1;
+    end
+end
+
+always @(posedge clk, negedge rst_n) begin
+    if(!rst_n) begin
         st <= WAIT;
     end else begin
         st <= nxt_st;
@@ -114,6 +123,7 @@ inc_new = 1'b0;
 inc_old = 1'b0;
 wr_data = 1'b0;
 readout = 1'b0;
+amp_on = 1'b0;
 
 case(st)
     WAIT:
@@ -145,6 +155,7 @@ case(st)
             readout = 1'b1;
             nxt_st = READOUT;
         end else begin
+            amp_on = 1'b1;
             nxt_st = FULL;
         end
 endcase 

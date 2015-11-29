@@ -1,8 +1,9 @@
-module core(clk, rst_n, LP_pot, B1_pot, B2_pot, B3_pot, HP_pot, VOL_pot, lft_in, rht_in, valid, lft_out, rht_out);
+module core(clk, rst_n, LP_pot, B1_pot, B2_pot, B3_pot, HP_pot, VOL_pot, lft_in, rht_in, valid, lft_out, rht_out, AMP_ON);
 
 input clk, rst_n, valid;
 input [15:0] lft_in, rht_in;
 input signed [11:0] LP_pot, B1_pot, B2_pot, B3_pot, HP_pot, VOL_pot; //assuming signed
+output reg AMP_ON;
 output reg [15:0] lft_out, rht_out;
 
 reg valid_d, wrt_sig, wrt_en;
@@ -26,7 +27,8 @@ queue1024 lft_q1024(.clk(clk),
                     .new_smpl(lft_in),
                     .smpl_out(lft_q1024_out),
                     .wrt_smpl(wrt_en & wrt_sig),
-                    .sequencing(lft_seq_1024)
+                    .sequencing(lft_seq_1024),
+                    .AMP_ON(AMP_ON)
                     );
 queue1024 lft_q1536(.clk(clk),
                     .rst_n(rst_n),
