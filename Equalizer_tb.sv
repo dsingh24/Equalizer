@@ -6,7 +6,7 @@ wire A2D_SS_n, A2D_MOSI, A2D_MISO, A2D_SCLK;
 wire LRCLK, SCLK, MCLK, RSTn, SDin, SDout, AMP_ON;
 wire signed [15:0] aout_lft, aout_rht;
 
-Equalizer_vg eq(.clk(clk),
+Equalizer eq(.clk(clk),
                 .RST_n(RST_n),
                 .LED(),
                 .A2D_SS_n(A2D_SS_n),
@@ -18,7 +18,7 @@ Equalizer_vg eq(.clk(clk),
                 .LRCLK(LRCLK),
                 .SDout(SDout),
                 .SDin(SDin),
-                .AMP_ON(),
+                .AMP_ON(AMP_ON),
                 .RSTn(RSTn)
                 );
 

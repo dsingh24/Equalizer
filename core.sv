@@ -16,7 +16,7 @@ wire [15:0] rht_LP_out, rht_B1_out, rht_B2_out, rht_B3_out, rht_HP_out;
 //scaled signals are gonna be signed
 wire signed [15:0] lft_LP_scl, lft_B1_scl, lft_B2_scl, lft_B3_scl, lft_HP_scl;
 wire signed [15:0] rht_LP_scl, rht_B1_scl, rht_B2_scl, rht_B3_scl, rht_HP_scl;
-wire [15:0] lft_sum_out, rht_sum_out;
+wire signed [15:0] lft_sum_out, rht_sum_out;
 reg [15:0] lft_sum_out_buf, rht_sum_out_buf;
 //3 extra bits for summing,12 for mult 
 
@@ -165,6 +165,10 @@ band_scale rht_scale_HP(.pot(HP_pot),
                     .scaled(rht_HP_scl)
                     );
 /**** OUTPUT ****/
+/*
+assign lft_sum_out = lft_LP_scl + lft_B1_scl + lft_B2_scl + lft_B3_scl + lft_HP_scl;
+assign rht_sum_out = rht_LP_scl + rht_B1_scl + rht_B2_scl + rht_B3_scl + rht_HP_scl;
+*/
 band_scale_sum lft_scale_sum(.LP_scl(lft_LP_scl),
                             .B1_scl(lft_B1_scl),
                             .B2_scl(lft_B2_scl),
