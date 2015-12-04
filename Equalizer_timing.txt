@@ -8,7 +8,7 @@ Report : timing
         -max_paths 1
 Design : Equalizer
 Version: J-2014.09-SP5
-Date   : Sat Nov 28 19:21:35 2015
+Date   : Fri Dec  4 11:22:08 2015
 ****************************************
 
  # A fanout number of 1000 was used for high fanout net computations.
@@ -59,7 +59,7 @@ Report : timing
         -max_paths 1
 Design : Equalizer
 Version: J-2014.09-SP5
-Date   : Sat Nov 28 19:21:35 2015
+Date   : Fri Dec  4 11:22:08 2015
 ****************************************
 
  # A fanout number of 1000 was used for high fanout net computations.
@@ -67,9 +67,9 @@ Date   : Sat Nov 28 19:21:35 2015
 Operating Conditions: NCCOM   Library: tcbn40lpbwptc
 Wire Load Model Mode: segmented
 
-  Startpoint: iCore/lft_q1024/smpl_out_reg[2]
+  Startpoint: iCore/lft_q1024/smpl_out_reg[0]
               (rising edge-triggered flip-flop clocked by clk)
-  Endpoint: iCore/lft_LP/filter/accum_reg[31]
+  Endpoint: iCore/lft_B2/filter/accum_reg[31]
             (rising edge-triggered flip-flop clocked by clk)
   Path Group: clk
   Path Type: max
@@ -83,51 +83,51 @@ Wire Load Model Mode: segmented
   --------------------------------------------------------------------------
   clock clk (rise edge)                                   0.00       0.00
   clock network delay (ideal)                             0.00       0.00
-  iCore/lft_q1024/smpl_out_reg[2]/CP (DFQD1BWP)           0.00 #     0.00 r
-  iCore/lft_q1024/smpl_out_reg[2]/Q (DFQD1BWP)            0.16       0.16 r
-  U6351/ZN (INVD2BWP)                                     0.07       0.23 f
-  U6352/ZN (INVD2BWP)                                     0.09       0.31 r
-  U5503/ZN (AOI22D0BWP)                                   0.07       0.38 f
-  U5502/ZN (OAI32D0BWP)                                   0.09       0.47 r
-  U7659/S (FA1D0BWP)                                      0.13       0.60 f
-  U9933/CO (FA1D0BWP)                                     0.16       0.76 f
-  U9945/CO (FA1D0BWP)                                     0.08       0.84 f
-  U10073/CO (FA1D0BWP)                                    0.08       0.93 f
-  U10135/CO (FA1D0BWP)                                    0.08       1.01 f
-  U10174/CO (FA1D0BWP)                                    0.08       1.10 f
-  U10230/CO (FA1D0BWP)                                    0.08       1.18 f
-  U10282/CO (FA1D0BWP)                                    0.08       1.27 f
-  U10321/CO (FA1D0BWP)                                    0.09       1.36 f
-  U1552/CO (FA1D1BWP)                                     0.07       1.43 f
-  U1549/CO (FA1D1BWP)                                     0.07       1.49 f
-  U1543/CO (FA1D1BWP)                                     0.07       1.56 f
-  U1537/CO (FA1D1BWP)                                     0.07       1.63 f
-  U1533/CO (FA1D1BWP)                                     0.07       1.69 f
-  U1520/CO (FA1D1BWP)                                     0.06       1.76 f
-  U10884/CO (FA1D0BWP)                                    0.08       1.84 f
-  U10926/CO (FA1D0BWP)                                    0.08       1.93 f
-  U10991/CO (FA1D0BWP)                                    0.08       2.01 f
-  U11077/CO (FA1D0BWP)                                    0.09       2.10 f
-  U1499/CO (FA1D1BWP)                                     0.07       2.17 f
-  U1484/CO (FA1D1BWP)                                     0.07       2.24 f
-  U1478/CO (FA1D1BWP)                                     0.07       2.30 f
-  U1462/CO (FA1D1BWP)                                     0.06       2.37 f
-  U11239/CO (FA1D0BWP)                                    0.08       2.45 f
-  U11275/CO (FA1D0BWP)                                    0.08       2.54 f
-  U11338/CO (FA1D0BWP)                                    0.08       2.62 f
-  U11400/CO (FA1D0BWP)                                    0.08       2.71 f
-  U11448/CO (FA1D0BWP)                                    0.09       2.80 f
-  U1390/CO (FA1D1BWP)                                     0.07       2.87 f
-  U1361/CO (FA1D1BWP)                                     0.06       2.93 f
-  U1352/ZN (XNR3D1BWP)                                    0.15       3.08 r
-  U1331/ZN (INR2D1BWP)                                    0.06       3.14 r
-  iCore/lft_LP/filter/accum_reg[31]/D (EDFQD1BWP)         0.00       3.14 r
+  iCore/lft_q1024/smpl_out_reg[0]/CP (DFQD2BWP)           0.00 #     0.00 r
+  iCore/lft_q1024/smpl_out_reg[0]/Q (DFQD2BWP)            0.13       0.13 r
+  U6862/ZN (INVD1BWP)                                     0.06       0.18 f
+  U1790/Z (CKBD3BWP)                                      0.08       0.27 f
+  U6607/ZN (INVD2BWP)                                     0.10       0.37 r
+  U7883/ZN (AOI22D0BWP)                                   0.07       0.44 f
+  U7884/ZN (OAI22D1BWP)                                   0.08       0.52 r
+  U7885/S (FA1D0BWP)                                      0.17       0.69 f
+  U10092/CO (FA1D0BWP)                                    0.16       0.84 f
+  U10263/CO (FA1D0BWP)                                    0.08       0.93 f
+  U10326/CO (FA1D0BWP)                                    0.08       1.01 f
+  U10413/CO (FA1D0BWP)                                    0.08       1.10 f
+  U10500/CO (FA1D0BWP)                                    0.08       1.18 f
+  U10574/CO (FA1D0BWP)                                    0.08       1.27 f
+  U10610/CO (FA1D0BWP)                                    0.08       1.35 f
+  U10648/CO (FA1D0BWP)                                    0.09       1.44 f
+  U1639/CO (FA1D1BWP)                                     0.07       1.51 f
+  U1630/CO (FA1D1BWP)                                     0.06       1.58 f
+  U10851/CO (FA1D0BWP)                                    0.09       1.67 f
+  U1619/CO (FA1D1BWP)                                     0.07       1.74 f
+  U1611/CO (FA1D1BWP)                                     0.06       1.80 f
+  U11054/CO (FA1D0BWP)                                    0.09       1.89 f
+  U1602/CO (FA1D1BWP)                                     0.07       1.96 f
+  U1598/CO (FA1D1BWP)                                     0.06       2.02 f
+  U11234/CO (FA1D0BWP)                                    0.08       2.10 f
+  U11260/CO (FA1D0BWP)                                    0.09       2.19 f
+  U1560/CO (FA1D1BWP)                                     0.07       2.26 f
+  U1548/CO (FA1D1BWP)                                     0.06       2.33 f
+  U11336/CO (FA1D0BWP)                                    0.08       2.41 f
+  U11354/CO (FA1D0BWP)                                    0.08       2.49 f
+  U11371/CO (FA1D0BWP)                                    0.08       2.58 f
+  U11406/CO (FA1D0BWP)                                    0.09       2.67 f
+  U1484/CO (FA1D1BWP)                                     0.07       2.74 f
+  U1459/CO (FA1D1BWP)                                     0.07       2.81 f
+  U1450/CO (FA1D1BWP)                                     0.07       2.87 f
+  U1431/CO (FA1D1BWP)                                     0.06       2.94 f
+  U1413/ZN (XNR3D2BWP)                                    0.15       3.09 r
+  U1406/ZN (INR2XD0BWP)                                   0.05       3.14 r
+  iCore/lft_B2/filter/accum_reg[31]/D (EDFQD1BWP)         0.00       3.14 r
   data arrival time                                                  3.14
 
   clock clk (rise edge)                                   3.33       3.33
   clock network delay (ideal)                             0.00       3.33
   clock uncertainty                                      -0.10       3.23
-  iCore/lft_LP/filter/accum_reg[31]/CP (EDFQD1BWP)        0.00       3.23 r
+  iCore/lft_B2/filter/accum_reg[31]/CP (EDFQD1BWP)        0.00       3.23 r
   library setup time                                     -0.09       3.14
   data required time                                                 3.14
   --------------------------------------------------------------------------

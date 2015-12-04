@@ -1,0 +1,26 @@
+read_file -format sverilog {codec_intf.sv}
+set current_design codec_intf
+
+create_clock -name "clk" -period 3.33 -waveform {0 1.666} {clk}
+set_dont_touch_network [find port clk]
+
+set prim_inputs [remove_from_collection [all_inputs] [find port clk]]
+set_input_delay -clock clk 0.5 $prim_inputs
+
+set_output_delay -clock clk 0.75 [all_outputs]
+
+set_load 0.1 [all_outputs]
+
+set_wire_load_model -name TSMC32K_Lowk_Conservative -library ND2D2BWP
+
+ungroup -all -flatten
+
+compile_ultra
+write -format verilog codec_intf -output codec_intf.vg
+
+set_fix_hold "clk"
+check_design
+report_timing -delay min > codec_intf_timing.txt
+report_timing -delay max >> codec_intf_timing.txt
+report_area > codec_intf_area.txt
+

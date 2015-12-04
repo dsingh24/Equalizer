@@ -4,7 +4,7 @@ input clk, rst_n, sequencing;
 input signed [15:0] smpl_in;
 input signed [15:0] cff_out;
 
-reg inc_smpl, clr_accum, rst_cff_ptr;
+reg inc_smpl, clr_accum;
 output reg [9:0] cff_ptr;
 reg [31:0] accum;
 reg signed [15:0] cff_out;
@@ -66,13 +66,11 @@ always@(posedge clk, negedge rst_n) begin
 end
 
 always_comb begin
-rst_cff_ptr = 1'b0;
 clr_accum = 1'b0;
 inc_smpl = 1'b0;
 case(st)
     IDLE:
         if(sequencing) begin
-            rst_cff_ptr = 1'b1;
             clr_accum = 1'b1;
             inc_smpl = 1'b1;
             nxt_st = MAC; 
